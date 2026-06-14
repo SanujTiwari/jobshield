@@ -3,12 +3,16 @@ const calculateRisk = require("../services/riskEngine");
 
 const analyzeJob = async (req, res) => {
   try {
-    const { description } = req.body;
+    const {
+      title,
+      companyName,
+      description,
+    } = req.body;
 
-    if (!description) {
+    if (!title || !companyName || !description) {
       return res.status(400).json({
         success: false,
-        message: "Job description is required",
+        message: "All fields are required",
       });
     }
 
@@ -16,14 +20,25 @@ const analyzeJob = async (req, res) => {
 
     const savedAnalysis = await pool.query(
       `INSERT INTO jobs
-      (user_id, description, risk_score, risk_level)
-      VALUES ($1, $2, $3, $4)
+      (
+        user_id,
+        title,
+        company_name,
+        description,
+        risk_score,
+        risk_level,
+        reasons
+      )
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING *`,
       [
         req.user.id,
+        title,
+        companyName,
         description,
         result.score,
         result.riskLevel,
+        JSON.stringify(result.reasons),
       ]
     );
 
@@ -66,7 +81,114 @@ const getJobHistory = async (req, res) => {
   }
 };
 
+const getJobStats = async (req, res) => {
+  try {
+    const jobs = await pool.query(
+      `SELECT risk_level
+       FROM jobs
+       WHERE user_id = $1`,
+      [req.user.id]
+    );
+
+    const stats = {
+      totalJobs: jobs.rows.length,
+      highRisk: 0,
+      mediumRisk: 0,
+      lowRisk: 0,
+    };
+
+    jobs.rows.forEach((job) => {
+      if (job.risk_level === "High Risk") {
+        stats.highRisk++;
+      } else if (job.risk_level === "Medium Risk") {
+        stats.mediumRisk++;
+      } else {
+        stats.lowRisk++;
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      stats,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+const getSingleJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const job = await pool.query(
+      `SELECT *
+       FROM jobs
+       WHERE id = $1
+       AND user_id = $2`,
+      [id, req.user.id]
+    );
+
+    if (job.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Analysis not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      job: job.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+const deleteJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedJob = await pool.query(
+      `DELETE FROM jobs
+       WHERE id = $1
+       AND user_id = $2
+       RETURNING *`,
+      [id, req.user.id]
+    );
+
+    if (deletedJob.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Analysis not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Analysis deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
 module.exports = {
   analyzeJob,
   getJobHistory,
+  getJobStats,
+  getSingleJob,
+  deleteJob,
 };

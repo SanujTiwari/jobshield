@@ -1,19 +1,39 @@
 const calculateRisk = (description) => {
   let score = 0;
 
+  const reasons = [];
+
   const text = description.toLowerCase();
 
-  if (text.includes("registration fee")) score += 30;
+  if (text.includes("registration fee")) {
+    score += 30;
+    reasons.push("Registration fee detected");
+  }
 
-  if (text.includes("security deposit")) score += 30;
+  if (text.includes("security deposit")) {
+    score += 30;
+    reasons.push("Security deposit requested");
+  }
 
-  if (text.includes("urgent hiring")) score += 10;
+  if (text.includes("urgent hiring")) {
+    score += 10;
+    reasons.push("Urgent hiring phrase detected");
+  }
 
-  if (text.includes("gmail.com")) score += 20;
+  if (text.includes("gmail.com")) {
+    score += 20;
+    reasons.push("Gmail address detected");
+  }
 
-  if (text.includes("yahoo.com")) score += 20;
+  if (text.includes("yahoo.com")) {
+    score += 20;
+    reasons.push("Yahoo address detected");
+  }
 
-  if (text.includes("earn 1 lakh")) score += 30;
+  if (text.includes("earn 1 lakh")) {
+    score += 30;
+    reasons.push("Unrealistic salary claim detected");
+  }
 
   let riskLevel = "Low Risk";
 
@@ -26,6 +46,7 @@ const calculateRisk = (description) => {
   return {
     score,
     riskLevel,
+    reasons,
   };
 };
 
