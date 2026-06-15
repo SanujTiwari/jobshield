@@ -1,13 +1,10 @@
 const pool = require("../config/db");
 const calculateRisk = require("../services/riskEngine");
+const { generateExplanation } = require("../services/aiService");
 
 const analyzeJob = async (req, res) => {
   try {
-    const {
-      title,
-      companyName,
-      description,
-    } = req.body;
+    const { title, companyName, description } = req.body;
 
     if (!title || !companyName || !description) {
       return res.status(400).json({
@@ -18,29 +15,63 @@ const analyzeJob = async (req, res) => {
 
     const result = calculateRisk(description);
 
-    const savedAnalysis = await pool.query(
-      `INSERT INTO jobs
-      (
-        user_id,
-        title,
-        company_name,
-        description,
-        risk_score,
-        risk_level,
-        reasons
-      )
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING *`,
-      [
-        req.user.id,
-        title,
-        companyName,
-        description,
-        result.score,
-        result.riskLevel,
-        JSON.stringify(result.reasons),
-      ]
-    );
+    // Generate AI explanation
+    let aiExplanation = "";
+    try {
+      aiExplanation = await generateExplanation(
+        { title, companyName, description },
+        result
+      );
+    } catch (err) {
+      console.error("AI explanation failed:", err);
+      aiExplanation = "AI explanation unavailable.";
+    }
+
+    // Try to insert with ai_explanation column, fallback to without
+    let savedAnalysis;
+    try {
+      savedAnalysis = await pool.query(
+        `INSERT INTO jobs
+        (user_id, title, company_name, description, risk_score, risk_level, reasons, ai_explanation)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        RETURNING *`,
+        [
+          req.user.id,
+          title,
+          companyName,
+          description,
+          result.score,
+          result.riskLevel,
+          JSON.stringify(result.reasons),
+          aiExplanation,
+        ]
+      );
+    } catch (dbError) {
+      // If ai_explanation column doesn't exist, add it and retry
+      if (dbError.message && dbError.message.includes("ai_explanation")) {
+        await pool.query(
+          `ALTER TABLE jobs ADD COLUMN IF NOT EXISTS ai_explanation TEXT`
+        );
+        savedAnalysis = await pool.query(
+          `INSERT INTO jobs
+          (user_id, title, company_name, description, risk_score, risk_level, reasons, ai_explanation)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+          RETURNING *`,
+          [
+            req.user.id,
+            title,
+            companyName,
+            description,
+            result.score,
+            result.riskLevel,
+            JSON.stringify(result.reasons),
+            aiExplanation,
+          ]
+        );
+      } else {
+        throw dbError;
+      }
+    }
 
     res.status(201).json({
       success: true,
@@ -48,7 +79,6 @@ const analyzeJob = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -73,7 +103,6 @@ const getJobHistory = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Server Error",
@@ -113,13 +142,13 @@ const getJobStats = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Server Error",
     });
   }
 };
+
 const getSingleJob = async (req, res) => {
   try {
     const { id } = req.params;
@@ -145,13 +174,13 @@ const getSingleJob = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Server Error",
     });
   }
 };
+
 const deleteJob = async (req, res) => {
   try {
     const { id } = req.params;
@@ -177,7 +206,6 @@ const deleteJob = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-
     res.status(500).json({
       success: false,
       message: "Server Error",

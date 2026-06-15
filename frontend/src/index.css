@@ -1,1 +1,165 @@
 @import "tailwindcss";
+
+@variant dark (&:is([data-theme="dark"] *));
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Premium Terracotta Palette for Indigo override */
+  --color-indigo-50: #fbf6f0;
+  --color-indigo-100: #f6ebd8;
+  --color-indigo-200: #eed3b3;
+  --color-indigo-300: #e4b283;
+  --color-indigo-400: #dc955a;
+  --color-indigo-500: #e98545;
+  --color-indigo-600: #e98545;
+  --color-indigo-700: #d67232;
+  --color-indigo-800: #b05a25;
+  --color-indigo-900: #8b451d;
+  --color-indigo-950: #55270e;
+
+  /* Premium Gold/Sand Palette for Blue override */
+  --color-blue-50: #fcf9f2;
+  --color-blue-100: #faf1df;
+  --color-blue-200: #f4dfbe;
+  --color-blue-300: #ebc792;
+  --color-blue-400: #e3ae66;
+  --color-blue-500: #e3bc6a;
+  --color-blue-600: #d6ab55;
+  --color-blue-700: #b58c3f;
+  --color-blue-800: #936e32;
+  --color-blue-900: #755526;
+  --color-blue-950: #422f12;
+
+  /* Premium Warm Gray/Sand Palette for Slate override */
+  --color-slate-50: #fbfaf8;
+  --color-slate-100: #f7f5f0;
+  --color-slate-200: #eae4d9;
+  --color-slate-300: #d8cfc0;
+  --color-slate-400: #bbaea0;
+  --color-slate-500: #9a8a79;
+  --color-slate-600: #7a6b5c;
+  --color-slate-700: #5c5044;
+  --color-slate-800: #3d352d;
+  --color-slate-900: #29241f;
+  --color-slate-950: #1b1714;
+}
+
+/* Base styles */
+html {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #fbfaf8;
+  color: #3d352d;
+}
+
+[data-theme="dark"] body {
+  background-color: #1b1714;
+  color: #eae4d9;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(99, 102, 241, 0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out forwards;
+}
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out forwards;
+}
+
+/* Custom 3D & Loading Screen Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1.5deg); }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.2; }
+  50% { transform: scale(1.05); opacity: 0.6; }
+  100% { transform: scale(0.95); opacity: 0.2; }
+}
+@keyframes scan-line {
+  0% { top: 0%; opacity: 0.8; }
+  50% { top: 100%; opacity: 0.8; }
+  100% { top: 0%; opacity: 0.8; }
+}
+@keyframes rotate-3d {
+  0% { transform: rotateX(60deg) rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(60deg) rotateY(0deg) rotateZ(360deg); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+.animate-pulse-ring {
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+.animate-scan {
+  animation: scan-line 2.5s ease-in-out infinite;
+}
+.animate-rotate-3d {
+  animation: rotate-3d 6s linear infinite;
+}
+
+@keyframes spin-3d {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+@keyframes spin-3d-reverse {
+  0% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+  100% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+}
+
+.animate-spin-3d {
+  animation: spin-3d 10s linear infinite;
+}
+.animate-spin-3d-reverse {
+  animation: spin-3d-reverse 15s linear infinite;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
