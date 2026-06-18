@@ -176,32 +176,9 @@ GET /api/jobs/stats
 * Email Scam Detection
 * Real-time Scam Reporting
 
-## Screenshots
-
-Add screenshots of:
-
-* Login Page
-* Register Page
-* Dashboard
-* Job Analysis Results
-
-## Contributing
-
-Contributions are welcome.
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push the branch
-5. Create a Pull Request
-
-## License
-
-This project is developed for educational and portfolio purposes.
-
 ## Author
 
-Sonu
+Sanuj Tiwari
 
 Computer Science Engineering Student
 
