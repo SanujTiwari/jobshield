@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Shield, Moon, Sun, LogOut, ChevronDown, Menu, X, BarChart3, Plus } from "lucide-react";
+import { Shield, Settings, LogOut, ChevronDown, Menu, X, BarChart3, Plus, FileCheck } from "lucide-react";
 import { getUserProfile } from "../services/authService";
+import { useTheme } from "../context/ThemeContext";
+import SettingsModal from "./SettingsModal";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -9,9 +11,7 @@ function Navbar() {
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [darkMode, setDarkMode] = useState(
-    () => document.documentElement.getAttribute('data-theme') === 'dark'
-  );
+  const { setIsSettingsOpen } = useTheme();
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -36,13 +36,6 @@ function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = darkMode ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('jobshield-theme', newTheme);
-    setDarkMode(!darkMode);
-  };
-
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate('/login');
@@ -51,6 +44,7 @@ function Navbar() {
   const navLinks = [
     { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
     { path: '/analyze', label: 'Analyze Job', icon: Plus },
+    { path: '/resume-match', label: 'Resume Match', icon: FileCheck },
   ];
 
   return (
@@ -94,13 +88,13 @@ function Navbar() {
 
           {/* Right Side */}
           <div className="flex items-center gap-3">
-            {/* Theme Toggle */}
+            {/* Settings Gear */}
             <button
-              onClick={toggleTheme}
-              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
-              title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              onClick={() => setIsSettingsOpen(true)}
+              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200 cursor-pointer"
+              title="Appearance Settings"
             >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              <Settings className="w-5 h-5" />
             </button>
 
             {/* Profile Dropdown */}
@@ -126,6 +120,13 @@ function Navbar() {
                     <p className="text-sm font-semibold text-slate-900 dark:text-white">{user?.name || 'User'}</p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{user?.email || ''}</p>
                   </div>
+                  <button
+                    onClick={() => { setShowDropdown(false); setIsSettingsOpen(true); }}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors"
+                  >
+                    <Settings className="w-4 h-4 text-slate-400" />
+                    Appearance Settings
+                  </button>
                   <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-colors"
@@ -175,6 +176,13 @@ function Navbar() {
                   <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
                 </div>
                 <button
+                  onClick={() => { setShowMobileMenu(false); setIsSettingsOpen(true); }}
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300"
+                >
+                  <Settings className="w-4 h-4 text-slate-400" />
+                  Appearance Settings
+                </button>
+                <button
                   onClick={handleLogout}
                   className="w-full flex items-center gap-3 px-4 py-3 text-sm text-rose-600 dark:text-rose-400"
                 >
@@ -186,6 +194,7 @@ function Navbar() {
           </div>
         )}
       </div>
+      <SettingsModal />
     </nav>
   );
 }

@@ -1,65 +1,424 @@
 @import "tailwindcss";
 
-@variant dark (&:is([data-theme="dark"] *));
+@variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-family, 'Inter', system-ui, -apple-system, sans-serif);
 
-  /* Premium Terracotta Palette for Indigo override */
-  --color-indigo-50: #fbf6f0;
-  --color-indigo-100: #f6ebd8;
-  --color-indigo-200: #eed3b3;
-  --color-indigo-300: #e4b283;
-  --color-indigo-400: #dc955a;
-  --color-indigo-500: #e98545;
-  --color-indigo-600: #e98545;
-  --color-indigo-700: #d67232;
-  --color-indigo-800: #b05a25;
-  --color-indigo-900: #8b451d;
-  --color-indigo-950: #55270e;
+  /* Mapping theme overrides to CSS variables */
+  --color-indigo-50: var(--indigo-50);
+  --color-indigo-100: var(--indigo-100);
+  --color-indigo-200: var(--indigo-200);
+  --color-indigo-300: var(--indigo-300);
+  --color-indigo-400: var(--indigo-400);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-700: var(--indigo-700);
+  --color-indigo-800: var(--indigo-800);
+  --color-indigo-900: var(--indigo-900);
+  --color-indigo-950: var(--indigo-950);
 
-  /* Premium Gold/Sand Palette for Blue override */
-  --color-blue-50: #fcf9f2;
-  --color-blue-100: #faf1df;
-  --color-blue-200: #f4dfbe;
-  --color-blue-300: #ebc792;
-  --color-blue-400: #e3ae66;
-  --color-blue-500: #e3bc6a;
-  --color-blue-600: #d6ab55;
-  --color-blue-700: #b58c3f;
-  --color-blue-800: #936e32;
-  --color-blue-900: #755526;
-  --color-blue-950: #422f12;
+  --color-blue-50: var(--blue-50);
+  --color-blue-100: var(--blue-100);
+  --color-blue-200: var(--blue-200);
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+  --color-blue-800: var(--blue-800);
+  --color-blue-900: var(--blue-900);
+  --color-blue-950: var(--blue-950);
 
-  /* Premium Warm Gray/Sand Palette for Slate override */
-  --color-slate-50: #fbfaf8;
-  --color-slate-100: #f7f5f0;
-  --color-slate-200: #eae4d9;
-  --color-slate-300: #d8cfc0;
-  --color-slate-400: #bbaea0;
-  --color-slate-500: #9a8a79;
-  --color-slate-600: #7a6b5c;
-  --color-slate-700: #5c5044;
-  --color-slate-800: #3d352d;
-  --color-slate-900: #29241f;
-  --color-slate-950: #1b1714;
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-800: var(--slate-800);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
+
+  /* Map radii scaling dynamically */
+  --radius-xl: var(--radius-card);
+  --radius-2xl: var(--radius-card-lg);
+  --radius-lg: var(--radius-button);
+  --radius-md: var(--radius-button-sm);
+}
+
+:root {
+  /* Default settings (Terracotta Sand) */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --radius-card: 12px;
+  --radius-card-lg: 16px;
+  --radius-button: 8px;
+  --radius-button-sm: 6px;
+
+  /* Terracotta Theme Palette Colors */
+  --indigo-50: #fbf6f0;
+  --indigo-100: #f6ebd8;
+  --indigo-200: #eed3b3;
+  --indigo-300: #e4b283;
+  --indigo-400: #dc955a;
+  --indigo-500: #e98545;
+  --indigo-600: #e98545;
+  --indigo-700: #d67232;
+  --indigo-800: #b05a25;
+  --indigo-900: #8b451d;
+  --indigo-950: #55270e;
+
+  --blue-50: #fcf9f2;
+  --blue-100: #faf1df;
+  --blue-200: #f4dfbe;
+  --blue-300: #ebc792;
+  --blue-400: #e3ae66;
+  --blue-500: #e3bc6a;
+  --blue-600: #d6ab55;
+  --blue-700: #b58c3f;
+  --blue-800: #936e32;
+  --blue-900: #755526;
+  --blue-950: #422f12;
+
+  --slate-50: #fbfaf8;
+  --slate-100: #f7f5f0;
+  --slate-200: #eae4d9;
+  --slate-300: #d8cfc0;
+  --slate-400: #bbaea0;
+  --slate-500: #9a8a79;
+  --slate-600: #7a6b5c;
+  --slate-700: #5c5044;
+  --slate-800: #3d352d;
+  --slate-900: #29241f;
+  --slate-950: #1b1714;
+}
+
+/* Font definitions mapping */
+[data-font="inter"] {
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+[data-font="outfit"] {
+  --font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+[data-font="space-grotesk"] {
+  --font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+[data-font="jetbrains-mono"] {
+  --font-family: 'JetBrains Mono', monospace;
+}
+
+/* Radius definitions mapping */
+[data-radius="sharp"] {
+  --radius-card: 0px;
+  --radius-card-lg: 0px;
+  --radius-button: 0px;
+  --radius-button-sm: 0px;
+}
+[data-radius="subtle"] {
+  --radius-card: 6px;
+  --radius-card-lg: 10px;
+  --radius-button: 4px;
+  --radius-button-sm: 2px;
+}
+[data-radius="sleek"] {
+  --radius-card: 12px;
+  --radius-card-lg: 16px;
+  --radius-button: 8px;
+  --radius-button-sm: 6px;
+}
+[data-radius="squircle"] {
+  --radius-card: 24px;
+  --radius-card-lg: 32px;
+  --radius-button: 16px;
+  --radius-button-sm: 12px;
+}
+
+/* Theme Presets overrides */
+
+/* Cyberpunk Neon Theme */
+html[data-theme="cyberpunk"] {
+  --indigo-50: #fdf2f8;
+  --indigo-100: #fce7f3;
+  --indigo-200: #fbcfe8;
+  --indigo-300: #f9a8d4;
+  --indigo-400: #f472b6;
+  --indigo-500: #ec4899;
+  --indigo-600: #ec4899;
+  --indigo-700: #db2777;
+  --indigo-800: #be185d;
+  --indigo-900: #9d174d;
+  --indigo-950: #500724;
+
+  --blue-50: #ecfeff;
+  --blue-100: #cffafe;
+  --blue-200: #a5f3fc;
+  --blue-300: #67e8f9;
+  --blue-400: #22d3ee;
+  --blue-500: #06b6d4;
+  --blue-600: #0891b2;
+  --blue-700: #0e7490;
+  --blue-800: #155e75;
+  --blue-900: #083344;
+  --blue-950: #041d24;
+
+  --slate-50: #fdfcff;
+  --slate-100: #f5f3ff;
+  --slate-200: #ede9fe;
+  --slate-300: #d6cbfb;
+  --slate-400: #a78bfa;
+  --slate-500: #7c3aed;
+  --slate-600: #4c1d95;
+  --slate-700: #30105c;
+  --slate-800: #1a0b36;
+  --slate-900: #100720;
+  --slate-950: #080310;
+}
+
+/* Forest Emerald Theme */
+html[data-theme="forest"] {
+  --indigo-50: #ecfdf5;
+  --indigo-100: #d1fae5;
+  --indigo-200: #a7f3d0;
+  --indigo-300: #6ee7b7;
+  --indigo-400: #34d399;
+  --indigo-500: #10b981;
+  --indigo-600: #10b981;
+  --indigo-700: #059669;
+  --indigo-800: #047857;
+  --indigo-900: #065f46;
+  --indigo-950: #022c22;
+
+  --blue-50: #fffbeb;
+  --blue-100: #fef3c7;
+  --blue-200: #fde68a;
+  --blue-300: #fcd34d;
+  --blue-400: #fbbf24;
+  --blue-500: #f59e0b;
+  --blue-600: #d97706;
+  --blue-700: #b45309;
+  --blue-800: #92400e;
+  --blue-900: #78350f;
+  --blue-950: #451a03;
+
+  --slate-50: #f4f6f4;
+  --slate-100: #e9ebe9;
+  --slate-200: #cfd3cf;
+  --slate-300: #b0b7b0;
+  --slate-400: #879287;
+  --slate-500: #5d695d;
+  --slate-600: #444e44;
+  --slate-700: #333b33;
+  --slate-800: #222722;
+  --slate-900: #141714;
+  --slate-950: #0b0d0b;
+}
+
+/* Deep Space Aurora Theme */
+html[data-theme="aurora"] {
+  --indigo-50: #faf5ff;
+  --indigo-100: #f3e8ff;
+  --indigo-200: #e9d5ff;
+  --indigo-300: #d8b4fe;
+  --indigo-400: #c084fc;
+  --indigo-500: #a855f7;
+  --indigo-600: #a855f7;
+  --indigo-700: #9333ea;
+  --indigo-800: #7e22ce;
+  --indigo-900: #6b21a8;
+  --indigo-950: #3b0764;
+
+  --blue-50: #f0fdfa;
+  --blue-100: #ccfbf1;
+  --blue-200: #99f6e4;
+  --blue-300: #5eead4;
+  --blue-400: #2dd4bf;
+  --blue-500: #14b8a6;
+  --blue-600: #0d9488;
+  --blue-700: #0f766e;
+  --blue-800: #115e59;
+  --blue-900: #134e4a;
+  --blue-950: #042f2e;
+
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
+}
+
+/* Nordic Ice Theme */
+html[data-theme="ocean"] {
+  --indigo-50: #eff6ff;
+  --indigo-100: #dbeafe;
+  --indigo-200: #bfdbfe;
+  --indigo-300: #93c5fd;
+  --indigo-400: #60a5fa;
+  --indigo-500: #3b82f6;
+  --indigo-600: #3b82f6;
+  --indigo-700: #2563eb;
+  --indigo-800: #1d4ed8;
+  --indigo-900: #1e40af;
+  --indigo-950: #1e3a8a;
+
+  --blue-50: #ecfeff;
+  --blue-100: #cffafe;
+  --blue-200: #a5f3fc;
+  --blue-300: #67e8f9;
+  --blue-400: #22d3ee;
+  --blue-500: #06b6d4;
+  --blue-600: #0891b2;
+  --blue-700: #0e7490;
+  --blue-800: #155e75;
+  --blue-900: #083344;
+  --blue-950: #041d24;
+
+  --slate-50: #f5f8fa;
+  --slate-100: #eef2f6;
+  --slate-200: #dbe3ec;
+  --slate-300: #becddf;
+  --slate-400: #98afcd;
+  --slate-500: #718ebb;
+  --slate-600: #5270a0;
+  --slate-700: #3d5479;
+  --slate-800: #2c3b57;
+  --slate-900: #1c2538;
+  --slate-950: #101520;
+}
+
+/* Minimalist Monochrome Theme */
+html[data-theme="slate"] {
+  --indigo-50: #fafafa;
+  --indigo-100: #f4f4f5;
+  --indigo-200: #e4e4e7;
+  --indigo-300: #d4d4d8;
+  --indigo-400: #a1a1aa;
+  --indigo-500: #27272a;
+  --indigo-600: #27272a;
+  --indigo-700: #18181b;
+  --indigo-800: #09090b;
+  --indigo-900: #000000;
+  --indigo-950: #000000;
+
+  --blue-50: #f8fafc;
+  --blue-100: #f1f5f9;
+  --blue-200: #e2e8f0;
+  --blue-300: #cbd5e1;
+  --blue-400: #94a3b8;
+  --blue-500: #64748b;
+  --blue-600: #475569;
+  --blue-700: #334155;
+  --blue-800: #1e293b;
+  --blue-900: #0f172a;
+  --blue-950: #0f172a;
+
+  --slate-50: #fafafa;
+  --slate-100: #f4f4f5;
+  --slate-200: #e4e4e7;
+  --slate-300: #d4d4d8;
+  --slate-400: #a1a1aa;
+  --slate-50: #71717a;
+  --slate-600: #52525b;
+  --slate-700: #3f3f46;
+  --slate-800: #27272a;
+  --slate-900: #18181b;
+  --slate-950: #09090b;
+}
+
+/* Opaque Glassmorphism overrides */
+[data-glassmorphism="solid"] * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+[data-glassmorphism="solid"] .bg-white\/80,
+[data-glassmorphism="solid"] .bg-white\/70,
+[data-glassmorphism="solid"] .bg-white\/80 backdrop-blur-xl,
+[data-glassmorphism="solid"] .bg-white\/70 backdrop-blur-md {
+  background-color: var(--slate-50) !important;
+}
+[data-glassmorphism="solid"] .dark .bg-slate-900\/80,
+[data-glassmorphism="solid"] .dark .bg-slate-950\/70,
+[data-glassmorphism="solid"] .dark .bg-slate-900\/70 {
+  background-color: var(--slate-900) !important;
+}
+
+/* Background Grids Pattern Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+[data-bg-pattern="grids"] body::before {
+  opacity: 0.05;
+  background-image: 
+    linear-gradient(to right, var(--slate-400) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--slate-400) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+[data-bg-pattern="grids"] .dark body::before {
+  opacity: 0.08;
+  background-image: 
+    linear-gradient(to right, var(--slate-600) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--slate-600) 1px, transparent 1px);
+}
+
+/* Hide gradient blobs if flat pattern chosen */
+[data-bg-pattern="flat"] .bg-indigo-500\/10,
+[data-bg-pattern="flat"] .bg-blue-500\/10,
+[data-bg-pattern="flat"] .bg-indigo-500\/5,
+[data-bg-pattern="flat"] .bg-blue-500\/5,
+[data-bg-pattern="flat"] .bg-gradient-to-tr,
+[data-bg-pattern="flat"] .bg-gradient-to-br {
+  background-image: none !important;
+  background-color: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Animations Control */
+[data-animations="none"] *,
+[data-animations="none"] *::before,
+[data-animations="none"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+[data-animations="smooth"] .animate-float,
+[data-animations="smooth"] .animate-pulse-ring,
+[data-animations="smooth"] .animate-scan,
+[data-animations="smooth"] .animate-rotate-3d,
+[data-animations="smooth"] .animate-spin-3d,
+[data-animations="smooth"] .animate-spin-3d-reverse {
+  animation: none !important;
 }
 
 /* Base styles */
 html {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-family), system-ui, -apple-system, sans-serif;
   scroll-behavior: smooth;
 }
 
 body {
   transition: background-color 0.3s ease, color 0.3s ease;
-  background-color: #fbfaf8;
-  color: #3d352d;
+  background-color: var(--slate-50);
+  color: var(--slate-800);
 }
 
-[data-theme="dark"] body {
-  background-color: #1b1714;
-  color: #eae4d9;
+.dark body {
+  background-color: var(--slate-950);
+  color: var(--slate-200);
 }
 
 /* Custom Scrollbar */
@@ -70,11 +429,11 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #94a3b8;
+  background: var(--slate-400);
   border-radius: 3px;
 }
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: #475569;
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--slate-700);
 }
 
 /* Animations */

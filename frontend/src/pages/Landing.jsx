@@ -9,32 +9,24 @@ import {
   AlertTriangle, 
   TrendingUp, 
   ArrowUpRight,
-  Sun,
-  Moon,
+  Settings,
   Bot,
   FileCheck,
   Zap
 } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
+import SettingsModal from "../components/SettingsModal";
 
 function Landing() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [mockJobTitle, setMockJobTitle] = useState("");
-  const [darkMode, setDarkMode] = useState(
-    () => document.documentElement.getAttribute('data-theme') === 'dark'
-  );
+  const { setIsSettingsOpen } = useTheme();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = darkMode ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('jobshield-theme', newTheme);
-    setDarkMode(!darkMode);
-  };
 
   const handleHeroScan = (e) => {
     e.preventDefault();
@@ -76,13 +68,13 @@ function Landing() {
 
           {/* CTA / Actions */}
           <div className="flex items-center gap-4">
-            {/* Theme Toggle */}
+            {/* Settings Gear */}
             <button
-              onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all border border-slate-200/50 dark:border-slate-800"
-              title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              onClick={() => setIsSettingsOpen(true)}
+              className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all border border-slate-200/50 dark:border-slate-800 cursor-pointer"
+              title="Appearance Settings"
             >
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              <Settings className="w-5 h-5" />
             </button>
 
             {isLoggedIn ? (
@@ -402,7 +394,7 @@ function Landing() {
           © {new Date().getFullYear()} JobShield SaaS. All rights reserved.
         </div>
       </footer>
-
+      <SettingsModal />
     </div>
   );
 }

@@ -7,12 +7,35 @@
     <meta name="description" content="JobShield - AI-powered job scam detection. Analyze job postings for red flags and protect yourself from employment fraud." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>JobShield — AI Job Scam Detector</title>
     <script>
       (function() {
-        const theme = localStorage.getItem('jobshield-theme') || 'light';
-        document.documentElement.setAttribute('data-theme', theme);
+        try {
+          const settings = JSON.parse(localStorage.getItem('jobshield-settings')) || {};
+          const theme = settings.theme || 'terracotta';
+          const darkMode = settings.darkMode !== undefined ? settings.darkMode : false;
+          const font = settings.font || 'inter';
+          const radius = settings.radius || 'sleek';
+          const glass = settings.glassmorphism || 'glassy';
+          const pattern = settings.backgroundPattern || 'gradients';
+          const anim = settings.animations || 'rich';
+
+          document.documentElement.setAttribute('data-theme', theme);
+          document.documentElement.setAttribute('data-font', font);
+          document.documentElement.setAttribute('data-radius', radius);
+          document.documentElement.setAttribute('data-glassmorphism', glass);
+          document.documentElement.setAttribute('data-bg-pattern', pattern);
+          document.documentElement.setAttribute('data-animations', anim);
+
+          if (darkMode) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'terracotta');
+        }
       })();
     </script>
   </head>
