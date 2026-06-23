@@ -167,39 +167,108 @@ function Landing() {
             </div>
           </div>
 
-          {/* Hero Right Content (3D Image Stage) */}
+          {/* Hero Right Content (CSS-based Visual) */}
           <div className="lg:col-span-5 relative flex justify-center items-center animate-fade-in" style={{ animationDelay: '0.1s' }}>
             
             {/* Stage Glowing Background */}
             <div className="absolute w-72 h-72 bg-gradient-to-tr from-indigo-500 to-blue-500 opacity-20 rounded-full blur-[80px]" />
+            <div className="absolute w-48 h-48 bg-gradient-to-br from-purple-500 to-pink-500 opacity-15 rounded-full blur-[60px] top-10 right-10" />
             
-            {/* Main 3D Hero Image */}
+            {/* Main Hero Card */}
             <div className="relative z-10 w-full max-w-[420px] transition-all hover:scale-[1.02] duration-500">
-              <img 
-                src="/images/landing_hero.png" 
-                alt="JobShield Secure Workspace" 
-                className="w-full h-auto object-contain drop-shadow-[0_20px_40px_rgba(99,102,241,0.25)] rounded-2xl"
-              />
+              
+              {/* Mock Analysis Card */}
+              <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-3xl shadow-2xl shadow-indigo-500/10 dark:shadow-indigo-500/5 overflow-hidden">
+                
+                {/* Card Header */}
+                <div className="px-6 pt-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-blue-500 rounded-lg flex items-center justify-center shadow-md shadow-indigo-500/30">
+                        <Shield className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">JobShield Scan</span>
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-full">● Live</span>
+                  </div>
+                  <p className="text-base font-bold text-slate-900 dark:text-white">Senior Software Engineer</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">TechCorp Global Inc. — Remote</p>
+                </div>
+
+                {/* Scanning Animation Bar */}
+                <div className="px-6 py-3 bg-slate-50/80 dark:bg-slate-800/40">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Search className="w-3.5 h-3.5 text-indigo-500" />
+                    <span className="text-[11px] font-bold text-indigo-600 dark:text-indigo-400">Analyzing posting...</span>
+                  </div>
+                  <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-indigo-600 to-blue-500 rounded-full animate-pulse" style={{ width: '85%' }} />
+                  </div>
+                </div>
+
+                {/* Risk Indicators */}
+                <div className="px-6 py-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">Company Verified</span>
+                    </div>
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">Salary Disclosed</span>
+                    </div>
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-amber-500" />
+                      <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">Vague Requirements</span>
+                    </div>
+                    <AlertTriangle className="w-4 h-4 text-amber-500" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                      <span className="text-xs font-semibold text-slate-600 dark:text-slate-300">No Upfront Payment</span>
+                    </div>
+                    <ShieldCheck className="w-4 h-4 text-emerald-500" />
+                  </div>
+                </div>
+
+                {/* Result Banner */}
+                <div className="mx-4 mb-4 p-4 bg-gradient-to-r from-emerald-500/10 to-emerald-500/5 dark:from-emerald-500/15 dark:to-emerald-500/5 border border-emerald-500/20 rounded-2xl flex items-center gap-3">
+                  <div className="w-11 h-11 bg-emerald-500/15 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <ShieldCheck className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">Low Risk</p>
+                    <p className="text-sm font-extrabold text-emerald-700 dark:text-emerald-300">Safety Score: 92%</p>
+                  </div>
+                </div>
+              </div>
 
               {/* Floating Glassmorphic Metric 1 */}
-              <div className="absolute top-[10%] left-[-15%] p-4 bg-white/70 dark:bg-slate-900/70 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl backdrop-blur-md shadow-xl flex items-center gap-3 animate-float pointer-events-none">
-                <div className="w-10 h-10 bg-rose-500/10 rounded-xl flex items-center justify-center text-rose-500 flex-shrink-0">
-                  <AlertTriangle className="w-5 h-5" />
+              <div className="absolute top-[8%] left-[-18%] p-3.5 bg-white/80 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl backdrop-blur-md shadow-xl flex items-center gap-3 animate-float pointer-events-none">
+                <div className="w-9 h-9 bg-rose-500/10 rounded-xl flex items-center justify-center text-rose-500 flex-shrink-0">
+                  <AlertTriangle className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Suspicious Activity</p>
-                  <p className="text-sm font-bold text-rose-600 dark:text-rose-400">Scam Flag Detected</p>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Threat Blocked</p>
+                  <p className="text-sm font-bold text-rose-600 dark:text-rose-400">Scam Detected</p>
                 </div>
               </div>
 
               {/* Floating Glassmorphic Metric 2 */}
-              <div className="absolute bottom-[10%] right-[-10%] p-4 bg-white/70 dark:bg-slate-900/70 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl backdrop-blur-md shadow-xl flex items-center gap-3 animate-float pointer-events-none" style={{ animationDelay: '2s' }}>
-                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 flex-shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
+              <div className="absolute bottom-[12%] right-[-12%] p-3.5 bg-white/80 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl backdrop-blur-md shadow-xl flex items-center gap-3 animate-float pointer-events-none" style={{ animationDelay: '2s' }}>
+                <div className="w-9 h-9 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-500 flex-shrink-0">
+                  <TrendingUp className="w-4 h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Risk Assessment</p>
-                  <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">98% Safety Score</p>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Jobs Scanned</p>
+                  <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400">2,847 Today</p>
                 </div>
               </div>
             </div>
