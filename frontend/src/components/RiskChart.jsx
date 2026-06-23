@@ -1,10 +1,12 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
 
 function RiskChart({ stats }) {
+  if (!stats) return null;
+
   const data = [
-    { name: 'High Risk', value: stats.highRisk, color: '#f43f5e' },
-    { name: 'Medium Risk', value: stats.mediumRisk, color: '#f59e0b' },
-    { name: 'Low Risk', value: stats.lowRisk, color: '#10b981' },
+    { name: 'High Risk', value: stats.highRisk || 0, color: '#f43f5e' },
+    { name: 'Medium Risk', value: stats.mediumRisk || 0, color: '#f59e0b' },
+    { name: 'Low Risk', value: stats.lowRisk || 0, color: '#10b981' },
   ].filter(item => item.value > 0);
 
   if (data.length === 0) return null;

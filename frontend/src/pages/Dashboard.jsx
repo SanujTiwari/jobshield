@@ -223,7 +223,7 @@ function Dashboard() {
           {/* Right Column: Chart */}
           <div className="lg:col-span-1">
             <div className="sticky top-24">
-              <RiskChart stats={stats} />
+              {stats && <RiskChart stats={stats} />}
             </div>
           </div>
         </div>

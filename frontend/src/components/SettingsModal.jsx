@@ -7,6 +7,7 @@ export default function SettingsModal() {
     darkMode,
     font,
     radius,
+    glassmorphism,
     backgroundPattern,
     animations,
     updateSetting,
