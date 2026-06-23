@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Shield, Settings, LogOut, ChevronDown, Menu, X, BarChart3, Plus, FileCheck } from "lucide-react";
+import { Shield, Settings, LogOut, ChevronDown, Menu, X, BarChart3, Plus, FileCheck, Home } from "lucide-react";
 import { getUserProfile } from "../services/authService";
 import { useTheme } from "../context/ThemeContext";
 import SettingsModal from "./SettingsModal";
@@ -42,6 +42,7 @@ function Navbar() {
   };
 
   const navLinks = [
+    { path: '/', label: 'Home', icon: Home },
     { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
     { path: '/analyze', label: 'Analyze Job', icon: Plus },
     { path: '/resume-match', label: 'Resume Match', icon: FileCheck },
@@ -54,7 +55,7 @@ function Navbar() {
           {/* Logo */}
           <div
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/')}
           >
             <div className="w-9 h-9 bg-gradient-to-br from-indigo-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/25">
               <Shield className="w-5 h-5 text-white" />

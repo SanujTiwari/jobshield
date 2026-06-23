@@ -113,8 +113,7 @@ function Landing() {
           {/* Hero Left Content */}
           <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-widest animate-fade-in">
-              <Zap className="w-3.5 h-3.5" />
-              AI-Powered Scam Protection
+              {/*<Zap className="w-3.5 h-3.5" />*/}
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-slate-900 dark:text-white animate-slide-up">
@@ -168,14 +167,14 @@ function Landing() {
           </div>
 
           {/* Hero Right Content (CSS-based Visual) */}
-          <div className="lg:col-span-5 relative flex justify-center items-center animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <div className="lg:col-span-5 relative flex justify-center items-center animate-fade-in overflow-visible" style={{ animationDelay: '0.1s' }}>
             
             {/* Stage Glowing Background */}
             <div className="absolute w-72 h-72 bg-gradient-to-tr from-indigo-500 to-blue-500 opacity-20 rounded-full blur-[80px]" />
             <div className="absolute w-48 h-48 bg-gradient-to-br from-purple-500 to-pink-500 opacity-15 rounded-full blur-[60px] top-10 right-10" />
             
             {/* Main Hero Card */}
-            <div className="relative z-10 w-full max-w-[420px] transition-all hover:scale-[1.02] duration-500">
+            <div className="relative z-10 w-full max-w-[420px] transition-all hover:scale-[1.02] duration-500 my-10 mx-6 lg:mx-10">
               
               {/* Mock Analysis Card */}
               <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/60 dark:border-slate-700/60 rounded-3xl shadow-2xl shadow-indigo-500/10 dark:shadow-indigo-500/5 overflow-hidden">
@@ -251,24 +250,24 @@ function Landing() {
               </div>
 
               {/* Floating Glassmorphic Metric 1 */}
-              <div className="absolute top-[8%] left-[-18%] p-3.5 bg-white/80 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl backdrop-blur-md shadow-xl flex items-center gap-3 animate-float pointer-events-none">
-                <div className="w-9 h-9 bg-rose-500/10 rounded-xl flex items-center justify-center text-rose-500 flex-shrink-0">
-                  <AlertTriangle className="w-4 h-4" />
+              <div className="absolute top-[-2rem] left-[-1.5rem] lg:top-[-2rem] lg:left-[-3rem] p-3 sm:p-3.5 bg-white/90 dark:bg-slate-900/90 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl backdrop-blur-md shadow-xl flex items-center gap-2.5 sm:gap-3 animate-float pointer-events-none z-20">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 bg-rose-500/10 rounded-xl flex items-center justify-center text-rose-500 flex-shrink-0">
+                  <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Threat Blocked</p>
-                  <p className="text-sm font-bold text-rose-600 dark:text-rose-400">Scam Detected</p>
+                  <p className="text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-widest font-bold">Threat Blocked</p>
+                  <p className="text-xs sm:text-sm font-bold text-rose-600 dark:text-rose-400">Scam Detected</p>
                 </div>
               </div>
 
               {/* Floating Glassmorphic Metric 2 */}
-              <div className="absolute bottom-[12%] right-[-12%] p-3.5 bg-white/80 dark:bg-slate-900/80 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl backdrop-blur-md shadow-xl flex items-center gap-3 animate-float pointer-events-none" style={{ animationDelay: '2s' }}>
-                <div className="w-9 h-9 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-500 flex-shrink-0">
-                  <TrendingUp className="w-4 h-4" />
+              <div className="absolute bottom-[-2rem] right-[-1.5rem] lg:bottom-[-2rem] lg:right-[-3rem] p-3 sm:p-3.5 bg-white/90 dark:bg-slate-900/90 border border-slate-200/50 dark:border-slate-800/50 rounded-2xl backdrop-blur-md shadow-xl flex items-center gap-2.5 sm:gap-3 animate-float pointer-events-none z-20" style={{ animationDelay: '2s' }}>
+                <div className="w-8 h-8 sm:w-9 sm:h-9 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-500 flex-shrink-0">
+                  <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Jobs Scanned</p>
-                  <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400">2,847 Today</p>
+                  <p className="text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-widest font-bold">Jobs Scanned</p>
+                  <p className="text-xs sm:text-sm font-bold text-indigo-600 dark:text-indigo-400">2,847 Today</p>
                 </div>
               </div>
             </div>
