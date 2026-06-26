@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@variant dark (&:is(.dark *));
+@variant dark (.dark &);
 
 @theme {
   --font-sans: var(--font-family, 'Inter', system-ui, -apple-system, sans-serif);
@@ -280,17 +280,17 @@ html[data-theme="arctic"] {
   --blue-900: #1e3a8a;
   --blue-950: #172554;
 
-  --slate-50: #f8fafc;
-  --slate-100: #ffffff;
-  --slate-200: #e5e7eb;
+  --slate-50: #eef2f6; /* Distinct light slate background */
+  --slate-100: #ffffff; /* Pure white cards */
+  --slate-200: #e2e8f0; /* Crisp borders */
   --slate-300: #cbd5e1;
   --slate-400: #94a3b8;
   --slate-500: #64748b;
   --slate-600: #475569;
   --slate-700: #334155;
-  --slate-800: #1e293b;
+  --slate-800: #1e293b; /* Dark slate text */
   --slate-900: #0f172a;
-  --slate-950: #080c14;
+  --slate-950: #080c14; /* Deep slate background for dark mode */
 }
 
 /* Ivory Luxe Theme */
@@ -302,7 +302,7 @@ html[data-theme="ivory"] {
   --indigo-400: #dfbc6e;
   --indigo-500: #c89b3c;
   --indigo-600: #c89b3c;
-  --indigo-700: #ad832e;
+  --indigo-700: #b58b32; /* Gold Hover */
   --indigo-800: #8a6521;
   --indigo-900: #664916;
   --indigo-950: #4a340f;
@@ -319,17 +319,17 @@ html[data-theme="ivory"] {
   --blue-900: #44302a;
   --blue-950: #2c1e1a;
 
-  --slate-50: #faf8f4;
-  --slate-100: #ffffff;
-  --slate-200: #eae6df;
-  --slate-300: #ddd7ce;
-  --slate-400: #c5bbae;
-  --slate-500: #9c8f7e;
-  --slate-600: #786b5a;
-  --slate-700: #574d3f;
-  --slate-800: #2d2a26;
-  --slate-900: #22201d;
-  --slate-950: #11100e;
+  --slate-50: #f3ece0; /* Rich warm ivory/beige background */
+  --slate-100: #ffffff; /* White cards */
+  --slate-200: #e5dcd0; /* Distinct warm borders */
+  --slate-300: #ddd4c7;
+  --slate-400: #c5b8a5;
+  --slate-500: #9c8e7a;
+  --slate-600: #786a57;
+  --slate-700: #574b3d;
+  --slate-800: #332d28; /* Rich dark warm charcoal text */
+  --slate-900: #231e1a;
+  --slate-950: #12110f; /* Warm carbon gold black for dark mode */
 }
 
 /* Royal Quartz Theme */
@@ -341,7 +341,7 @@ html[data-theme="quartz"] {
   --indigo-400: #8376ff;
   --indigo-500: #6c63ff;
   --indigo-600: #6c63ff;
-  --indigo-700: #534ad4;
+  --indigo-700: #554ce0; /* Quartz Hover */
   --indigo-800: #3c35ab;
   --indigo-900: #2a2480;
   --indigo-950: #1b1757;
@@ -358,17 +358,17 @@ html[data-theme="quartz"] {
   --blue-900: #4c1d95;
   --blue-950: #2e1065;
 
-  --slate-50: #f7f6ff;
-  --slate-100: #ffffff;
-  --slate-200: #e8e5ff;
-  --slate-300: #d7d3fa;
-  --slate-400: #b2acdc;
-  --slate-500: #8d86b8;
-  --slate-600: #696194;
-  --slate-700: #484170;
-  --slate-800: #232946;
-  --slate-900: #181c33;
-  --slate-950: #0d0c1a;
+  --slate-50: #ece9fd; /* Futuristic quartz-purple background */
+  --slate-100: #ffffff; /* White cards */
+  --slate-200: #d8d2fa; /* Soft purple borders */
+  --slate-300: #c9c1f6;
+  --slate-400: #b2a8eb;
+  --slate-500: #8d81d4;
+  --slate-600: #695ebd;
+  --slate-700: #483f98;
+  --slate-800: #2f2a52; /* Deep purple-navy text */
+  --slate-900: #201b3d;
+  --slate-950: #0c0b18; /* Futuristic amethyst dark-mode background */
 }
 
 /* Opaque Glassmorphism overrides */

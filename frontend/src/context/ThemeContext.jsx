@@ -5,8 +5,8 @@ const ThemeContext = createContext();
 const DEFAULT_SETTINGS = {
   theme: "arctic",
   darkMode: false,
-  font: "inter",
-  radius: "sleek",
+  font: "outfit",
+  radius: "squircle",
   glassmorphism: "glassy",
   backgroundPattern: "grids",
   animations: "smooth",
@@ -18,7 +18,11 @@ export function ThemeProvider({ children }) {
       const stored = localStorage.getItem("jobshield-settings");
       if (stored) {
         const parsed = JSON.parse(stored);
-        return { ...DEFAULT_SETTINGS, ...parsed };
+        return {
+          ...DEFAULT_SETTINGS,
+          theme: parsed.theme || "arctic",
+          darkMode: parsed.darkMode !== undefined ? parsed.darkMode : false,
+        };
       }
     } catch (e) {
       console.error("Failed to parse stored settings, using defaults.");
