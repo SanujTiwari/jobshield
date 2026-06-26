@@ -20,40 +20,28 @@ export default function SettingsModal() {
 
   const themes = [
     {
-      id: "terracotta",
-      name: "Terracotta Sand",
-      colors: ["bg-[#e98545]", "bg-[#e3bc6a]", "bg-[#fbfaf8]"],
-      darkColors: ["bg-[#e98545]", "bg-[#e3bc6a]", "bg-[#1b1714]"],
+      id: "indigo",
+      name: "Modern Indigo",
+      colors: ["bg-[#6366f1]", "bg-[#818cf8]", "bg-[#ffffff]"],
+      darkColors: ["bg-[#6366f1]", "bg-[#818cf8]", "bg-[#09090b]"],
     },
     {
-      id: "cyberpunk",
-      name: "Cyberpunk Neon",
-      colors: ["bg-[#ec4899]", "bg-[#06b6d4]", "bg-[#fdfcff]"],
-      darkColors: ["bg-[#ec4899]", "bg-[#06b6d4]", "bg-[#080310]"],
+      id: "blue",
+      name: "Enterprise Blue",
+      colors: ["bg-[#2563eb]", "bg-[#60a5fa]", "bg-[#ffffff]"],
+      darkColors: ["bg-[#2563eb]", "bg-[#60a5fa]", "bg-[#0f172a]"],
     },
     {
-      id: "forest",
-      name: "Forest Emerald",
-      colors: ["bg-[#10b981]", "bg-[#f59e0b]", "bg-[#f4f6f4]"],
-      darkColors: ["bg-[#10b981]", "bg-[#f59e0b]", "bg-[#0b0d0b]"],
+      id: "onyx",
+      name: "Midnight Onyx",
+      colors: ["bg-[#000000]", "bg-[#52525b]", "bg-[#fafafa]"],
+      darkColors: ["bg-[#fafafa]", "bg-[#a1a1aa]", "bg-[#000000]"],
     },
     {
-      id: "aurora",
-      name: "Space Aurora",
-      colors: ["bg-[#a855f7]", "bg-[#14b8a6]", "bg-[#f8fafc]"],
-      darkColors: ["bg-[#a855f7]", "bg-[#14b8a6]", "bg-[#020617]"],
-    },
-    {
-      id: "ocean",
-      name: "Nordic Ice",
-      colors: ["bg-[#3b82f6]", "bg-[#06b6d4]", "bg-[#f5f8fa]"],
-      darkColors: ["bg-[#3b82f6]", "bg-[#06b6d4]", "bg-[#101520]"],
-    },
-    {
-      id: "slate",
+      id: "minimal",
       name: "Monochrome Zinc",
-      colors: ["bg-[#27272a]", "bg-[#64748b]", "bg-[#fafafa]"],
-      darkColors: ["bg-[#fafafa]", "bg-[#475569]", "bg-[#09090b]"],
+      colors: ["bg-[#27272a]", "bg-[#71717a]", "bg-[#ffffff]"],
+      darkColors: ["bg-[#ffffff]", "bg-[#d4d4d8]", "bg-[#09090b]"],
     },
   ];
 

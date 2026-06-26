@@ -3,13 +3,13 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ThemeContext = createContext();
 
 const DEFAULT_SETTINGS = {
-  theme: "terracotta",
+  theme: "indigo",
   darkMode: false,
   font: "inter",
   radius: "sleek",
   glassmorphism: "glassy",
-  backgroundPattern: "gradients",
-  animations: "rich",
+  backgroundPattern: "grids",
+  animations: "smooth",
 };
 
 export function ThemeProvider({ children }) {

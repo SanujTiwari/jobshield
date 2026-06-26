@@ -49,50 +49,50 @@
   --radius-md: var(--radius-button-sm);
 }
 
-:root {
-  /* Default settings (Terracotta Sand) */
+:root, html[data-theme="indigo"] {
+  /* Default settings (Modern Indigo) */
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
   --radius-card: 12px;
   --radius-card-lg: 16px;
   --radius-button: 8px;
   --radius-button-sm: 6px;
 
-  /* Terracotta Theme Palette Colors */
-  --indigo-50: #fbf6f0;
-  --indigo-100: #f6ebd8;
-  --indigo-200: #eed3b3;
-  --indigo-300: #e4b283;
-  --indigo-400: #dc955a;
-  --indigo-500: #e98545;
-  --indigo-600: #e98545;
-  --indigo-700: #d67232;
-  --indigo-800: #b05a25;
-  --indigo-900: #8b451d;
-  --indigo-950: #55270e;
+  /* Modern Indigo Theme Palette */
+  --indigo-50: #eef2ff;
+  --indigo-100: #e0e7ff;
+  --indigo-200: #c7d2fe;
+  --indigo-300: #a5b4fc;
+  --indigo-400: #818cf8;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --indigo-700: #4338ca;
+  --indigo-800: #3730a3;
+  --indigo-900: #312e81;
+  --indigo-950: #1e1b4b;
 
-  --blue-50: #fcf9f2;
-  --blue-100: #faf1df;
-  --blue-200: #f4dfbe;
-  --blue-300: #ebc792;
-  --blue-400: #e3ae66;
-  --blue-500: #e3bc6a;
-  --blue-600: #d6ab55;
-  --blue-700: #b58c3f;
-  --blue-800: #936e32;
-  --blue-900: #755526;
-  --blue-950: #422f12;
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
+  --blue-950: #172554;
 
-  --slate-50: #fbfaf8;
-  --slate-100: #f7f5f0;
-  --slate-200: #eae4d9;
-  --slate-300: #d8cfc0;
-  --slate-400: #bbaea0;
-  --slate-500: #9a8a79;
-  --slate-600: #7a6b5c;
-  --slate-700: #5c5044;
-  --slate-800: #3d352d;
-  --slate-900: #29241f;
-  --slate-950: #1b1714;
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
 }
 
 /* Font definitions mapping */
@@ -137,109 +137,31 @@
 
 /* Theme Presets overrides */
 
-/* Cyberpunk Neon Theme */
-html[data-theme="cyberpunk"] {
-  --indigo-50: #fdf2f8;
-  --indigo-100: #fce7f3;
-  --indigo-200: #fbcfe8;
-  --indigo-300: #f9a8d4;
-  --indigo-400: #f472b6;
-  --indigo-500: #ec4899;
-  --indigo-600: #ec4899;
-  --indigo-700: #db2777;
-  --indigo-800: #be185d;
-  --indigo-900: #9d174d;
-  --indigo-950: #500724;
+/* Enterprise Blue Theme */
+html[data-theme="blue"] {
+  --indigo-50: #eff6ff;
+  --indigo-100: #dbeafe;
+  --indigo-200: #bfdbfe;
+  --indigo-300: #93c5fd;
+  --indigo-400: #60a5fa;
+  --indigo-500: #3b82f6;
+  --indigo-600: #2563eb;
+  --indigo-700: #1d4ed8;
+  --indigo-800: #1e40af;
+  --indigo-900: #1e3a8a;
+  --indigo-950: #172554;
 
-  --blue-50: #ecfeff;
-  --blue-100: #cffafe;
-  --blue-200: #a5f3fc;
-  --blue-300: #67e8f9;
-  --blue-400: #22d3ee;
-  --blue-500: #06b6d4;
-  --blue-600: #0891b2;
-  --blue-700: #0e7490;
-  --blue-800: #155e75;
-  --blue-900: #083344;
-  --blue-950: #041d24;
-
-  --slate-50: #fdfcff;
-  --slate-100: #f5f3ff;
-  --slate-200: #ede9fe;
-  --slate-300: #d6cbfb;
-  --slate-400: #a78bfa;
-  --slate-500: #7c3aed;
-  --slate-600: #4c1d95;
-  --slate-700: #30105c;
-  --slate-800: #1a0b36;
-  --slate-900: #100720;
-  --slate-950: #080310;
-}
-
-/* Forest Emerald Theme */
-html[data-theme="forest"] {
-  --indigo-50: #ecfdf5;
-  --indigo-100: #d1fae5;
-  --indigo-200: #a7f3d0;
-  --indigo-300: #6ee7b7;
-  --indigo-400: #34d399;
-  --indigo-500: #10b981;
-  --indigo-600: #10b981;
-  --indigo-700: #059669;
-  --indigo-800: #047857;
-  --indigo-900: #065f46;
-  --indigo-950: #022c22;
-
-  --blue-50: #fffbeb;
-  --blue-100: #fef3c7;
-  --blue-200: #fde68a;
-  --blue-300: #fcd34d;
-  --blue-400: #fbbf24;
-  --blue-500: #f59e0b;
-  --blue-600: #d97706;
-  --blue-700: #b45309;
-  --blue-800: #92400e;
-  --blue-900: #78350f;
-  --blue-950: #451a03;
-
-  --slate-50: #f4f6f4;
-  --slate-100: #e9ebe9;
-  --slate-200: #cfd3cf;
-  --slate-300: #b0b7b0;
-  --slate-400: #879287;
-  --slate-500: #5d695d;
-  --slate-600: #444e44;
-  --slate-700: #333b33;
-  --slate-800: #222722;
-  --slate-900: #141714;
-  --slate-950: #0b0d0b;
-}
-
-/* Deep Space Aurora Theme */
-html[data-theme="aurora"] {
-  --indigo-50: #faf5ff;
-  --indigo-100: #f3e8ff;
-  --indigo-200: #e9d5ff;
-  --indigo-300: #d8b4fe;
-  --indigo-400: #c084fc;
-  --indigo-500: #a855f7;
-  --indigo-600: #a855f7;
-  --indigo-700: #9333ea;
-  --indigo-800: #7e22ce;
-  --indigo-900: #6b21a8;
-  --indigo-950: #3b0764;
-
-  --blue-50: #f0fdfa;
-  --blue-100: #ccfbf1;
-  --blue-200: #99f6e4;
-  --blue-300: #5eead4;
-  --blue-400: #2dd4bf;
-  --blue-500: #14b8a6;
-  --blue-600: #0d9488;
-  --blue-700: #0f766e;
-  --blue-800: #115e59;
-  --blue-900: #134e4a;
-  --blue-950: #042f2e;
+  --blue-50: #f0fdf4;
+  --blue-100: #dcfce7;
+  --blue-200: #bbf7d0;
+  --blue-300: #86efac;
+  --blue-400: #4ade80;
+  --blue-500: #22c55e;
+  --blue-600: #16a34a;
+  --blue-700: #15803d;
+  --blue-800: #166534;
+  --blue-900: #14532d;
+  --blue-950: #052e16;
 
   --slate-50: #f8fafc;
   --slate-100: #f1f5f9;
@@ -254,58 +176,58 @@ html[data-theme="aurora"] {
   --slate-950: #020617;
 }
 
-/* Nordic Ice Theme */
-html[data-theme="ocean"] {
-  --indigo-50: #eff6ff;
-  --indigo-100: #dbeafe;
-  --indigo-200: #bfdbfe;
-  --indigo-300: #93c5fd;
-  --indigo-400: #60a5fa;
-  --indigo-500: #3b82f6;
-  --indigo-600: #3b82f6;
-  --indigo-700: #2563eb;
-  --indigo-800: #1d4ed8;
-  --indigo-900: #1e40af;
-  --indigo-950: #1e3a8a;
+/* Midnight Onyx Theme */
+html[data-theme="onyx"] {
+  --indigo-50: #f4f4f5;
+  --indigo-100: #e4e4e7;
+  --indigo-200: #d4d4d8;
+  --indigo-300: #a1a1aa;
+  --indigo-400: #71717a;
+  --indigo-500: #52525b;
+  --indigo-600: #3f3f46;
+  --indigo-700: #27272a;
+  --indigo-800: #18181b;
+  --indigo-900: #09090b;
+  --indigo-950: #000000;
 
-  --blue-50: #ecfeff;
-  --blue-100: #cffafe;
-  --blue-200: #a5f3fc;
-  --blue-300: #67e8f9;
-  --blue-400: #22d3ee;
-  --blue-500: #06b6d4;
-  --blue-600: #0891b2;
-  --blue-700: #0e7490;
-  --blue-800: #155e75;
-  --blue-900: #083344;
-  --blue-950: #041d24;
+  --blue-50: #fafafa;
+  --blue-100: #f4f4f5;
+  --blue-200: #e4e4e7;
+  --blue-300: #d4d4d8;
+  --blue-400: #a1a1aa;
+  --blue-500: #71717a;
+  --blue-600: #52525b;
+  --blue-700: #3f3f46;
+  --blue-800: #27272a;
+  --blue-900: #18181b;
+  --blue-950: #09090b;
 
-  --slate-50: #f5f8fa;
-  --slate-100: #eef2f6;
-  --slate-200: #dbe3ec;
-  --slate-300: #becddf;
-  --slate-400: #98afcd;
-  --slate-500: #718ebb;
-  --slate-600: #5270a0;
-  --slate-700: #3d5479;
-  --slate-800: #2c3b57;
-  --slate-900: #1c2538;
-  --slate-950: #101520;
+  --slate-50: #ffffff;
+  --slate-100: #fafafa;
+  --slate-200: #f4f4f5;
+  --slate-300: #e4e4e7;
+  --slate-400: #d4d4d8;
+  --slate-500: #a1a1aa;
+  --slate-600: #71717a;
+  --slate-700: #52525b;
+  --slate-800: #3f3f46;
+  --slate-900: #18181b;
+  --slate-950: #000000;
 }
 
-/* Minimalist Monochrome Theme */
-html[data-theme="slate"] {
+/* Monochrome Minimal Theme */
+html[data-theme="minimal"] {
   --indigo-50: #fafafa;
   --indigo-100: #f4f4f5;
   --indigo-200: #e4e4e7;
   --indigo-300: #d4d4d8;
   --indigo-400: #a1a1aa;
-  --indigo-500: #27272a;
-  --indigo-600: #27272a;
-  --indigo-700: #18181b;
-  --indigo-800: #09090b;
-  --indigo-900: #000000;
-  --indigo-950: #000000;
+  --indigo-500: #71717a;
+  --indigo-600: #52525b;
+  --indigo-700: #3f3f46;
+  --indigo-800: #27272a;
+  --indigo-900: #18181b;
+  --indigo-950: #09090b;
 
   --blue-50: #f8fafc;
   --blue-100: #f1f5f9;
@@ -317,16 +239,16 @@ html[data-theme="slate"] {
   --blue-700: #334155;
   --blue-800: #1e293b;
   --blue-900: #0f172a;
-  --blue-950: #0f172a;
+  --blue-950: #020617;
 
-  --slate-50: #fafafa;
-  --slate-100: #f4f4f5;
-  --slate-200: #e4e4e7;
-  --slate-300: #d4d4d8;
-  --slate-400: #a1a1aa;
-  --slate-50: #71717a;
-  --slate-600: #52525b;
-  --slate-700: #3f3f46;
+  --slate-50: #ffffff;
+  --slate-100: #fafafa;
+  --slate-200: #f4f4f5;
+  --slate-300: #e4e4e7;
+  --slate-400: #d4d4d8;
+  --slate-500: #a1a1aa;
+  --slate-600: #71717a;
+  --slate-700: #52525b;
   --slate-800: #27272a;
   --slate-900: #18181b;
   --slate-950: #09090b;
