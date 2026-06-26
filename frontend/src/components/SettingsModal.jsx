@@ -1,4 +1,4 @@
-import { X, Sun, Moon, RotateCcw, Sparkles } from "lucide-react";
+import { X, Sun, Moon, RotateCcw, LayoutGrid, Sparkles } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
 export default function SettingsModal() {
