@@ -1,0 +1,219 @@
+/* ===== Auth Page Animations & Custom Styles ===== */
+
+/* --- Card Entrance --- */
+@keyframes authCardIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-card {
+  animation: authCardIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* --- Staggered form entrance --- */
+@keyframes authSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-stagger-1 {
+  opacity: 0;
+  animation: authSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+.auth-stagger-2 {
+  opacity: 0;
+  animation: authSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
+}
+.auth-stagger-3 {
+  opacity: 0;
+  animation: authSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+}
+.auth-stagger-4 {
+  opacity: 0;
+  animation: authSlideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+}
+
+/* --- Sign Up link: vibrant emerald gradient --- */
+.auth-signup-link {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.auth-signup-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.auth-signup-link:hover::after {
+  width: 100%;
+}
+
+/* --- Sign In link: vibrant amber/orange gradient --- */
+.auth-signin-link {
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.auth-signin-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.auth-signin-link:hover::after {
+  width: 100%;
+}
+
+/* --- Submit button hover arrow nudge --- */
+.auth-submit-btn:hover .auth-arrow-icon {
+  transform: translateX(4px);
+  transition: transform 0.25s ease;
+}
+.auth-arrow-icon {
+  transition: transform 0.25s ease;
+}
+
+/* --- Right brand panel entrance --- */
+@keyframes authBrandSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.auth-brand-panel {
+  animation: authBrandSlide 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+/* --- Shield icon floating animation --- */
+@keyframes authShieldFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.auth-shield-icon {
+  animation: authShieldFloat 3.5s ease-in-out infinite;
+}
+
+/* --- Brand text fade-up --- */
+@keyframes authTextReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-brand-text {
+  opacity: 0;
+  animation: authTextReveal 0.6s ease-out 0.6s forwards;
+}
+
+/* --- Metric cards staggered slide up --- */
+@keyframes authMetricIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-metric-1 {
+  opacity: 0;
+  animation: authMetricIn 0.5s ease-out 0.7s forwards;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.auth-metric-2 {
+  opacity: 0;
+  animation: authMetricIn 0.5s ease-out 0.85s forwards;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.auth-metric-3 {
+  opacity: 0;
+  animation: authMetricIn 0.5s ease-out 1s forwards;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.auth-metric-1:hover,
+.auth-metric-2:hover,
+.auth-metric-3:hover {
+  transform: translateX(6px);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- Decorative circles slow drift --- */
+@keyframes authCircleDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(15px, -15px) scale(1.05); }
+}
+@keyframes authCircleDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-10px, 10px) scale(1.08); }
+}
+@keyframes authCircleDrift3 {
+  0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+  50% { transform: translate(8px, -8px); opacity: 0.7; }
+}
+
+.auth-deco-circle-1 {
+  animation: authCircleDrift1 8s ease-in-out infinite;
+}
+.auth-deco-circle-2 {
+  animation: authCircleDrift2 10s ease-in-out infinite;
+}
+.auth-deco-circle-3 {
+  animation: authCircleDrift3 6s ease-in-out infinite;
+}
+
+/* --- Input focus glow --- */
+.auth-form-panel input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.12);
+}
+
+/* Dark mode input focus glow */
+:is(.dark) .auth-form-panel input:focus {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}

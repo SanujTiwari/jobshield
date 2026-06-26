@@ -10,8 +10,10 @@ import {
   ShieldCheck,
   TrendingUp,
   Lock,
+  Sparkles,
 } from "lucide-react";
 import { loginUser, registerUser, googleLoginUser } from "../services/authService";
+import "./Auth.css";
 
 function Auth() {
   const navigate = useNavigate();
@@ -104,13 +106,13 @@ function Auth() {
       <div className="absolute bottom-[-15%] left-[-10%] w-[40vw] h-[40vw] bg-blue-500/8 dark:bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Main Card Container - single unified card */}
-      <div className="relative z-10 w-full max-w-5xl mx-4 sm:mx-6 grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-slate-200/50 dark:shadow-slate-950/50 border border-slate-200/60 dark:border-slate-800/60 overflow-hidden animate-scale-in">
+      <div className="auth-card relative z-10 w-full max-w-5xl mx-4 sm:mx-6 grid grid-cols-1 lg:grid-cols-2 bg-white dark:bg-slate-900 rounded-3xl shadow-2xl shadow-slate-200/50 dark:shadow-slate-950/50 border border-slate-200/60 dark:border-slate-800/60 overflow-hidden">
 
         {/* Left Side: Form */}
-        <div className="px-8 sm:px-12 py-10 sm:py-12 flex flex-col justify-center">
+        <div className="auth-form-panel px-8 sm:px-12 py-10 sm:py-12 flex flex-col justify-center">
 
           {/* Logo */}
-          <div className="flex items-center gap-2.5 mb-8 cursor-pointer" onClick={() => navigate("/")}>
+          <div className="auth-stagger-1 flex items-center gap-2.5 mb-8 cursor-pointer" onClick={() => navigate("/")}>
             <div className="w-9 h-9 bg-gradient-to-br from-indigo-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/25">
               <Shield className="w-5 h-5 text-white" />
             </div>
@@ -120,7 +122,7 @@ function Auth() {
           </div>
 
           {/* Heading */}
-          <div className="mb-6">
+          <div className="auth-stagger-2 mb-6">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-1.5">
               {isLoginState ? "Welcome back" : "Create your account"}
             </h2>
@@ -131,9 +133,9 @@ function Auth() {
                   <button
                     type="button"
                     onClick={() => { setIsLoginState(false); setFormData({ ...formData, password: "" }); }}
-                    className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline cursor-pointer bg-transparent border-none p-0"
+                    className="auth-signup-link font-bold cursor-pointer bg-transparent border-none p-0"
                   >
-                    Sign up
+                    Sign up →
                   </button>
                 </>
               ) : (
@@ -142,9 +144,9 @@ function Auth() {
                   <button
                     type="button"
                     onClick={() => { setIsLoginState(true); setFormData({ ...formData, password: "" }); }}
-                    className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline cursor-pointer bg-transparent border-none p-0"
+                    className="auth-signin-link font-bold cursor-pointer bg-transparent border-none p-0"
                   >
-                    Sign in
+                    Sign in →
                   </button>
                 </>
               )}
@@ -152,7 +154,7 @@ function Auth() {
           </div>
 
           {/* Form */}
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form className="auth-stagger-3 space-y-4" onSubmit={handleSubmit}>
 
             {/* Full Name (Register only) */}
             {!isLoginState && (
@@ -250,35 +252,24 @@ function Auth() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center items-center gap-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-500/20 cursor-pointer mt-2"
+              className="auth-submit-btn w-full flex justify-center items-center gap-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-500/20 cursor-pointer mt-2"
             >
               {isLoading ? (
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
                   {isLoginState ? "Sign in" : "Create account"}
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 auth-arrow-icon" />
                 </>
               )}
             </button>
           </form>
 
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-slate-200 dark:border-slate-800" />
-            </div>
-            <div className="relative flex justify-center">
-              <span className="px-3 bg-white dark:bg-slate-900 text-slate-400 text-xs font-medium">
-                or continue with
-              </span>
-            </div>
-          </div>
-
-          {/* Google Login Only */}
+          {/* Google Login */}
+          <div className="auth-stagger-4 mt-4">
           <button
             onClick={() => loginGoogle()}
-            className="w-full flex justify-center items-center gap-3 py-3 px-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-300 focus:outline-none transition-all cursor-pointer"
+            className="w-full flex justify-center items-center gap-3 py-2.5 px-4 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-sm font-semibold text-slate-700 dark:text-slate-300 focus:outline-none transition-all cursor-pointer"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -301,24 +292,25 @@ function Auth() {
             </svg>
             Continue with Google
           </button>
+          </div>
 
         </div>
 
         {/* Right Side: Brand Panel (Connected, same card) */}
-        <div className="hidden lg:flex flex-col justify-center items-center bg-gradient-to-br from-indigo-600 via-indigo-700 to-blue-600 p-12 relative overflow-hidden">
+        <div className="auth-brand-panel hidden lg:flex flex-col justify-center items-center bg-gradient-to-br from-indigo-600 via-indigo-700 to-blue-600 p-12 relative overflow-hidden">
 
-          {/* Decorative circles */}
-          <div className="absolute top-[-20%] right-[-15%] w-80 h-80 bg-white/5 rounded-full" />
-          <div className="absolute bottom-[-15%] left-[-10%] w-64 h-64 bg-white/5 rounded-full" />
-          <div className="absolute top-[40%] right-[10%] w-40 h-40 bg-blue-400/10 rounded-full blur-xl" />
+          {/* Decorative circles - animated */}
+          <div className="auth-deco-circle-1 absolute top-[-20%] right-[-15%] w-80 h-80 bg-white/5 rounded-full" />
+          <div className="auth-deco-circle-2 absolute bottom-[-15%] left-[-10%] w-64 h-64 bg-white/5 rounded-full" />
+          <div className="auth-deco-circle-3 absolute top-[40%] right-[10%] w-40 h-40 bg-blue-400/10 rounded-full blur-xl" />
 
           <div className="relative z-10 text-center space-y-8 max-w-sm">
             {/* Shield Icon */}
-            <div className="mx-auto w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center border border-white/10">
+            <div className="auth-shield-icon mx-auto w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center border border-white/10">
               <Shield className="w-10 h-10 text-white" />
             </div>
 
-            <div className="space-y-3">
+            <div className="auth-brand-text space-y-3">
               <h3 className="text-2xl font-extrabold text-white">
                 Protect Your Job Search
               </h3>
@@ -329,7 +321,7 @@ function Auth() {
 
             {/* Trust metrics */}
             <div className="space-y-3 pt-4">
-              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
+              <div className="auth-metric-1 flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
                 <div className="w-8 h-8 bg-emerald-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
                   <ShieldCheck className="w-4 h-4 text-emerald-300" />
                 </div>
@@ -339,7 +331,7 @@ function Auth() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
+              <div className="auth-metric-2 flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
                 <div className="w-8 h-8 bg-blue-400/20 rounded-lg flex items-center justify-center flex-shrink-0">
                   <TrendingUp className="w-4 h-4 text-blue-300" />
                 </div>
@@ -349,7 +341,7 @@ function Auth() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
+              <div className="auth-metric-3 flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10">
                 <div className="w-8 h-8 bg-indigo-300/20 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Lock className="w-4 h-4 text-indigo-300" />
                 </div>
