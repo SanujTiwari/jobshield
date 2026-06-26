@@ -20,6 +20,24 @@ export default function SettingsModal() {
 
   const themes = [
     {
+      id: "arctic",
+      name: "Arctic Pearl",
+      colors: ["bg-[#4F7CFF]", "bg-[#94A3B8]", "bg-[#F8FAFC]"],
+      darkColors: ["bg-[#4F7CFF]", "bg-[#475569]", "bg-[#080C14]"],
+    },
+    {
+      id: "quartz",
+      name: "Royal Quartz",
+      colors: ["bg-[#6C63FF]", "bg-[#A78BFA]", "bg-[#F7F6FF]"],
+      darkColors: ["bg-[#6C63FF]", "bg-[#A78BFA]", "bg-[#0D0C1A]"],
+    },
+    {
+      id: "ivory",
+      name: "Ivory Luxe",
+      colors: ["bg-[#C89B3C]", "bg-[#8D6E63]", "bg-[#FAF8F4]"],
+      darkColors: ["bg-[#C89B3C]", "bg-[#8D6E63]", "bg-[#11100E]"],
+    },
+    {
       id: "indigo",
       name: "Modern Indigo",
       colors: ["bg-[#6366f1]", "bg-[#818cf8]", "bg-[#ffffff]"],
@@ -36,12 +54,6 @@ export default function SettingsModal() {
       name: "Midnight Onyx",
       colors: ["bg-[#000000]", "bg-[#52525b]", "bg-[#fafafa]"],
       darkColors: ["bg-[#fafafa]", "bg-[#a1a1aa]", "bg-[#000000]"],
-    },
-    {
-      id: "minimal",
-      name: "Monochrome Zinc",
-      colors: ["bg-[#27272a]", "bg-[#71717a]", "bg-[#ffffff]"],
-      darkColors: ["bg-[#ffffff]", "bg-[#d4d4d8]", "bg-[#09090b]"],
     },
   ];
 

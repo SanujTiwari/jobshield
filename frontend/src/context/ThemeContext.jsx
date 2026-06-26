@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ThemeContext = createContext();
 
 const DEFAULT_SETTINGS = {
-  theme: "indigo",
+  theme: "arctic",
   darkMode: false,
   font: "inter",
   radius: "sleek",
