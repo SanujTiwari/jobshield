@@ -5,6 +5,7 @@ import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import AnalyzeJob from "./pages/AnalyzeJob";
+import Scanner from "./pages/Scanner";
 import ResumeMatch from "./pages/ResumeMatch";
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/register" element={<Navigate to="/auth" />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/analyze" element={<AnalyzeJob />} />
+        <Route path="/scanner" element={<Scanner />} />
         <Route path="/resume-match" element={<ResumeMatch />} />
       </Routes>
     </BrowserRouter>
