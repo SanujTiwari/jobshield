@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Shield,
   ArrowRight,
@@ -222,7 +223,33 @@ const steps = [
 ];
 
 /* ---------- main component ---------- */
-export default function JobShieldLandingPreview() {
+export default function Landing() {
+  const navigate = useNavigate();
+  const [scanInput, setScanInput] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleGetStarted = () => {
+    if (isLoggedIn) {
+      navigate("/analyze");
+    } else {
+      navigate("/auth");
+    }
+  };
+
+  const handleScanSubmit = (e) => {
+    e.preventDefault();
+    if (isLoggedIn) {
+      navigate("/analyze", { state: { initialScan: scanInput } });
+    } else {
+      navigate("/auth", { state: { initialScan: scanInput } });
+    }
+  };
+
   return (
     <div className="js-root min-h-screen">
       <GlobalStyle />
@@ -230,7 +257,10 @@ export default function JobShieldLandingPreview() {
       {/* NAV */}
       <header className="sticky top-0 z-40 bg-[var(--paper)]/95 border-b border-[var(--line)]">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+          <div
+            className="flex items-center gap-2.5 cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             <div className="w-7 h-7 bg-[var(--ink)] flex items-center justify-center">
               <Shield className="w-4 h-4 text-[var(--verified-bg)]" strokeWidth={2} />
             </div>
@@ -245,8 +275,11 @@ export default function JobShieldLandingPreview() {
             <a href="#numbers" className="hover:text-[var(--ink)] transition-colors">Numbers</a>
           </nav>
 
-          <button className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-4 py-2.5 hover:bg-[var(--verified)] transition-colors flex items-center gap-1.5">
-            Get started <ArrowRight className="w-3.5 h-3.5" />
+          <button
+            onClick={handleGetStarted}
+            className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-4 py-2.5 hover:bg-[var(--verified)] transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
+            {isLoggedIn ? "Go to Dashboard" : "Get started"} <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </header>
@@ -273,18 +306,20 @@ export default function JobShieldLandingPreview() {
           </Reveal>
 
           <Reveal delay={240}>
-            <form className="max-w-lg border border-[var(--line)] bg-[var(--panel)] flex items-center">
+            <form onSubmit={handleScanSubmit} className="max-w-lg border border-[var(--line)] bg-[var(--panel)] flex items-center">
               <div className="flex items-center gap-2.5 pl-4 flex-1">
                 <Search className="w-4 h-4 text-[var(--ink-dim)] flex-shrink-0" />
                 <input
                   type="text"
-                  placeholder="Paste job title or company to open a case..."
+                  value={scanInput}
+                  onChange={(e) => setScanInput(e.target.value)}
+                  placeholder="Paste job title, URL, or sender to open a case..."
                   className="w-full py-3.5 text-[14px] bg-transparent focus:outline-none placeholder:text-[var(--ink-dim)]/70"
                 />
               </div>
               <button
                 type="submit"
-                className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-3.5 hover:bg-[var(--verified)] transition-colors flex-shrink-0"
+                className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-3.5 hover:bg-[var(--verified)] transition-colors flex-shrink-0 cursor-pointer"
               >
                 Open case
               </button>
@@ -410,7 +445,10 @@ export default function JobShieldLandingPreview() {
             </div>
             <span className="font-display font-semibold text-[16px]">ScamShield</span>
           </div>
-          <button className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-3 hover:bg-[var(--verified)] transition-colors flex items-center gap-1.5">
+          <button
+            onClick={handleGetStarted}
+            className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-3 hover:bg-[var(--verified)] transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
             Analyze a posting <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
         </div>
