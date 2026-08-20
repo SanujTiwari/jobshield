@@ -45,6 +45,7 @@ function Navbar() {
     { path: '/', label: 'Home', icon: Home },
     { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
     { path: '/analyze', label: 'Scanner', icon: Plus },
+    { path: '/history', label: 'History', icon: FileCheck },
     { path: '/resume-match', label: 'Resume Match', icon: FileCheck },
   ];
 
