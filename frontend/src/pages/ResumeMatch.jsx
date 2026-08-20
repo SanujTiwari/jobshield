@@ -212,39 +212,42 @@ export default function ResumeMatch() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 pb-20">
+    <div className="js-root min-h-screen bg-[var(--paper)]">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
         
         {/* Page Title & Tabs */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--line)] pb-6">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-1 animate-fade-in">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)]">
+              Candidate Compatibility Engine
+            </span>
+            <h1 className="font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--ink)] mt-1">
               Resume Matching Engine
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 animate-slide-up">
-              Tailor your resume, identify gaps, and structure learning paths for target jobs
+            <p className="text-[var(--ink-dim)] text-[14px] mt-1">
+              Identify missing skills, tailor applications, and structure skill upgrade paths.
             </p>
           </div>
 
-          <div className="flex bg-slate-200/50 dark:bg-slate-800/50 p-1.5 rounded-xl border border-slate-200 dark:border-slate-800 select-none">
+          <div className="flex bg-[var(--panel)] p-1 border border-[var(--line)]">
             <button
               onClick={() => setActiveTab("new")}
-              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 cursor-pointer ${
+              className={`px-4 py-2 font-mono text-[11px] uppercase tracking-wider transition-colors cursor-pointer ${
                 activeTab === "new"
-                  ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  ? "bg-[var(--ink)] text-[var(--paper)] font-semibold"
+                  : "text-[var(--ink-dim)] hover:text-[var(--ink)]"
               }`}
             >
               Analyze Resume
             </button>
             <button
               onClick={() => setActiveTab("history")}
-              className={`px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 cursor-pointer ${
+              className={`px-4 py-2 font-mono text-[11px] uppercase tracking-wider transition-colors cursor-pointer ${
                 activeTab === "history"
-                  ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
-                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  ? "bg-[var(--ink)] text-[var(--paper)] font-semibold"
+                  : "text-[var(--ink-dim)] hover:text-[var(--ink)]"
               }`}
             >
               Match History ({matchHistory.length})
