@@ -161,7 +161,7 @@ function Navbar() {
               >
                 Sign In &rarr;
               </button>
-            </div>
+            )}
 
             {/* Mobile Menu Toggle */}
             <button
