@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import {
   Shield,
   ArrowRight,
@@ -239,7 +240,13 @@ export default function Landing() {
 
   const handleScanSubmit = (e) => {
     e.preventDefault();
-    navigate("/auth", { state: { initialScan: scanInput } });
+    if (!scanInput.trim()) return;
+    if (localStorage.getItem("token")) {
+      navigate("/scanner", { state: { initialScanText: scanInput } });
+    } else {
+      toast.error("Please sign in or register to analyze scam cases.");
+      navigate("/auth", { state: { initialScanText: scanInput } });
+    }
   };
 
   return (

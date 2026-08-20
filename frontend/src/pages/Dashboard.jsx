@@ -226,7 +226,7 @@ function Dashboard() {
             <p className="text-[12px] text-[var(--flag)]">Immediate action required</p>
           </div>
 
-          <div className="p-5 border border-rose-300 dark:border-rose-800 bg-rose-50/50 dark:bg-rose-950/20 space-y-1">
+          <div className="p-5 border border-rose-300 bg-rose-50/50 space-y-1">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[10px] uppercase tracking-widest text-rose-600 font-bold">High Risk</span>
               <AlertTriangle className="w-4 h-4 text-rose-600" />

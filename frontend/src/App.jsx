@@ -11,6 +11,7 @@ import ReportScam from "./pages/ReportScam";
 import AdminDashboard from "./pages/AdminDashboard";
 import SafetyCenter from "./pages/SafetyCenter";
 import ResumeMatch from "./pages/ResumeMatch";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -41,18 +42,21 @@ function App() {
         }}
       />
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Landing />} />
+        <Route path="/safety-center" element={<SafetyCenter />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/login" element={<Navigate to="/auth" />} />
         <Route path="/register" element={<Navigate to="/auth" />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/analyze" element={<AnalyzeJob />} />
-        <Route path="/scanner" element={<Scanner />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/report-scam" element={<ReportScam />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/safety-center" element={<SafetyCenter />} />
-        <Route path="/resume-match" element={<ResumeMatch />} />
+
+        {/* Protected Routes (Requires Login) */}
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/analyze" element={<ProtectedRoute><AnalyzeJob /></ProtectedRoute>} />
+        <Route path="/scanner" element={<ProtectedRoute><Scanner /></ProtectedRoute>} />
+        <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
+        <Route path="/report-scam" element={<ProtectedRoute><ReportScam /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/resume-match" element={<ProtectedRoute><ResumeMatch /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );
