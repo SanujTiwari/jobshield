@@ -94,7 +94,7 @@ export default function ScannerForm({ onSubmit, isLoading, initialScanText = "" 
   return (
     <div className="bg-[var(--panel)] border border-[var(--line)] shadow-sm">
       {/* Scanner Mode Selector Tabs */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 border-b border-[var(--line)] divide-x divide-[var(--line)] bg-[#FBFAF6] dark:bg-[#12141A]">
+      <div className="grid grid-cols-2 sm:grid-cols-5 border-b border-[var(--line)] divide-x divide-[var(--line)] bg-[#FBFAF6]">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
