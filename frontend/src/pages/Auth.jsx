@@ -117,7 +117,7 @@ function Auth() {
               <Shield className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold text-slate-900 dark:text-white">
-              JobShield
+              ScamShield
             </span>
           </div>
 
@@ -312,10 +312,10 @@ function Auth() {
 
             <div className="auth-brand-text space-y-3">
               <h3 className="text-2xl font-extrabold text-white">
-                Protect Your Job Search
+                Detect Scams Before They Cost You
               </h3>
               <p className="text-indigo-100/80 text-sm leading-relaxed">
-                AI-powered job fraud detection that scans postings, evaluates risks, and keeps you safe from scam recruiters.
+                Multi-type scam detection platform scanning jobs, recruiter messages, payment requests, company information, and URLs.
               </p>
             </div>
 

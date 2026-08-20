@@ -1,23 +1,21 @@
-# JobShield AI
+# ScamShield
+
+> **Detect scams before they cost you.**
 
 ## Overview
 
-JobShield AI is a web application that helps users identify potentially fraudulent job postings using AI-powered risk analysis. The platform analyzes job descriptions, company information, and suspicious patterns to generate a risk score and provide detailed reasons for the assessment.
+ScamShield is a multi-type scam detection and prevention platform designed to protect users from fraudulent job postings, recruiter impersonations, upfront payment scams, phishing messages, and malicious URLs. The platform evaluates multi-source indicators, normalizes risk scores (0–100), categorizes risk factors, and provides plain-language explanations and targeted recommendations.
 
-The goal of JobShield AI is to help job seekers avoid scams and make safer career decisions.
+## Core Scanners & Capabilities
 
-## Features
-
-* User Registration and Login
-* Secure Authentication using JWT
-* Job Posting Analysis
-* AI-Powered Risk Detection
-* Risk Score Generation
-* Risk Level Classification (Low, Medium, High)
-* Detailed Scam Indicators and Reasons
-* Analysis History
-* Dashboard with Statistics
-* Responsive User Interface
+* **Job Scam Scanner**: Analyzes job descriptions, compensation, and employer details.
+* **Message Scam Scanner**: Evaluates recruiter messages, SMS, WhatsApp, and email copy for urgency and phishing indicators.
+* **Payment Scam Scanner**: Checks registration fees, security deposits, and advance payment requests.
+* **Recruiter Scanner**: Inspects recruiter names, email domains, profile URLs, and company matches.
+* **Company Verification**: Assesses company domain age, registration credentials, and authenticity status.
+* **URL Scanner**: Evaluates technical link structure, HTTPS validity, and domain mismatches.
+* **Scan History & Dashboard V2**: Comprehensive tracking, metrics, and distribution charts.
+* **Scam Reporting & Safety Center**: Community fraud reporting and educational safety guides.
 
 ## Tech Stack
 

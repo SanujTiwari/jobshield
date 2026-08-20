@@ -7,7 +7,7 @@ function ChatBot() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hi! I\'m JobShield AI 🛡️ I can help you identify suspicious job postings and understand common scam tactics. How can I help you today?',
+      content: 'Hi! I\'m ScamShield AI 🛡️ I can help you identify suspicious job postings, recruiter messages, payment requests, URLs, and scam tactics. How can I help you today?',
     },
   ]);
   const [input, setInput] = useState('');
@@ -30,9 +30,9 @@ function ChatBot() {
   }, [isOpen]);
 
   const quickQuestions = [
-    'What are common job scam red flags?',
+    'What are common scam red flags?',
     'Is it safe to pay a registration fee?',
-    'How to verify a job posting?',
+    'How to verify a recruiter or company?',
   ];
 
   const handleSend = async (messageText) => {
@@ -76,8 +76,8 @@ function ChatBot() {
                 <Bot className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-white">JobShield AI</h3>
-                <p className="text-xs text-white/70">Job Scam Expert</p>
+                <h3 className="text-sm font-semibold text-white">ScamShield AI</h3>
+                <p className="text-xs text-white/70">Scam Detection Expert</p>
               </div>
             </div>
             <button
