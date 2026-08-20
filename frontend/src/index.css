@@ -569,3 +569,62 @@ body {
 .preserve-3d {
   transform-style: preserve-3d;
 }
+
+/* Uiverse.io Word Spinner Loader */
+.uiverse-card {
+  --bg-color: var(--panel, #FFFFFF);
+  background-color: var(--panel, #FFFFFF);
+  padding: 1.5rem 2.25rem;
+  border: 1px solid var(--line, #E1DFD5);
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.08);
+}
+
+.uiverse-loader {
+  color: var(--ink-dim, #5B5F68);
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+  box-sizing: content-box;
+  height: 38px;
+  display: flex;
+  align-items: center;
+}
+
+.uiverse-words {
+  overflow: hidden;
+  position: relative;
+  height: 38px;
+}
+
+.uiverse-words::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    var(--bg-color) 10%,
+    transparent 30%,
+    transparent 70%,
+    var(--bg-color) 90%
+  );
+  z-index: 20;
+}
+
+.uiverse-word {
+  display: block;
+  height: 100%;
+  padding-left: 8px;
+  color: var(--ink, #16181D);
+  font-weight: 700;
+  animation: uiverse_spin 4s infinite;
+}
+
+@keyframes uiverse_spin {
+  10% { transform: translateY(-102%); }
+  25% { transform: translateY(-100%); }
+  35% { transform: translateY(-202%); }
+  50% { transform: translateY(-200%); }
+  60% { transform: translateY(-302%); }
+  75% { transform: translateY(-300%); }
+  85% { transform: translateY(-402%); }
+  100% { transform: translateY(-400%); }
+}

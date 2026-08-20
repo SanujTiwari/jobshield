@@ -1,20 +1,26 @@
 import React from "react";
 
-function LoadingSpinner() {
+function LoadingSpinner({ text = "Analyzing" }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm">
-      <div className="flex flex-col items-center gap-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--paper)]/85 backdrop-blur-sm animate-fade-in">
+      <div className="uiverse-card border border-[var(--line)] flex flex-col items-center gap-3 text-center">
+        <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)]">
+          ScamShield Intake Engine
+        </div>
         
-        {/* Spinner */}
-        <div className="relative w-14 h-14">
-          <div className="absolute inset-0 border-4 border-slate-700 rounded-full"></div>
-
-          <div className="absolute inset-0 border-4 border-transparent border-t-orange-500 rounded-full animate-spin"></div>
+        <div className="uiverse-loader">
+          <span>{text}</span>
+          <div className="uiverse-words">
+            <span className="uiverse-word">job postings</span>
+            <span className="uiverse-word">messages</span>
+            <span className="uiverse-word">payments</span>
+            <span className="uiverse-word">recruiters</span>
+            <span className="uiverse-word">URL links</span>
+          </div>
         </div>
 
-        {/* Text */}
-        <p className="text-slate-300 text-sm font-medium tracking-wide">
-          Analyzing Job Posting...
+        <p className="font-mono text-[11px] text-[var(--ink-dim)]">
+          Evaluating risk signals against pattern rule sets...
         </p>
       </div>
     </div>
