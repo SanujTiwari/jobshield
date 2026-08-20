@@ -152,7 +152,7 @@ export default function RiskCard({ scan, onReset }) {
         </div>
 
         {/* Right: Actionable Recommendations */}
-        <div className="lg:col-span-5 p-6 sm:p-8 space-y-4 bg-[#FAF9F5] dark:bg-[#14161B]">
+        <div className="lg:col-span-5 p-6 sm:p-8 space-y-4 bg-[#FAF9F5]">
           <div className="flex items-center justify-between">
             <h3 className="font-display font-semibold text-[17px] tracking-tight flex items-center gap-2">
               <Lightbulb className="w-4 h-4 text-[var(--caution)]" />

@@ -38,25 +38,11 @@ export function ThemeProvider({ children }) {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   useEffect(() => {
-    // Sync settings to localStorage
-    localStorage.setItem("jobshield-settings", JSON.stringify(settings));
-    // Also sync the legacy item just in case
-    localStorage.setItem("jobshield-theme", settings.darkMode ? "dark" : "light");
-
-    // Apply settings to document.documentElement
+    // Always force Light Warm Paper Mode
     const root = document.documentElement;
-    root.setAttribute("data-theme", settings.theme);
-    root.setAttribute("data-font", settings.font);
-    root.setAttribute("data-radius", settings.radius);
-    root.setAttribute("data-glassmorphism", settings.glassmorphism);
-    root.setAttribute("data-bg-pattern", settings.backgroundPattern);
-    root.setAttribute("data-animations", settings.animations);
-
-    if (settings.darkMode) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+    root.classList.remove("dark");
+    localStorage.removeItem("jobshield-theme");
+    localStorage.removeItem("jobshield-settings");
   }, [settings]);
 
   const updateSetting = (key, value) => {

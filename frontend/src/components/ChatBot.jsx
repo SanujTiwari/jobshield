@@ -69,20 +69,20 @@ function ChatBot() {
       {/* Chat Window */}
       {isOpen && (
         <div className="fixed bottom-20 right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-96 h-[500px] bg-[var(--panel)] border border-[var(--line)] shadow-2xl flex flex-col z-50 animate-scale-in overflow-hidden">
-          {/* Dark Band Header */}
-          <div className="bg-[#14161B] text-[var(--paper)] px-4 py-3.5 flex items-center justify-between flex-shrink-0 border-b border-[var(--line)]">
+          {/* Light Warm Paper Header */}
+          <div className="bg-[#FBFAF6] dark:bg-[var(--panel)] text-[var(--ink)] px-4 py-3.5 flex items-center justify-between flex-shrink-0 border-b border-[var(--line)]">
             <div className="flex items-center gap-2.5">
-              <div className="w-6 h-6 bg-[var(--paper)] text-[var(--ink)] flex items-center justify-center font-mono text-[10px] font-bold">
+              <div className="w-6 h-6 bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center font-mono text-[10px] font-bold">
                 AI
               </div>
               <div>
-                <h3 className="font-display text-[14px] font-semibold text-white tracking-tight">ScamShield AI Assistant</h3>
-                <p className="font-mono text-[10px] text-[#A2A6B0]">Threat Intelligence Unit</p>
+                <h3 className="font-display text-[14px] font-semibold text-[var(--ink)] tracking-tight">ScamShield AI Assistant</h3>
+                <p className="font-mono text-[10px] text-[var(--ink-dim)]">Threat Intelligence Unit</p>
               </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1 hover:bg-white/10 text-white/80 hover:text-white transition-colors cursor-pointer"
+              className="p-1 text-[var(--ink-dim)] hover:text-[var(--ink)] transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>

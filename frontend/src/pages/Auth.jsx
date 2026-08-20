@@ -275,18 +275,18 @@ function Auth() {
             </form>
           </div>
 
-          {/* Right Column: Dark Band Editorial Showcase */}
-          <div className="lg:col-span-5 bg-[#14161B] text-[var(--paper)] p-8 sm:p-12 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[var(--line)] relative overflow-hidden">
+          {/* Right Column: Light Warm Paper Showcase */}
+          <div className="lg:col-span-5 bg-[var(--paper)] text-[var(--ink)] p-8 sm:p-12 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[var(--line)] relative overflow-hidden">
             <div className="space-y-6 relative z-10">
-              <div className="inline-block border border-[var(--paper)]/30 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[#E1DFD5]">
+              <div className="inline-block border border-[var(--line)] px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)] bg-[var(--panel)]">
                 SCAMSHIELD // MULTI-TYPE DEFENSE
               </div>
 
-              <h2 className="font-display font-semibold text-2xl sm:text-3xl tracking-tight leading-tight text-white">
+              <h2 className="font-display font-semibold text-2xl sm:text-3xl tracking-tight leading-tight text-[var(--ink)]">
                 Detect Scams Before They Cost You.
               </h2>
 
-              <p className="text-[13.5px] text-[#A2A6B0] leading-relaxed">
+              <p className="text-[13.5px] text-[var(--ink-dim)] leading-relaxed">
                 Scan job postings, recruiter messages, payment requests, company information, and URLs with plain-language explanations.
               </p>
 
@@ -296,15 +296,15 @@ function Auth() {
                   "120,000+ Evidence Scans Evaluated",
                   "Encrypted & No Personal Data Sold",
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3 p-3 border border-[var(--paper)]/15 bg-[var(--paper)]/5">
+                  <div key={idx} className="flex items-center gap-3 p-3.5 border border-[var(--line)] bg-[var(--panel)]">
                     <CheckCircle2 className="w-4 h-4 text-[var(--verified)] flex-shrink-0" />
-                    <span className="font-mono text-[12px] text-white tracking-wide">{item}</span>
+                    <span className="font-mono text-[12px] text-[var(--ink)] tracking-wide">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="pt-8 border-t border-[var(--paper)]/15 text-[11px] font-mono text-[#A2A6B0] flex justify-between items-center relative z-10">
+            <div className="pt-8 border-t border-[var(--line)] text-[11px] font-mono text-[var(--ink-dim)] flex justify-between items-center relative z-10">
               <span>ScamShield Security v2.5</span>
               <span>256-Bit SSL</span>
             </div>
