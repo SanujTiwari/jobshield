@@ -44,9 +44,11 @@ function Navbar() {
   const navLinks = [
     { path: '/', label: 'Home', icon: Home },
     { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
-    { path: '/analyze', label: 'Scanner', icon: Plus },
+    { path: '/scanner', label: 'Scanner', icon: Plus },
     { path: '/history', label: 'History', icon: FileCheck },
-    { path: '/resume-match', label: 'Resume Match', icon: FileCheck },
+    { path: '/safety-center', label: 'Safety Center', icon: Shield },
+    { path: '/report-scam', label: 'Report Scam', icon: Flag },
+    ...(user?.role === 'admin' ? [{ path: '/admin', label: 'Admin Console', icon: Shield }] : []),
   ];
 
   return (
