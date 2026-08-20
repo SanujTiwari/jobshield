@@ -234,20 +234,12 @@ export default function Landing() {
   }, []);
 
   const handleGetStarted = () => {
-    if (isLoggedIn) {
-      navigate("/analyze");
-    } else {
-      navigate("/auth");
-    }
+    navigate("/auth");
   };
 
   const handleScanSubmit = (e) => {
     e.preventDefault();
-    if (isLoggedIn) {
-      navigate("/analyze", { state: { initialScan: scanInput } });
-    } else {
-      navigate("/auth", { state: { initialScan: scanInput } });
-    }
+    navigate("/auth", { state: { initialScan: scanInput } });
   };
 
   return (
@@ -279,7 +271,7 @@ export default function Landing() {
             onClick={handleGetStarted}
             className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-4 py-2.5 hover:bg-[var(--verified)] transition-colors flex items-center gap-1.5 cursor-pointer"
           >
-            {isLoggedIn ? "Go to Dashboard" : "Get started"} <ArrowRight className="w-3.5 h-3.5" />
+            Get started <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </header>
