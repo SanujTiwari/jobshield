@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Shield, Settings, LogOut, ChevronDown, Menu, X, BarChart3, Plus, FileCheck, Home } from "lucide-react";
+import { Shield, Flag, Settings, LogOut, ChevronDown, Menu, X, BarChart3, Plus, FileCheck, Home } from "lucide-react";
 import { getUserProfile } from "../services/authService";
 import { useTheme } from "../context/ThemeContext";
 import SettingsModal from "./SettingsModal";

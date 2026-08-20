@@ -7,6 +7,9 @@ import Dashboard from "./pages/Dashboard";
 import AnalyzeJob from "./pages/AnalyzeJob";
 import Scanner from "./pages/Scanner";
 import History from "./pages/History";
+import ReportScam from "./pages/ReportScam";
+import AdminDashboard from "./pages/AdminDashboard";
+import SafetyCenter from "./pages/SafetyCenter";
 import ResumeMatch from "./pages/ResumeMatch";
 
 function App() {
@@ -46,6 +49,9 @@ function App() {
         <Route path="/analyze" element={<AnalyzeJob />} />
         <Route path="/scanner" element={<Scanner />} />
         <Route path="/history" element={<History />} />
+        <Route path="/report-scam" element={<ReportScam />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/safety-center" element={<SafetyCenter />} />
         <Route path="/resume-match" element={<ResumeMatch />} />
       </Routes>
     </BrowserRouter>
