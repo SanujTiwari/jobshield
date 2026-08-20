@@ -161,13 +161,12 @@ function Navbar() {
               >
                 Sign In &rarr;
               </button>
-            )}
             </div>
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="md:hidden p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+              className="md:hidden p-2 border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)]"
             >
               {showMobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -176,7 +175,7 @@ function Navbar() {
 
         {/* Mobile Menu */}
         {showMobileMenu && (
-          <div className="md:hidden py-3 border-t border-slate-200 dark:border-slate-700 animate-slide-up">
+          <div className="md:hidden py-3 border-t border-[var(--line)] space-y-1 bg-[var(--paper)]">
             {navLinks.map(link => {
               const Icon = link.icon;
               const isActive = location.pathname === link.path;
@@ -184,10 +183,10 @@ function Navbar() {
                 <button
                   key={link.path}
                   onClick={() => { navigate(link.path); setShowMobileMenu(false); }}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest ${
                     isActive
-                      ? 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400'
-                      : 'text-slate-600 dark:text-slate-400'
+                      ? 'bg-[var(--ink)] text-[var(--paper)] font-semibold'
+                      : 'text-[var(--ink-dim)] hover:text-[var(--ink)]'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -195,32 +194,33 @@ function Navbar() {
                 </button>
               );
             })}
-            {user && (
-              <div className="mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                <div className="px-4 py-2">
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white">{user.name}</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">{user.email}</p>
+            {isAuthenticated ? (
+              <div className="mt-2 pt-2 border-t border-[var(--line)] space-y-1">
+                <div className="px-4 py-2 bg-[var(--panel)] border border-[var(--line)] mx-2">
+                  <p className="font-display font-semibold text-xs text-[var(--ink)]">{user?.name}</p>
+                  <p className="font-mono text-[10px] text-[var(--ink-dim)] truncate">{user?.email}</p>
                 </div>
                 <button
-                  onClick={() => { setShowMobileMenu(false); setIsSettingsOpen(true); }}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300"
-                >
-                  <Settings className="w-4 h-4 text-slate-400" />
-                  Appearance Settings
-                </button>
-                <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-rose-600 dark:text-rose-400"
+                  className="w-full flex items-center gap-3 px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-[var(--flag)] hover:bg-[var(--flag-bg)]"
                 >
                   <LogOut className="w-4 h-4" />
                   Sign Out
+                </button>
+              </div>
+            ) : (
+              <div className="p-2">
+                <button
+                  onClick={() => { setShowMobileMenu(false); navigate('/auth'); }}
+                  className="w-full font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] py-2.5"
+                >
+                  Sign In &rarr;
                 </button>
               </div>
             )}
           </div>
         )}
       </div>
-      <SettingsModal />
     </nav>
   );
 }
