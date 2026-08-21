@@ -450,22 +450,38 @@ html {
 }
 
 :root {
-  --paper: #F7F7F3;
+  --paper: #FAFAFA;
   --panel: #FFFFFF;
-  --ink: #16181D;
-  --ink-dim: #5B5F68;
-  --line: #E1DFD5;
-  --verified: #0E6B55;
-  --verified-bg: #E7F1EC;
-  --flag: #B3402A;
-  --flag-bg: #F7E9E4;
-  --caution: #9C6B12;
-  --caution-bg: #F3ECDA;
+  --ink: #0F172A;
+  --ink-dim: #64748B;
+  --line: #E2E8F0;
+  --verified: #059669;
+  --verified-bg: #ECFDF5;
+  --flag: #E11D48;
+  --flag-bg: #FFF1F2;
+  --caution: #D97706;
+  --caution-bg: #FFFBEB;
+}
+
+.dark {
+  --paper: #0B0F19;
+  --panel: #111827;
+  --ink: #F8FAFC;
+  --ink-dim: #94A3B8;
+  --line: #1E293B;
+  --verified: #10B981;
+  --verified-bg: rgba(16, 185, 129, 0.12);
+  --flag: #F43F5E;
+  --flag-bg: rgba(244, 63, 94, 0.12);
+  --caution: #F59E0B;
+  --caution-bg: rgba(245, 158, 11, 0.12);
 }
 
 body {
-  background-color: var(--paper, #F7F7F3);
-  color: var(--ink, #16181D);
+  background-color: var(--paper, #FAFAFA);
+  color: var(--ink, #0F172A);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Custom Scrollbar */
