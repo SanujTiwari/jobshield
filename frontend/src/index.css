@@ -449,6 +449,18 @@ html {
   scroll-behavior: smooth;
 }
 
+.font-display {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.font-sans {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
 :root {
   --paper: #05070B;
   --panel: #0B111A;
@@ -488,6 +500,7 @@ html {
 body {
   background-color: var(--paper, #05070B);
   color: var(--ink, #F8FAFC);
+  font-family: 'Inter', sans-serif;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
 }
