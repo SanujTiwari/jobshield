@@ -9,7 +9,6 @@ import {
   CreditCard,
   UserCheck,
   Globe,
-  Filter,
   ShieldAlert,
   ArrowRight,
 } from "lucide-react";
@@ -114,10 +113,10 @@ export default function History() {
   };
 
   const getScanTypeIcon = (type) => {
-    if (type === "message") return <MessageSquare className="w-4 h-4 text-blue-600" />;
-    if (type === "payment") return <CreditCard className="w-4 h-4 text-amber-600" />;
-    if (type === "recruiter") return <UserCheck className="w-4 h-4 text-purple-600" />;
-    if (type === "url") return <Globe className="w-4 h-4 text-emerald-600" />;
+    if (type === "message") return <MessageSquare className="w-4 h-4 text-blue-500" />;
+    if (type === "payment") return <CreditCard className="w-4 h-4 text-amber-500" />;
+    if (type === "recruiter") return <UserCheck className="w-4 h-4 text-indigo-500" />;
+    if (type === "url") return <Globe className="w-4 h-4 text-emerald-500" />;
     return <Briefcase className="w-4 h-4 text-[var(--ink)]" />;
   };
 
@@ -131,36 +130,39 @@ export default function History() {
     return data.title || "Scam Analysis Case File";
   };
 
-  if (isLoading) return <LoadingSpinner message="Loading Scan History..." />;
+  if (isLoading) return <LoadingSpinner message="Loading History..." />;
 
   return (
-    <div className="js-root min-h-screen bg-[var(--paper)]">
+    <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)] font-sans transition-colors duration-300">
       <Navbar />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--line)] pb-6">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)]">
-              Archived Case Files
-            </span>
-            <h1 className="font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--ink)] mt-1">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/20 bg-indigo-500/5 shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400" />
+              <span className="font-sans text-[10px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold">
+                Archives
+              </span>
+            </div>
+            <h1 className="font-display font-bold text-3xl tracking-tight text-[var(--ink)] mt-2">
               Scan History
             </h1>
-            <p className="text-[var(--ink-dim)] text-[14px] mt-1">
-              Inspect past scam verdicts, risk factors, and exported reports.
+            <p className="text-[var(--ink-dim)] text-xs mt-1 font-semibold">
+              Inspect historical risk assessments, explainable results, and reports.
             </p>
           </div>
 
           <button
             onClick={() => navigate("/scanner")}
-            className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-2.5 hover:bg-[var(--verified)] transition-colors flex items-center gap-1.5 cursor-pointer"
+            className="font-sans text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
           >
             New Scan <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
         {/* Filter Controls */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-[var(--panel)] p-4 border border-[var(--line)]">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-[var(--panel)] p-4 rounded-2xl border border-[var(--line)] shadow-sm">
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-[var(--ink-dim)] absolute left-3.5 top-3" />
             <input
@@ -168,7 +170,7 @@ export default function History() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search history by keyword or sender..."
-              className="w-full pl-10 pr-4 py-2 text-[13px] bg-[var(--paper)] border border-[var(--line)] focus:border-[var(--ink)] outline-none"
+              className="w-full pl-10 pr-4 py-2.5 text-[13px] rounded-xl bg-[var(--panel-secondary)] border border-[var(--line)] focus:border-indigo-500 text-[var(--ink)] outline-none"
             />
           </div>
 
@@ -176,7 +178,7 @@ export default function History() {
             <select
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
-              className="px-3 py-2 font-mono text-[11px] uppercase tracking-wider bg-[var(--paper)] border border-[var(--line)] text-[var(--ink)] outline-none"
+              className="px-3.5 py-2 rounded-xl font-sans text-xs font-semibold bg-[var(--panel-secondary)] border border-[var(--line)] text-[var(--ink)] outline-none cursor-pointer"
             >
               <option value="all">All Types</option>
               <option value="job">Jobs</option>
@@ -189,7 +191,7 @@ export default function History() {
             <select
               value={levelFilter}
               onChange={(e) => setLevelFilter(e.target.value)}
-              className="px-3 py-2 font-mono text-[11px] uppercase tracking-wider bg-[var(--paper)] border border-[var(--line)] text-[var(--ink)] outline-none"
+              className="px-3.5 py-2 rounded-xl font-sans text-xs font-semibold bg-[var(--panel-secondary)] border border-[var(--line)] text-[var(--ink)] outline-none cursor-pointer"
             >
               <option value="all">All Risk Levels</option>
               <option value="critical">Critical Risk</option>
@@ -200,34 +202,34 @@ export default function History() {
           </div>
         </div>
 
-        {/* Scans Table / List */}
+        {/* Scans list */}
         {filteredScans.length > 0 ? (
-          <div className="border border-[var(--line)] bg-[var(--panel)] divide-y divide-[var(--line)]">
+          <div className="border border-[var(--line)] bg-[var(--panel)] rounded-2xl divide-y divide-[var(--line)] overflow-hidden shadow-sm">
             {filteredScans.map((scan) => {
               const score = scan.risk_score || scan.riskScore || 0;
               const level = scan.risk_level || scan.riskLevel || "Low Risk";
               const type = scan.scan_type || scan.scanType || "job";
 
               return (
-                <div key={scan.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-[var(--paper)]/50 transition-colors">
+                <div key={scan.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-[var(--panel-secondary)]/50 transition-colors">
                   <div className="flex items-start gap-4 flex-1">
-                    <div className="p-2.5 border border-[var(--line)] bg-[var(--paper)] flex-shrink-0 mt-0.5">
+                    <div className="p-2.5 rounded-xl border border-[var(--line)] bg-[var(--panel-secondary)] flex-shrink-0 mt-0.5">
                       {getScanTypeIcon(type)}
                     </div>
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)] border border-[var(--line)] px-2 py-0.5 bg-[var(--paper)]">
+                        <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-[var(--ink-dim)] border border-[var(--line)] px-2 py-0.5 rounded-md bg-[var(--panel-secondary)]">
                           {type}
                         </span>
-                        <span className="font-mono text-[11px] text-[var(--ink-dim)]">
+                        <span className="font-sans text-[10px] text-[var(--ink-dim)]">
                           {new Date(scan.created_at || Date.now()).toLocaleString()}
                         </span>
                       </div>
-                      <h3 className="font-display font-semibold text-[16px] text-[var(--ink)]">
+                      <h3 className="font-display font-semibold text-[15px] text-[var(--ink)]">
                         {getTitle(scan)}
                       </h3>
                       {scan.ai_explanation && (
-                        <p className="text-[13px] text-[var(--ink-dim)] line-clamp-1 max-w-xl">
+                        <p className="text-xs text-[var(--ink-dim)] line-clamp-1 max-w-xl leading-relaxed">
                           {scan.ai_explanation}
                         </p>
                       )}
@@ -236,38 +238,38 @@ export default function History() {
 
                   <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 border-[var(--line)] pt-3 sm:pt-0">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-[11px] font-bold text-[var(--ink)]">{score}/100</span>
-                      <span className={`font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 font-bold border ${
-                        score >= 81 ? "border-[var(--flag)] bg-[var(--flag-bg)] text-[var(--flag)]" :
-                        score >= 61 ? "border-rose-500 bg-rose-50 text-rose-600" :
-                        score >= 41 ? "border-[var(--caution)] bg-[var(--caution-bg)] text-[var(--caution)]" :
-                        "border-[var(--verified)] bg-[var(--verified-bg)] text-[var(--verified)]"
+                      <span className="font-sans text-xs font-bold text-[var(--ink)]">{score}/100</span>
+                      <span className={`font-sans text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${
+                        score >= 81 ? "badge-flag" :
+                        score >= 61 ? "badge-flag" :
+                        score >= 41 ? "badge-caution" :
+                        "badge-verified"
                       }`}>
                         {level}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       <button
                         onClick={() => setSelectedScan(scan)}
-                        className="p-2 border border-[var(--line)] hover:border-[var(--ink)] text-[var(--ink)] transition-colors cursor-pointer"
+                        className="p-2 rounded-lg border border-[var(--line)] hover:bg-[var(--panel-secondary)] text-[var(--ink)] transition-colors cursor-pointer"
                         title="View Case File Details"
                       >
-                        <Eye className="w-4 h-4" />
+                        <Eye className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => generateAnalysisPDF(scan)}
-                        className="p-2 border border-[var(--line)] hover:border-[var(--ink)] text-[var(--ink)] transition-colors cursor-pointer"
+                        className="p-2 rounded-lg border border-[var(--line)] hover:bg-[var(--panel-secondary)] text-[var(--ink)] transition-colors cursor-pointer"
                         title="Export PDF Report"
                       >
-                        <FileText className="w-4 h-4" />
+                        <FileText className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDelete(scan.id)}
-                        className="p-2 border border-[var(--line)] hover:border-[var(--flag)] text-[var(--flag)] transition-colors cursor-pointer"
+                        className="p-2 rounded-lg border border-[var(--line)] hover:bg-red-500/10 text-red-500 transition-colors cursor-pointer"
                         title="Delete Record"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
@@ -276,10 +278,10 @@ export default function History() {
             })}
           </div>
         ) : (
-          <div className="p-12 border border-dashed border-[var(--line)] bg-[var(--panel)] text-center space-y-3">
+          <div className="p-12 rounded-2xl border border-dashed border-[var(--line)] bg-[var(--panel)] text-center space-y-3 shadow-xs">
             <ShieldAlert className="w-10 h-10 text-[var(--ink-dim)] mx-auto" />
-            <h3 className="font-display font-semibold text-lg text-[var(--ink)]">No History Records Found</h3>
-            <p className="text-[13.5px] text-[var(--ink-dim)] max-w-sm mx-auto">
+            <h3 className="font-display font-semibold text-lg text-[var(--ink)]">No historical records found</h3>
+            <p className="text-xs text-[var(--ink-dim)] max-w-sm mx-auto">
               No historical scan entries match your filters.
             </p>
           </div>
@@ -288,7 +290,7 @@ export default function History() {
 
       {/* Selected Scan Modal */}
       {selectedScan && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-slate-950/40 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
           <div className="max-w-4xl w-full my-8">
             <RiskCard
               scan={selectedScan}

@@ -208,11 +208,11 @@ export default function ResumeMatch() {
   const getScoreColor = (score) => {
     if (score >= 80) return "text-emerald-500";
     if (score >= 50) return "text-amber-500";
-    return "text-rose-500";
+    return "text-red-500";
   };
 
   return (
-    <div className="js-root min-h-screen bg-[var(--paper)]">
+    <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)] font-sans transition-colors duration-300">
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
@@ -220,23 +220,26 @@ export default function ResumeMatch() {
         {/* Page Title & Tabs */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[var(--line)] pb-6">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)]">
-              Candidate Compatibility Engine
-            </span>
-            <h1 className="font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--ink)] mt-1">
-              Resume Matching Engine
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/20 bg-indigo-500/5 shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400" />
+              <span className="font-sans text-[10px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold">
+                Compatibility Engine
+              </span>
+            </div>
+            <h1 className="font-display font-bold text-3xl tracking-tight text-[var(--ink)] mt-2">
+              Resume Matching
             </h1>
-            <p className="text-[var(--ink-dim)] text-[14px] mt-1">
+            <p className="text-[var(--ink-dim)] text-xs mt-1 font-semibold">
               Identify missing skills, tailor applications, and structure skill upgrade paths.
             </p>
           </div>
 
-          <div className="flex bg-[var(--panel)] p-1 border border-[var(--line)]">
+          <div className="flex bg-[var(--panel)] p-1 border border-[var(--line)] rounded-full">
             <button
               onClick={() => setActiveTab("new")}
-              className={`px-4 py-2 font-mono text-[11px] uppercase tracking-wider transition-colors cursor-pointer ${
+              className={`px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === "new"
-                  ? "bg-[var(--ink)] text-[var(--paper)] font-semibold"
+                  ? "bg-indigo-600 text-white shadow-xs"
                   : "text-[var(--ink-dim)] hover:text-[var(--ink)]"
               }`}
             >
@@ -244,9 +247,9 @@ export default function ResumeMatch() {
             </button>
             <button
               onClick={() => setActiveTab("history")}
-              className={`px-4 py-2 font-mono text-[11px] uppercase tracking-wider transition-colors cursor-pointer ${
+              className={`px-4 py-2 rounded-full font-sans text-xs font-semibold transition-all cursor-pointer ${
                 activeTab === "history"
-                  ? "bg-[var(--ink)] text-[var(--paper)] font-semibold"
+                  ? "bg-indigo-600 text-white shadow-xs"
                   : "text-[var(--ink-dim)] hover:text-[var(--ink)]"
               }`}
             >
@@ -264,28 +267,28 @@ export default function ResumeMatch() {
               {result && (
                 <button
                   onClick={() => setResult(null)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white shadow-sm transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--panel)] border border-[var(--line)] rounded-lg text-xs font-semibold text-[var(--ink-dim)] hover:text-[var(--ink)] shadow-xs transition-all cursor-pointer"
                 >
                   <Undo2 className="w-3.5 h-3.5" />
                   New Analysis
                 </button>
               )}
 
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden transition-all duration-300">
+              <div className="bg-[var(--panel)] border border-[var(--line)] rounded-2xl p-6 shadow-sm relative overflow-hidden transition-all duration-300">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   
                   {/* Job Source Selector */}
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center justify-between">
+                  <div className="space-y-2.5">
+                    <label className="text-xs font-bold text-[var(--ink-dim)] uppercase tracking-wider flex items-center justify-between">
                       Target Job Details
-                      <div className="flex gap-2 text-xs font-normal">
+                      <div className="flex gap-2 text-[10px] font-bold uppercase tracking-wider">
                         <button
                           type="button"
                           onClick={() => setJobSource("history")}
-                          className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+                          className={`px-2 py-0.5 rounded-md transition-all cursor-pointer border ${
                             jobSource === "history"
-                              ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold"
-                              : "text-slate-400"
+                              ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+                              : "border-transparent text-[var(--ink-dim)]"
                           }`}
                         >
                           Scanned History
@@ -293,10 +296,10 @@ export default function ResumeMatch() {
                         <button
                           type="button"
                           onClick={() => setJobSource("paste")}
-                          className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+                          className={`px-2 py-0.5 rounded-md transition-all cursor-pointer border ${
                             jobSource === "paste"
-                              ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold"
-                              : "text-slate-400"
+                              ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+                              : "border-transparent text-[var(--ink-dim)]"
                           }`}
                         >
                           Paste New
@@ -309,7 +312,7 @@ export default function ResumeMatch() {
                         value={selectedJobId}
                         onChange={(e) => setSelectedJobId(e.target.value)}
                         required
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-sm"
+                        className="w-full px-3.5 py-2.5 bg-[var(--panel-secondary)] border border-[var(--line)] rounded-xl text-[var(--ink)] focus:border-indigo-500 outline-none transition-all text-sm cursor-pointer"
                       >
                         <option value="">-- Choose a Scanned Job --</option>
                         {scannedJobs.map((j) => (
@@ -321,60 +324,60 @@ export default function ResumeMatch() {
                     ) : null}
                   </div>
 
-                  {/* Job Title and Company inputs (Disabled if source is history) */}
+                  {/* Job Title and Company inputs */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Job Title</label>
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-[var(--ink-dim)] uppercase tracking-wider">Job Title</label>
                       <input
                         type="text"
                         required
                         disabled={jobSource === "history"}
                         value={formData.jobTitle}
                         onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 disabled:opacity-75 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-sm"
-                        placeholder="e.g. Senior Software Engineer"
+                        className="w-full px-3.5 py-2.5 bg-[var(--panel-secondary)] border border-[var(--line)] rounded-xl text-[var(--ink)] placeholder-[var(--ink-dim)]/40 disabled:opacity-60 focus:border-indigo-500 outline-none transition-all text-sm"
+                        placeholder="e.g. Software Engineer"
                       />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Company</label>
+                    <div className="space-y-1.5">
+                      <label className="text-[10px] font-bold text-[var(--ink-dim)] uppercase tracking-wider">Company</label>
                       <input
                         type="text"
                         required
                         disabled={jobSource === "history"}
                         value={formData.companyName}
                         onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 disabled:opacity-75 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-sm"
+                        className="w-full px-3.5 py-2.5 bg-[var(--panel-secondary)] border border-[var(--line)] rounded-xl text-[var(--ink)] placeholder-[var(--ink-dim)]/40 disabled:opacity-60 focus:border-indigo-500 outline-none transition-all text-sm"
                         placeholder="e.g. Acme Corp"
                       />
                     </div>
                   </div>
 
                   {/* Job Description */}
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Job Description</label>
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold text-[var(--ink-dim)] uppercase tracking-wider">Job Description</label>
                     <textarea
                       required
                       disabled={jobSource === "history"}
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       rows={result ? 4 : 6}
-                      className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 disabled:opacity-75 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-sm resize-y"
+                      className="w-full px-4 py-3 bg-[var(--panel-secondary)] border border-[var(--line)] rounded-xl text-[var(--ink)] placeholder-[var(--ink-dim)]/40 disabled:opacity-60 focus:border-indigo-500 outline-none transition-all text-sm resize-y leading-relaxed"
                       placeholder="Paste the full job description details..."
                     />
                   </div>
 
                   {/* Resume Upload Selector */}
-                  <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-                    <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center justify-between">
+                  <div className="space-y-2.5 pt-4 border-t border-[var(--line)]">
+                    <label className="text-xs font-bold text-[var(--ink-dim)] uppercase tracking-wider flex items-center justify-between">
                       Your Resume
-                      <div className="flex gap-2 text-xs font-normal">
+                      <div className="flex gap-2 text-[10px] font-bold uppercase tracking-wider">
                         <button
                           type="button"
                           onClick={() => setResumeSource("upload")}
-                          className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+                          className={`px-2 py-0.5 rounded-md transition-all cursor-pointer border ${
                             resumeSource === "upload"
-                              ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold"
-                              : "text-slate-400"
+                              ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+                              : "border-transparent text-[var(--ink-dim)]"
                           }`}
                         >
                           Upload PDF
@@ -382,10 +385,10 @@ export default function ResumeMatch() {
                         <button
                           type="button"
                           onClick={() => setResumeSource("paste")}
-                          className={`px-2.5 py-1 rounded-md transition-all cursor-pointer ${
+                          className={`px-2 py-0.5 rounded-md transition-all cursor-pointer border ${
                             resumeSource === "paste"
-                              ? "bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold"
-                              : "text-slate-400"
+                              ? "bg-indigo-500/10 border-indigo-500/20 text-indigo-600 dark:text-indigo-400"
+                              : "border-transparent text-[var(--ink-dim)]"
                           }`}
                         >
                           Paste Text
@@ -394,20 +397,20 @@ export default function ResumeMatch() {
                     </label>
 
                     {resumeSource === "upload" ? (
-                      <div className="relative group border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-6 flex flex-col items-center justify-center hover:border-indigo-500 dark:hover:border-indigo-500/50 transition-all bg-slate-50/50 dark:bg-slate-950/20">
+                      <div className="relative group border border-dashed border-[var(--line)] rounded-xl p-6 flex flex-col items-center justify-center hover:border-indigo-500 transition-all bg-[var(--panel-secondary)]/30">
                         <input
                           type="file"
                           accept=".pdf,.txt"
                           onChange={handleFileChange}
                           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
                         />
-                        <div className="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2">
+                        <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2 shadow-xs">
                           <Upload className="w-5 h-5" />
                         </div>
-                        <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                        <p className="text-sm font-semibold text-[var(--ink)]">
                           {file ? file.name : "Select Resume File"}
                         </p>
-                        <p className="text-[10px] text-slate-400 uppercase tracking-widest mt-1">
+                        <p className="text-[9px] text-[var(--ink-dim)] font-bold uppercase tracking-wider mt-1.5">
                           PDF or TXT (Max 4MB)
                         </p>
                       </div>
@@ -417,7 +420,7 @@ export default function ResumeMatch() {
                         value={formData.resumeText}
                         onChange={(e) => setFormData({ ...formData, resumeText: e.target.value })}
                         rows={result ? 6 : 8}
-                        className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all text-sm resize-y"
+                        className="w-full px-4 py-3 bg-[var(--panel-secondary)] border border-[var(--line)] rounded-xl text-[var(--ink)] placeholder-[var(--ink-dim)]/40 focus:border-indigo-500 outline-none transition-all text-sm resize-y leading-relaxed"
                         placeholder="Paste your plain text resume here..."
                       />
                     )}
@@ -427,11 +430,11 @@ export default function ResumeMatch() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full py-3.5 px-4 bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 text-white rounded-xl font-bold shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                   >
                     {isLoading ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                         Analyzing Fit...
                       </>
                     ) : (
@@ -451,12 +454,12 @@ export default function ResumeMatch() {
               <div className="lg:col-span-7 space-y-6 animate-scale-in">
                 
                 {/* Score gauge & Summary */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row items-center gap-6">
+                <div className="bg-[var(--panel)] border border-[var(--line)] rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center gap-6">
                   
                   {/* Gauge */}
                   <div className="relative w-36 h-36 flex-shrink-0">
                     <svg className="w-36 h-36 -rotate-90" viewBox="0 0 120 120">
-                      <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" strokeWidth="8" className="text-slate-100 dark:text-slate-800" />
+                      <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" strokeWidth="8" className="text-[var(--panel-secondary)]" />
                       <circle cx="60" cy="60" r="52" fill="none" strokeWidth="8"
                         className={getScoreColor(result.compatibility_score)}
                         strokeDasharray={`${(result.compatibility_score / 100) * 326.7} 326.7`}
@@ -466,40 +469,40 @@ export default function ResumeMatch() {
                       <span className={`text-4xl font-bold ${getScoreColor(result.compatibility_score)}`}>
                         {result.compatibility_score}%
                       </span>
-                      <span className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Match</span>
+                      <span className="text-[9px] text-[var(--ink-dim)] uppercase tracking-wider font-bold">Match</span>
                     </div>
                   </div>
 
                   {/* Summary */}
-                  <div className="flex-1 space-y-2">
+                  <div className="flex-1 space-y-2 w-full">
                     <div className="flex items-center gap-2">
                       <Briefcase className="w-5 h-5 text-indigo-500" />
-                      <h3 className="font-bold text-slate-900 dark:text-white">
+                      <h3 className="font-bold text-[var(--ink)]">
                         {result.job_title} Match Summary
                       </h3>
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-950/40 p-4 border border-slate-100 dark:border-slate-800 rounded-xl">
+                    <p className="text-xs text-[var(--ink-dim)] leading-relaxed bg-[var(--panel-secondary)]/50 p-4 border border-[var(--line)] rounded-xl">
                       {result.match_summary}
                     </p>
                   </div>
                 </div>
 
                 {/* Gaps: Missing Skills */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                  <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-                    <AlertCircle className="w-5 h-5 text-rose-500" />
-                    <h3 className="font-bold text-slate-900 dark:text-white">Missing Target Skills</h3>
+                <div className="bg-[var(--panel)] border border-[var(--line)] rounded-2xl p-6 shadow-sm space-y-4">
+                  <div className="flex items-center gap-2 border-b border-[var(--line)] pb-3">
+                    <AlertCircle className="w-5 h-5 text-red-500" />
+                    <h3 className="font-bold text-[var(--ink)]">Missing Target Skills</h3>
                   </div>
                   {result.missing_skills?.length > 0 ? (
                     <div className="flex flex-wrap gap-2">
                       {result.missing_skills.map((skill, i) => (
-                        <span key={i} className="px-3 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 text-xs font-bold border border-rose-100 dark:border-rose-500/10">
+                        <span key={i} className="px-3 py-1.5 rounded-lg bg-red-500/5 dark:bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-bold border border-red-500/10">
                           {skill}
                         </span>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-emerald-600 font-medium flex items-center gap-2">
+                    <p className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4" />
                       Incredible! Your resume covers all core technical skills requested in this posting.
                     </p>
@@ -507,15 +510,15 @@ export default function ResumeMatch() {
                 </div>
 
                 {/* Recommendations checklist */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                  <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div className="bg-[var(--panel)] border border-[var(--line)] rounded-2xl p-6 shadow-sm space-y-4">
+                  <div className="flex items-center gap-2 border-b border-[var(--line)] pb-3">
                     <FileCheck className="w-5 h-5 text-indigo-500" />
-                    <h3 className="font-bold text-slate-900 dark:text-white">Resume Tailoring Checklist</h3>
+                    <h3 className="font-bold text-[var(--ink)]">Resume Tailoring Checklist</h3>
                   </div>
                   <ul className="space-y-3.5">
                     {result.improvement_tips?.map((tip, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-slate-600 dark:text-slate-300 items-start">
-                        <div className="w-5 h-5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold text-xs mt-0.5">
+                      <li key={i} className="flex gap-3 text-xs text-[var(--ink)] items-start leading-relaxed">
+                        <div className="w-5 h-5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center flex-shrink-0 font-bold text-[10px] mt-0.5 border border-indigo-500/20">
                           {i + 1}
                         </div>
                         <span>{tip}</span>
@@ -525,18 +528,18 @@ export default function ResumeMatch() {
                 </div>
 
                 {/* Learning Paths */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-                  <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div className="bg-[var(--panel)] border border-[var(--line)] rounded-2xl p-6 shadow-sm space-y-4">
+                  <div className="flex items-center gap-2 border-b border-[var(--line)] pb-3">
                     <GraduationCap className="w-5 h-5 text-indigo-500" />
-                    <h3 className="font-bold text-slate-900 dark:text-white">Personalized Skill Upgrades</h3>
+                    <h3 className="font-bold text-[var(--ink)]">Personalized Skill Upgrades</h3>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {result.learning_path?.map((path, i) => (
-                      <div key={i} className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/20 space-y-2">
-                        <h4 className="font-bold text-slate-800 dark:text-slate-200 text-sm">{path.skill}</h4>
+                      <div key={i} className="p-4 rounded-xl border border-[var(--line)] bg-[var(--panel-secondary)]/40 space-y-2">
+                        <h4 className="font-bold text-[var(--ink)] text-xs">{path.skill}</h4>
                         <div className="space-y-1">
                           {path.resources?.map((res, idx) => (
-                            <p key={idx} className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                            <p key={idx} className="text-[11px] text-[var(--ink-dim)] flex items-center gap-1 leading-relaxed">
                               <ChevronRight className="w-3 h-3 text-indigo-500 flex-shrink-0" />
                               {res}
                             </p>
@@ -555,28 +558,28 @@ export default function ResumeMatch() {
 
         {/* Tab 2: Match History */}
         {activeTab === "history" && (
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden animate-fade-in">
+          <div className="bg-[var(--panel)] border border-[var(--line)] rounded-2xl shadow-sm overflow-hidden animate-fade-in">
             {isHistoryLoading ? (
               <div className="py-20 flex justify-center">
                 <div className="w-10 h-10 border-4 border-indigo-500/20 border-t-indigo-600 rounded-full animate-spin" />
               </div>
             ) : matchHistory.length > 0 ? (
-              <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              <div className="divide-y divide-[var(--line)]">
                 {matchHistory.map((m) => (
                   <div
                     key={m.id}
                     onClick={() => handleLoadMatch(m.id)}
-                    className="p-5 flex items-center justify-between hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-all cursor-pointer group"
+                    className="p-5 flex items-center justify-between hover:bg-[var(--panel-secondary)]/50 transition-all cursor-pointer group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                      <div className="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                         <FileCheck className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        <h3 className="font-bold text-[var(--ink)] group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                           {m.job_title}
                         </h3>
-                        <div className="flex items-center gap-3 text-xs text-slate-400 mt-1 font-medium">
+                        <div className="flex items-center gap-3 text-xs text-[var(--ink-dim)] mt-1 font-semibold">
                           <span className="flex items-center gap-1">
                             <Building2 className="w-3.5 h-3.5" />
                             {m.company_name}
@@ -594,11 +597,11 @@ export default function ResumeMatch() {
                         <p className={`text-lg font-black ${getScoreColor(m.compatibility_score)}`}>
                           {m.compatibility_score}%
                         </p>
-                        <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Match Score</p>
+                        <p className="text-[9px] text-[var(--ink-dim)] uppercase tracking-wider font-bold">Match Score</p>
                       </div>
                       <button
                         onClick={(e) => handleDeleteMatch(m.id, e)}
-                        className="p-2 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/10 transition-all"
+                        className="p-2 rounded-lg text-[var(--ink-dim)] hover:text-red-500 hover:bg-red-500/10 transition-all cursor-pointer"
                         title="Delete Report"
                       >
                         <Trash2 className="w-4.5 h-4.5" />
@@ -609,18 +612,18 @@ export default function ResumeMatch() {
               </div>
             ) : (
               <div className="py-20 text-center max-w-sm mx-auto space-y-4">
-                <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 rounded-full bg-[var(--panel-secondary)] text-[var(--ink-dim)] flex items-center justify-center mx-auto border border-[var(--line)]">
                   <FileText className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 dark:text-white">No matches analyzed yet</h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                  <h3 className="font-bold text-[var(--ink)]">No matches analyzed yet</h3>
+                  <p className="text-xs text-[var(--ink-dim)] mt-1 leading-relaxed">
                     Compare your resume with your target job description to verify compatibility scores.
                   </p>
                 </div>
                 <button
                   onClick={() => setActiveTab("new")}
-                  className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md transition-all inline-flex items-center gap-1.5 cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md transition-all inline-flex items-center gap-1.5 cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   Analyze a Resume

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -55,21 +55,24 @@ export default function Scanner() {
   };
 
   return (
-    <div className="js-root min-h-screen bg-[var(--paper)]">
-      {isLoading && <LoadingSpinner message="ScamShield AI is analyzing evidence against threat database..." />}
+    <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)] font-sans transition-colors duration-300">
+      {isLoading && <LoadingSpinner message="Auditing indicators against threat database..." />}
       <Navbar />
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
         {/* Page Title Header */}
-        <div className="max-w-2xl mb-8 space-y-2">
-          <span className="font-mono text-[10px] uppercase tracking-widest border border-[var(--line)] px-2.5 py-1 text-[var(--ink-dim)]">
-            Evidence Intake Engine
-          </span>
-          <h1 className="font-display font-semibold text-3xl sm:text-4xl tracking-tight text-[var(--ink)]">
+        <div className="max-w-2xl mb-8 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/20 bg-indigo-500/5 shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse" />
+            <span className="font-sans text-[10px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold">
+              Verification Engine
+            </span>
+          </div>
+          <h1 className="font-display font-bold text-3xl sm:text-4xl tracking-tight text-[var(--ink)]">
             Multi-Type Scam Scanner
           </h1>
-          <p className="text-[var(--ink-dim)] text-[15px] leading-relaxed">
-            Select a scanner category below. ScamShield evaluates submitted details against rule sets, pattern indicators, and AI analysis.
+          <p className="text-[var(--ink-dim)] text-sm leading-relaxed">
+            Select a scanner category below. JobShield evaluates submitted details against rule sets, pattern indicators, and AI analysis.
           </p>
         </div>
 

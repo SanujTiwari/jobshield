@@ -152,11 +152,11 @@ function Dashboard() {
   };
 
   const getScanTypeIcon = (type) => {
-    if (type === "message") return <MessageSquare className="w-4 h-4 text-[#00D9FF]" />;
-    if (type === "payment") return <CreditCard className="w-4 h-4 text-amber-400" />;
-    if (type === "recruiter") return <UserCheck className="w-4 h-4 text-[#7C5CFC]" />;
-    if (type === "url") return <Globe className="w-4 h-4 text-[#00F5A0]" />;
-    return <Briefcase className="w-4 h-4 text-white" />;
+    if (type === "message") return <MessageSquare className="w-4 h-4 text-blue-500" />;
+    if (type === "payment") return <CreditCard className="w-4 h-4 text-amber-500" />;
+    if (type === "recruiter") return <UserCheck className="w-4 h-4 text-indigo-500" />;
+    if (type === "url") return <Globe className="w-4 h-4 text-emerald-500" />;
+    return <Briefcase className="w-4 h-4 text-[var(--ink)]" />;
   };
 
   const getTitle = (scan) => {
@@ -169,39 +169,42 @@ function Dashboard() {
     return data.title || "Scam Analysis Case File";
   };
 
-  if (isLoading) return <LoadingSpinner message="Loading Fraud Intelligence Console..." />;
+  if (isLoading) return <LoadingSpinner message="Loading Dashboard..." />;
 
   return (
-    <div className="min-h-screen bg-[#05070B] text-[#F8FAFC] selection:bg-[#00F5A0] selection:text-[#05070B]">
+    <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)] font-sans transition-colors duration-300">
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[var(--line)] pb-6">
           <div>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#00F5A0] font-bold">
-              AI Fraud Intelligence Unit
-            </span>
-            <h1 className="font-display font-bold text-3xl sm:text-4xl tracking-tight text-white mt-1">
-              Case File Dashboard
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/20 bg-indigo-500/5 shadow-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400" />
+              <span className="font-sans text-[10px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400 font-bold">
+                Fraud Telemetry
+              </span>
+            </div>
+            <h1 className="font-display font-bold text-3xl tracking-tight text-[var(--ink)] mt-2">
+              Case Dashboard
             </h1>
-            <p className="text-[#94A3B8] text-[14px] mt-1 font-normal">
-              Monitor real-time threat telemetry, scan distributions, and historical intake.
+            <p className="text-[var(--ink-dim)] text-xs mt-1 font-medium">
+              Monitor active threats, verify distributions, and check history.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={fetchData}
-              className="font-mono text-[11px] uppercase tracking-widest border border-white/10 bg-[#080C13] hover:border-white/20 px-4 py-2.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer text-white font-medium shadow-xs"
+              className="font-sans text-xs border border-[var(--line)] bg-[var(--panel)] hover:bg-[var(--panel-secondary)] px-4 py-2.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer text-[var(--ink)] font-bold shadow-xs"
             >
               <RefreshCcw className="w-3.5 h-3.5" /> Refresh
             </button>
             <button
               onClick={() => navigate("/scanner")}
-              className="font-mono text-[11px] uppercase tracking-widest bg-gradient-to-r from-[#00F5A0] to-[#00D9FF] text-[#05070B] px-5 py-2.5 rounded-xl hover:shadow-[0_0_20px_rgba(0,245,160,0.3)] transition-all flex items-center gap-1.5 cursor-pointer font-bold shadow-xs"
+              className="font-sans text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer font-bold shadow-xs"
             >
-              <Plus className="w-4 h-4" /> Execute Scan
+              <Plus className="w-4 h-4" /> Start Scan
             </button>
           </div>
         </div>
@@ -212,63 +215,63 @@ function Dashboard() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="p-5 rounded-2xl border border-white/10 bg-[#0B111A] space-y-2 shadow-xl"
+            className="p-5 rounded-2xl border border-[var(--line)] bg-[var(--panel)] space-y-2 shadow-sm"
           >
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#94A3B8] font-bold">Total Scans</span>
-              <Activity className="w-4 h-4 text-[#94A3B8]" />
+              <span className="font-sans text-[10px] uppercase tracking-wider text-[var(--ink-dim)] font-bold">Total Scans</span>
+              <Activity className="w-4 h-4 text-[var(--ink-dim)]" />
             </div>
-            <p className="font-mono text-3xl font-extrabold text-white">{stats.total}</p>
-            <p className="text-[12px] text-[#94A3B8]">Processed across all modules</p>
+            <p className="font-sans text-3xl font-extrabold text-[var(--ink)]">{stats.total}</p>
+            <p className="text-[11px] text-[var(--ink-dim)]">Processed profiles</p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.05 }}
-            className="p-5 rounded-2xl border border-rose-500/30 bg-rose-500/10 space-y-2 shadow-xl"
+            className="p-5 rounded-2xl border border-red-500/20 bg-red-500/5 space-y-2 shadow-sm"
           >
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-rose-400 font-extrabold">Critical Risk</span>
-              <ShieldAlert className="w-4 h-4 text-rose-400" />
+              <span className="font-sans text-[10px] uppercase tracking-wider text-red-600 dark:text-red-400 font-bold">Critical Risk</span>
+              <ShieldAlert className="w-4 h-4 text-red-500" />
             </div>
-            <p className="font-mono text-3xl font-extrabold text-rose-400">{stats.critical}</p>
-            <p className="text-[12px] text-rose-300 font-medium">Immediate caution required</p>
+            <p className="font-sans text-3xl font-extrabold text-red-600 dark:text-red-400">{stats.critical}</p>
+            <p className="text-[11px] text-red-500 dark:text-red-400/80 font-semibold">Immediate attention needed</p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            className="p-5 rounded-2xl border border-rose-400/20 bg-[#0B111A] space-y-2 shadow-xl"
+            className="p-5 rounded-2xl border border-[var(--line)] bg-[var(--panel)] space-y-2 shadow-sm"
           >
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-rose-400 font-extrabold">High Risk</span>
-              <AlertTriangle className="w-4 h-4 text-rose-400" />
+              <span className="font-sans text-[10px] uppercase tracking-wider text-amber-600 dark:text-amber-400 font-bold">High Risk</span>
+              <AlertTriangle className="w-4 h-4 text-amber-500" />
             </div>
-            <p className="font-mono text-3xl font-extrabold text-rose-400">{stats.high}</p>
-            <p className="text-[12px] text-rose-400 font-medium">High probability scam flags</p>
+            <p className="font-sans text-3xl font-extrabold text-amber-600 dark:text-amber-400">{stats.high}</p>
+            <p className="text-[11px] text-amber-600 dark:text-amber-400/80 font-semibold">High probability flags</p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.15 }}
-            className="p-5 rounded-2xl border border-[#00F5A0]/30 bg-[#00F5A0]/10 space-y-2 shadow-xl"
+            className="p-5 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 space-y-2 shadow-sm"
           >
             <div className="flex items-center justify-between">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-[#00F5A0] font-extrabold">Verified / Safe</span>
-              <CheckCircle className="w-4 h-4 text-[#00F5A0]" />
+              <span className="font-sans text-[10px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-bold">Verified / Safe</span>
+              <CheckCircle className="w-4 h-4 text-emerald-500" />
             </div>
-            <p className="font-mono text-3xl font-extrabold text-[#00F5A0]">{stats.safeLow}</p>
-            <p className="text-[12px] text-[#00F5A0] font-medium">Minimal threat profiles</p>
+            <p className="font-sans text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">{stats.safeLow}</p>
+            <p className="text-[11px] text-emerald-600 dark:text-emerald-400/80 font-semibold">Verified legit records</p>
           </motion.div>
         </div>
 
         {/* Scam Type Distribution Breakdown */}
-        <div className="p-6 rounded-2xl border border-white/10 bg-[#0B111A] space-y-4 shadow-xl">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[#94A3B8] block font-bold">
-            Scam Type Distribution Breakdown
+        <div className="p-6 rounded-2xl border border-[var(--line)] bg-[var(--panel)] space-y-4 shadow-sm">
+          <span className="font-sans text-xs uppercase tracking-wider text-[var(--ink-dim)] block font-bold">
+            Scan Type Distribution Breakdown
           </span>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
             {[
@@ -280,12 +283,12 @@ function Dashboard() {
             ].map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.type} className="p-3.5 rounded-xl border border-white/10 bg-[#080C13] flex items-center justify-between">
+                <div key={item.type} className="p-3.5 rounded-xl border border-[var(--line)] bg-[var(--panel-secondary)]/50 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Icon className="w-4 h-4 text-[#94A3B8]" />
-                    <span className="font-display text-[13px] font-medium text-white">{item.label}</span>
+                    <Icon className="w-4 h-4 text-[var(--ink-dim)]" />
+                    <span className="font-display text-[13px] font-semibold text-[var(--ink)]">{item.label}</span>
                   </div>
-                  <span className="font-mono text-[13px] font-bold text-[#00F5A0]">{item.count}</span>
+                  <span className="font-sans text-xs font-bold text-indigo-600 dark:text-indigo-400">{item.count}</span>
                 </div>
               );
             })}
@@ -293,15 +296,15 @@ function Dashboard() {
         </div>
 
         {/* Filter Controls Bar */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-[#0B111A] p-4 rounded-2xl border border-white/10 shadow-xl">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-[var(--panel)] p-4 rounded-2xl border border-[var(--line)] shadow-sm">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-[#94A3B8] absolute left-3.5 top-3" />
+            <Search className="w-4 h-4 text-[var(--ink-dim)] absolute left-3.5 top-3" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search case files by keyword, title, sender, or entity..."
-              className="w-full pl-10 pr-4 py-2 text-[13px] rounded-xl bg-[#080C13] border border-white/10 focus:border-[#00F5A0] text-white outline-none"
+              className="w-full pl-10 pr-4 py-2.5 text-[13px] rounded-xl bg-[var(--panel-secondary)] border border-[var(--line)] focus:border-indigo-500 text-[var(--ink)] outline-none"
             />
           </div>
 
@@ -309,7 +312,7 @@ function Dashboard() {
             <select
               value={activeType}
               onChange={(e) => setActiveType(e.target.value)}
-              className="px-3.5 py-2 rounded-xl font-mono text-[11px] uppercase tracking-wider bg-[#080C13] border border-white/10 text-white outline-none cursor-pointer"
+              className="px-3.5 py-2 rounded-xl font-sans text-xs font-semibold bg-[var(--panel-secondary)] border border-[var(--line)] text-[var(--ink)] outline-none cursor-pointer"
             >
               <option value="all">All Scanner Types</option>
               <option value="job">Job Scans</option>
@@ -322,7 +325,7 @@ function Dashboard() {
             <select
               value={activeLevel}
               onChange={(e) => setActiveLevel(e.target.value)}
-              className="px-3.5 py-2 rounded-xl font-mono text-[11px] uppercase tracking-wider bg-[#080C13] border border-white/10 text-white outline-none cursor-pointer"
+              className="px-3.5 py-2 rounded-xl font-sans text-xs font-semibold bg-[var(--panel-secondary)] border border-[var(--line)] text-[var(--ink)] outline-none cursor-pointer"
             >
               <option value="all">All Risk Levels</option>
               <option value="critical">Critical Risk (81-100)</option>
@@ -348,40 +351,40 @@ function Dashboard() {
                   initial={{ opacity: 0, scale: 0.98 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
-                  className="p-5 rounded-2xl border border-white/10 bg-[#0B111A] flex flex-col justify-between space-y-4 hover:border-white/20 transition-all shadow-xl"
+                  className="p-5 rounded-2xl border border-[var(--line)] bg-[var(--panel)] flex flex-col justify-between space-y-4 hover:border-indigo-500/50 transition-all shadow-sm"
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         {getScanTypeIcon(type)}
-                        <span className="font-mono text-[10px] uppercase tracking-wider text-[#94A3B8] border border-white/10 px-2 py-0.5 rounded-md bg-[#080C13] font-semibold">
+                        <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-[var(--ink-dim)] border border-[var(--line)] px-2 py-0.5 rounded-md bg-[var(--panel-secondary)]">
                           {type}
                         </span>
                       </div>
-                      <span className="font-mono text-[10px] text-[#94A3B8]">
+                      <span className="font-sans text-[10px] text-[var(--ink-dim)]">
                         {new Date(scan.created_at || Date.now()).toLocaleDateString()}
                       </span>
                     </div>
 
-                    <h3 className="font-display font-semibold text-[16px] text-white line-clamp-1">
+                    <h3 className="font-display font-semibold text-[15px] text-[var(--ink)] line-clamp-1">
                       {getTitle(scan)}
                     </h3>
 
                     {scan.ai_explanation && (
-                      <p className="text-[13px] text-[#94A3B8] line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-[var(--ink-dim)] line-clamp-2 leading-relaxed">
                         {scan.ai_explanation}
                       </p>
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                  <div className="flex items-center justify-between pt-3 border-t border-[var(--line)]">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-[11px] font-bold text-white">Score: {score}/100</span>
-                      <span className={`font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-md border ${
-                        score >= 81 ? "border-rose-500/40 bg-rose-500/10 text-rose-400 font-bold" :
-                        score >= 61 ? "border-rose-500/30 bg-rose-500/10 text-rose-400 font-bold" :
-                        score >= 41 ? "border-amber-500/30 bg-amber-500/10 text-amber-400 font-semibold" :
-                        "border-[#00F5A0]/30 bg-[#00F5A0]/10 text-[#00F5A0] font-semibold"
+                      <span className="font-sans text-xs font-bold text-[var(--ink)]">Score: {score}/100</span>
+                      <span className={`font-sans text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${
+                        score >= 81 ? "badge-flag" :
+                        score >= 61 ? "badge-flag" :
+                        score >= 41 ? "badge-caution" :
+                        "badge-verified"
                       }`}>
                         {level}
                       </span>
@@ -390,21 +393,21 @@ function Dashboard() {
                     <div className="flex items-center gap-1.5">
                       <button
                         onClick={() => setSelectedScan(scan)}
-                        className="p-2 rounded-lg border border-white/10 hover:border-white/20 text-white transition-colors cursor-pointer"
+                        className="p-2 rounded-lg border border-[var(--line)] hover:bg-[var(--panel-secondary)] text-[var(--ink)] transition-colors cursor-pointer"
                         title="View Full Case File"
                       >
                         <Eye className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => generateAnalysisPDF(scan)}
-                        className="p-2 rounded-lg border border-white/10 hover:border-white/20 text-white transition-colors cursor-pointer"
+                        className="p-2 rounded-lg border border-[var(--line)] hover:bg-[var(--panel-secondary)] text-[var(--ink)] transition-colors cursor-pointer"
                         title="Export PDF Report"
                       >
                         <FileText className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleDelete(scan.id)}
-                        className="p-2 rounded-lg border border-white/10 hover:border-rose-500/40 text-rose-400 transition-colors cursor-pointer"
+                        className="p-2 rounded-lg border border-[var(--line)] hover:bg-red-500/10 text-red-500 transition-colors cursor-pointer"
                         title="Delete Case File"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -416,15 +419,15 @@ function Dashboard() {
             })}
           </div>
         ) : (
-          <div className="p-12 rounded-2xl border border-dashed border-white/10 bg-[#0B111A] text-center space-y-3">
-            <ShieldAlert className="w-10 h-10 text-[#94A3B8] mx-auto" />
-            <h3 className="font-display font-semibold text-lg text-white">No Case Files Match Filter</h3>
-            <p className="text-[13.5px] text-[#94A3B8] max-w-sm mx-auto">
-              No scan records match your active search terms or risk filters. Try clearing your filters or execute a new scan.
+          <div className="p-12 rounded-2xl border border-dashed border-[var(--line)] bg-[var(--panel)] text-center space-y-3 shadow-xs">
+            <ShieldAlert className="w-10 h-10 text-[var(--ink-dim)] mx-auto" />
+            <h3 className="font-display font-semibold text-lg text-[var(--ink)]">No cases match filters</h3>
+            <p className="text-xs text-[var(--ink-dim)] max-w-sm mx-auto">
+              No scan records match your active search terms or risk filters.
             </p>
             <button
               onClick={() => navigate("/scanner")}
-              className="font-mono text-[11px] uppercase tracking-widest bg-gradient-to-r from-[#00F5A0] to-[#00D9FF] text-[#05070B] px-5 py-2.5 rounded-xl transition-all inline-flex items-center gap-1.5 cursor-pointer mt-2 font-bold"
+              className="font-sans text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl transition-all inline-flex items-center gap-1.5 cursor-pointer mt-2 font-bold"
             >
               Start New Scan
             </button>
@@ -435,11 +438,11 @@ function Dashboard() {
       {/* Selected Scan Modal */}
       <AnimatePresence>
         {selectedScan && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="fixed inset-0 z-50 bg-slate-950/40 dark:bg-black/60 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              initial={{ opacity: 0, scale: 0.97, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              exit={{ opacity: 0, scale: 0.97, y: 8 }}
               transition={{ duration: 0.2 }}
               className="max-w-4xl w-full my-8"
             >
