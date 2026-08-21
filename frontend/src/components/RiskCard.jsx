@@ -1,5 +1,6 @@
-import { ShieldAlert, AlertTriangle, CheckCircle2, ShieldX, Info, Lightbulb, ArrowUpRight, Flag } from "lucide-react";
+import { ShieldAlert, AlertTriangle, CheckCircle2, ShieldX, Info, Lightbulb, ArrowUpRight, Flag, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function RiskCard({ scan, onReset }) {
   const navigate = useNavigate();
@@ -12,91 +13,102 @@ export default function RiskCard({ scan, onReset }) {
   const explanation = scan.ai_explanation || scan.aiExplanation || "";
 
   const getLevelBadgeClass = (l, s) => {
-    if (s >= 81 || l === "Critical Risk") return "bg-[var(--flag-bg)] text-[var(--flag)] border-[var(--flag)]";
-    if (s >= 61 || l === "High Risk") return "bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-800";
-    if (s >= 41 || l === "Medium Risk") return "bg-[var(--caution-bg)] text-[var(--caution)] border-[var(--caution)]";
-    if (s >= 21 || l === "Low Risk") return "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border-blue-300 dark:border-blue-800";
-    return "bg-[var(--verified-bg)] text-[var(--verified)] border-[var(--verified)]";
+    if (s >= 81 || l === "Critical Risk") return "bg-[var(--flag-bg)] text-[var(--flag)] border-[var(--flag)]/30 font-bold";
+    if (s >= 61 || l === "High Risk") return "bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border-rose-300 dark:border-rose-800 font-bold";
+    if (s >= 41 || l === "Medium Risk") return "bg-[var(--caution-bg)] text-[var(--caution)] border-[var(--caution)]/30 font-bold";
+    if (s >= 21 || l === "Low Risk") return "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border-blue-300 dark:border-blue-800 font-medium";
+    return "bg-[var(--verified-bg)] text-[var(--verified)] border-[var(--verified)]/30 font-semibold";
   };
 
   const getSeverityBadgeClass = (severity) => {
-    if (severity === "Critical") return "bg-[var(--flag-bg)] text-[var(--flag)]";
-    if (severity === "High") return "bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300";
-    if (severity === "Medium") return "bg-[var(--caution-bg)] text-[var(--caution)]";
-    return "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400";
+    if (severity === "Critical") return "bg-[var(--flag-bg)] text-[var(--flag)] font-bold";
+    if (severity === "High") return "bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 font-bold";
+    if (severity === "Medium") return "bg-[var(--caution-bg)] text-[var(--caution)] font-semibold";
+    return "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium";
   };
 
   return (
-    <div className="bg-[var(--panel)] border border-[var(--line)] shadow-lg overflow-hidden animate-fade-in my-8">
+    <motion.div
+      initial={{ opacity: 0, y: 12, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.3 }}
+      className="bg-[var(--panel)] border border-[var(--line)] rounded-2xl shadow-xl overflow-hidden my-8"
+    >
       {/* Header Banner */}
-      <div className="p-6 sm:p-8 border-b border-[var(--line)] bg-[#FBFAF6] dark:bg-[#12141A]">
+      <div className="p-6 sm:p-8 border-b border-[var(--line)] bg-[var(--paper)]/50">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           {/* Score & Verdict */}
           <div className="flex items-center gap-6">
             <div className="relative w-28 h-28 flex items-center justify-center flex-shrink-0">
               <svg className="w-28 h-28 -rotate-90" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" strokeWidth="8" className="text-[var(--line)]" />
-                <circle
+                <circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" strokeWidth="7" className="text-[var(--line)]" />
+                <motion.circle
                   cx="60"
                   cy="60"
                   r="50"
                   fill="none"
-                  strokeWidth="8"
-                  className="transition-all duration-1000"
-                  stroke={score >= 81 ? "#B3402A" : score >= 61 ? "#E11D48" : score >= 41 ? "#9C6B12" : score >= 21 ? "#2563EB" : "#0E6B55"}
-                  strokeDasharray={`${(score / 100) * 314.15} 314.15`}
+                  strokeWidth="7"
+                  stroke={score >= 81 ? "#E11D48" : score >= 61 ? "#F43F5E" : score >= 41 ? "#D97706" : score >= 21 ? "#2563EB" : "#059669"}
+                  strokeDasharray="314.15"
+                  initial={{ strokeDashoffset: 314.15 }}
+                  animate={{ strokeDashoffset: 314.15 - (score / 100) * 314.15 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
                   strokeLinecap="round"
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="font-mono text-3xl font-bold text-[var(--ink)]">{score}</span>
-                <span className="font-mono text-[10px] uppercase text-[var(--ink-dim)]">/ 100</span>
+                <span className="font-mono text-3xl font-extrabold text-[var(--ink)] tracking-tight">{score}</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--ink-dim)]">/ 100</span>
               </div>
             </div>
 
-            <div>
-              <div className="flex items-center gap-3">
-                <span className={`font-mono text-[11px] uppercase tracking-widest px-3 py-1 border border-2 font-bold ${getLevelBadgeClass(level, score)}`}>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className={`font-mono text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border ${getLevelBadgeClass(level, score)}`}>
                   {level}
                 </span>
-                <span className="font-mono text-[10px] text-[var(--ink-dim)] uppercase tracking-wider">
-                  Case Verdict
+                <span className="font-mono text-[10px] text-[var(--ink-dim)] uppercase tracking-wider font-semibold">
+                  Official Verdict
                 </span>
               </div>
-              <h2 className="font-display font-semibold text-2xl mt-2 tracking-tight text-[var(--ink)]">
-                {score >= 61 ? "High Risk Scam Detected" : score >= 41 ? "Suspicious Activity Flagged" : "Standard Risk Profile"}
+              <h2 className="font-display font-bold text-2xl tracking-tight text-[var(--ink)]">
+                {score >= 61 ? "High Risk Scam Detected" : score >= 41 ? "Suspicious Activity Flagged" : "Verified Low Risk Profile"}
               </h2>
-              <p className="text-[13px] text-[var(--ink-dim)] mt-1 max-w-md leading-relaxed">
-                Score computed from normalized multi-source signals and pattern evaluation.
+              <p className="text-[13px] text-[var(--ink-dim)] leading-relaxed max-w-md">
+                Risk score calculated from heuristic scanning, domain telemetry, and known scam databases.
               </p>
             </div>
           </div>
 
           {/* Quick Actions */}
           <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
-            <button
-              onClick={onReset}
-              className="font-mono text-[11px] uppercase tracking-widest bg-[var(--paper)] border border-[var(--line)] text-[var(--ink)] px-4 py-2.5 hover:border-[var(--ink)] transition-colors cursor-pointer"
-            >
-              Analyze Another
-            </button>
+            {onReset && (
+              <button
+                onClick={onReset}
+                className="font-mono text-[11px] uppercase tracking-widest bg-[var(--paper)] border border-[var(--line)] text-[var(--ink)] px-4 py-2.5 rounded-xl hover:border-[var(--ink-dim)] transition-all cursor-pointer font-medium"
+              >
+                Analyze Another
+              </button>
+            )}
             <button
               onClick={() => navigate("/dashboard")}
-              className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-4 py-2.5 hover:bg-[var(--verified)] transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-2.5 rounded-xl hover:opacity-95 transition-all flex items-center gap-1.5 cursor-pointer font-semibold shadow-xs"
             >
-              View in Dashboard <ArrowUpRight className="w-3.5 h-3.5" />
+              View Dashboard <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* AI Explanation Paragraph */}
+      {/* AI Explanation Banner */}
       {explanation && (
-        <div className="px-6 sm:px-8 py-5 border-b border-[var(--line)] bg-[var(--paper)]/50 flex items-start gap-3">
-          <Info className="w-5 h-5 text-[var(--ink-dim)] flex-shrink-0 mt-0.5" />
-          <div className="text-[14px] leading-relaxed text-[var(--ink)] font-normal">
-            <span className="font-mono text-[11px] uppercase tracking-widest text-[var(--ink-dim)] block mb-1 font-semibold">
-              ScamShield AI Analysis
+        <div className="px-6 sm:px-8 py-5 border-b border-[var(--line)] bg-[var(--paper)]/30 flex items-start gap-3.5">
+          <div className="p-2 rounded-lg bg-[var(--panel)] border border-[var(--line)] flex-shrink-0 mt-0.5">
+            <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+          </div>
+          <div className="text-[13.5px] leading-relaxed text-[var(--ink)]">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)] block mb-1 font-bold">
+              ScamShield Intelligence Summary
             </span>
             {explanation}
           </div>
@@ -108,68 +120,69 @@ export default function RiskCard({ scan, onReset }) {
         {/* Left: Risk Factors */}
         <div className="lg:col-span-7 p-6 sm:p-8 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-display font-semibold text-[17px] tracking-tight flex items-center gap-2">
+            <h3 className="font-display font-semibold text-[16px] tracking-tight flex items-center gap-2 text-[var(--ink)]">
               <ShieldAlert className="w-4 h-4 text-[var(--flag)]" />
-              Detected Risk Factors ({factors.length})
+              Detected Red Flags & Signals ({factors.length})
             </h3>
-            <span className="font-mono text-[10px] text-[var(--ink-dim)] uppercase tracking-wider">
-              Categorized Signals
+            <span className="font-mono text-[10px] text-[var(--ink-dim)] uppercase tracking-wider font-semibold">
+              Signal Breakdown
             </span>
           </div>
 
           {factors.length > 0 ? (
-            <div className="space-y-3 pt-2">
+            <div className="space-y-3 pt-1">
               {factors.map((factor, idx) => (
                 <div
                   key={idx}
-                  className="p-4 border border-[var(--line)] bg-[var(--panel)] flex items-start justify-between gap-4 transition-all hover:border-[var(--ink-dim)]"
+                  className="p-4 rounded-xl border border-[var(--line)] bg-[var(--panel)] flex items-start justify-between gap-4 transition-all hover:border-[var(--ink-dim)] shadow-2xs"
                 >
-                  <div className="space-y-1 flex-1">
+                  <div className="space-y-1.5 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)] font-semibold border border-[var(--line)] px-2 py-0.5 bg-[var(--paper)]">
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-[var(--ink-dim)] font-semibold border border-[var(--line)] px-2 py-0.5 rounded-md bg-[var(--paper)]">
                         {factor.category || "General"}
                       </span>
-                      <span className={`font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 font-bold ${getSeverityBadgeClass(factor.severity)}`}>
+                      <span className={`font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-md ${getSeverityBadgeClass(factor.severity)}`}>
                         {factor.severity || "Flag"}
                       </span>
                     </div>
-                    <p className="text-[13.5px] font-medium text-[var(--ink)] pt-1 leading-snug">
+                    <p className="text-[13.5px] font-medium text-[var(--ink)] leading-snug">
                       {factor.reason || factor.description || factor}
                     </p>
                   </div>
-                  <span className="font-mono text-[12px] font-bold text-[var(--flag)] bg-[var(--flag-bg)] px-2.5 py-1 border border-[var(--flag)]/20 flex-shrink-0">
+                  <span className="font-mono text-[11px] font-bold text-[var(--flag)] bg-[var(--flag-bg)] px-2.5 py-1 rounded-lg border border-[var(--flag)]/20 flex-shrink-0">
                     +{factor.score || 15} pts
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="p-6 border border-dashed border-[var(--line)] text-center text-[var(--ink-dim)] text-[13.5px]">
-              <CheckCircle2 className="w-8 h-8 text-[var(--verified)] mx-auto mb-2" />
-              No severe red flags or high-risk keywords detected in this scan.
+            <div className="p-8 rounded-xl border border-dashed border-[var(--line)] text-center text-[var(--ink-dim)] text-[13.5px] space-y-2">
+              <CheckCircle2 className="w-8 h-8 text-[var(--verified)] mx-auto" />
+              <p className="font-medium text-[var(--ink)]">No High-Risk Red Flags Detected</p>
+              <p className="text-xs text-[var(--ink-dim)]">This opportunity passed all heuristic safety algorithms clean.</p>
             </div>
           )}
         </div>
 
         {/* Right: Actionable Recommendations */}
-        <div className="lg:col-span-5 p-6 sm:p-8 space-y-4 bg-[#FAF9F5]">
+        <div className="lg:col-span-5 p-6 sm:p-8 space-y-4 bg-[var(--paper)]/40">
           <div className="flex items-center justify-between">
-            <h3 className="font-display font-semibold text-[17px] tracking-tight flex items-center gap-2">
-              <Lightbulb className="w-4 h-4 text-[var(--caution)]" />
-              Recommended Actions
+            <h3 className="font-display font-semibold text-[16px] tracking-tight flex items-center gap-2 text-[var(--ink)]">
+              <Lightbulb className="w-4 h-4 text-amber-500" />
+              Recommended Safety Actions
             </h3>
-            <span className="font-mono text-[10px] text-[var(--ink-dim)] uppercase tracking-wider">
-              Safety Advice
+            <span className="font-mono text-[10px] text-[var(--ink-dim)] uppercase tracking-wider font-semibold">
+              Advice
             </span>
           </div>
 
-          <div className="space-y-3 pt-2">
+          <div className="space-y-2.5 pt-1">
             {recommendations.map((rec, i) => (
-              <div key={i} className="flex items-start gap-3 p-3.5 border border-[var(--line)] bg-[var(--panel)]">
-                <span className="font-mono text-[11px] font-bold text-[var(--ink-dim)] bg-[var(--paper)] w-6 h-6 flex items-center justify-center border border-[var(--line)] flex-shrink-0 mt-0.5">
-                  0{i + 1}
+              <div key={i} className="flex items-start gap-3 p-3.5 rounded-xl border border-[var(--line)] bg-[var(--panel)] shadow-2xs">
+                <span className="font-mono text-[10px] font-bold text-[var(--ink-dim)] bg-[var(--paper)] w-5 h-5 rounded-md flex items-center justify-center border border-[var(--line)] flex-shrink-0 mt-0.5">
+                  {i + 1}
                 </span>
-                <p className="text-[13px] text-[var(--ink)] leading-relaxed">{rec}</p>
+                <p className="text-[13px] text-[var(--ink)] leading-relaxed font-normal">{rec}</p>
               </div>
             ))}
           </div>
@@ -178,13 +191,13 @@ export default function RiskCard({ scan, onReset }) {
           <div className="pt-4 border-t border-[var(--line)]">
             <button
               onClick={() => navigate("/report-scam", { state: { scan } })}
-              className="w-full font-mono text-[11px] uppercase tracking-widest border border-[var(--flag)] text-[var(--flag)] hover:bg-[var(--flag-bg)] py-3 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full font-mono text-[11px] uppercase tracking-widest border border-[var(--flag)]/40 text-[var(--flag)] bg-[var(--flag-bg)] hover:border-[var(--flag)] py-3 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer font-semibold shadow-2xs"
             >
-              <Flag className="w-3.5 h-3.5" /> Report This Opportunity
+              <Flag className="w-3.5 h-3.5" /> Report Flagged Scam
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
