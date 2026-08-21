@@ -27,26 +27,26 @@ function SecurityCoreVisual() {
   return (
     <div className="relative w-full max-w-lg aspect-square flex items-center justify-center mx-auto my-4 select-none">
       {/* Soft Gradient Sphere background */}
-      <div className="absolute inset-0 bg-radial from-indigo-500/10 via-blue-500/5 to-transparent blur-[70px] pointer-events-none opacity-80" />
+      <div className="absolute inset-0 bg-radial from-indigo-500/15 via-blue-500/5 to-transparent blur-[70px] pointer-events-none opacity-90" />
 
       {/* Orbit Rings */}
       <motion.div
         animate={{ rotate: 360 }}
-        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-4 rounded-full border border-dashed border-[var(--line)] pointer-events-none"
+        transition={{ duration: 55, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-4 rounded-full border border-dashed border-indigo-500/15 pointer-events-none"
       />
       <motion.div
         animate={{ rotate: -360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-16 rounded-full border border-[var(--line)] pointer-events-none"
+        transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-16 rounded-full border border-blue-500/10 pointer-events-none"
       >
-        <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-indigo-500 shadow-lg" />
-        <div className="absolute bottom-0 right-1/4 w-2 h-2 rounded-full bg-blue-500 shadow-lg" />
+        <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-indigo-500 shadow-md" />
+        <div className="absolute bottom-0 right-1/4 w-2 h-2 rounded-full bg-blue-500 shadow-md" />
       </motion.div>
 
       {/* Scanning Radar Wave */}
       <motion.div
-        animate={{ scale: [0.9, 1.1, 0.9], opacity: [0.15, 0.35, 0.15] }}
+        animate={{ scale: [0.9, 1.08, 0.9], opacity: [0.15, 0.35, 0.15] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         className="absolute inset-28 rounded-full bg-gradient-to-tr from-indigo-500/15 via-blue-500/5 to-transparent border border-indigo-500/20 pointer-events-none"
       />
@@ -55,7 +55,7 @@ function SecurityCoreVisual() {
       <motion.div
         animate={{ y: [-4, 4, -4] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="relative z-10 w-40 h-40 rounded-3xl bg-[var(--panel)] border border-[var(--line)] shadow-xl flex flex-col items-center justify-center gap-3"
+        className="relative z-10 w-44 h-44 rounded-3xl glass-panel shadow-xl flex flex-col items-center justify-center gap-3 border border-white/20 dark:border-white/10"
       >
         <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shadow-xs">
           <Shield className="w-7 h-7 text-indigo-600 dark:text-indigo-400" strokeWidth={2} />
@@ -72,11 +72,11 @@ function SecurityCoreVisual() {
       <motion.div
         animate={{ y: [-6, 6, -6] }}
         transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-8 left-4 z-20 px-3 py-2 rounded-xl bg-[var(--panel)] border border-[var(--line)] shadow-md flex items-center gap-2"
+        className="absolute top-6 left-4 z-20 px-3.5 py-2 rounded-xl glass-panel shadow-md flex items-center gap-2 border border-white/20 dark:border-white/10"
       >
-        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] animate-pulse" />
         <div className="flex flex-col">
-          <span className="font-sans text-[9px] text-[var(--ink-dim)] uppercase tracking-wider font-semibold">AI Auditor</span>
+          <span className="font-sans text-[9px] text-[var(--ink-dim)] uppercase tracking-wider font-bold">AI Auditor</span>
           <span className="font-sans text-[11px] font-bold text-[var(--ink)]">Analyzing patterns...</span>
         </div>
       </motion.div>
@@ -84,23 +84,23 @@ function SecurityCoreVisual() {
       <motion.div
         animate={{ y: [6, -6, 6] }}
         transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-16 -right-2 z-20 px-3.5 py-2 rounded-xl bg-[var(--panel)] border border-[var(--line)] shadow-md flex items-center gap-2.5"
+        className="absolute top-14 -right-3 z-20 px-3.5 py-2 rounded-xl glass-panel shadow-md flex items-center gap-2.5 border border-white/20 dark:border-white/10"
       >
         <AlertTriangle className="w-4 h-4 text-amber-500" />
         <div className="flex flex-col">
-          <span className="font-sans text-[9px] text-[var(--ink-dim)] uppercase tracking-wider font-semibold">Risk Alert</span>
-          <span className="font-sans text-[11px] font-bold text-amber-500">Urgency detected</span>
+          <span className="font-sans text-[9px] text-[var(--ink-dim)] uppercase tracking-wider font-bold">Risk Alert</span>
+          <span className="font-sans text-[11px] font-bold text-amber-500 font-semibold">Urgency detected</span>
         </div>
       </motion.div>
 
       <motion.div
         animate={{ y: [-5, 5, -5] }}
         transition={{ duration: 5.4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 right-4 z-20 px-3.5 py-2 rounded-xl bg-[var(--panel)] border border-[var(--line)] shadow-md flex items-center gap-2.5"
+        className="absolute bottom-8 right-2 z-20 px-3.5 py-2 rounded-xl glass-panel shadow-md flex items-center gap-2.5 border border-white/20 dark:border-white/10"
       >
         <ShieldCheck className="w-4 h-4 text-emerald-500" />
         <div className="flex flex-col">
-          <span className="font-sans text-[9px] text-[var(--ink-dim)] uppercase tracking-wider font-semibold">Verification</span>
+          <span className="font-sans text-[9px] text-[var(--ink-dim)] uppercase tracking-wider font-bold">Verification</span>
           <span className="font-sans text-[11px] font-bold text-emerald-500">Domain authentic</span>
         </div>
       </motion.div>
@@ -123,7 +123,19 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)] overflow-x-hidden font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--paper)] text-[var(--ink)] overflow-x-hidden font-sans transition-colors duration-300 relative">
+      {/* Background grid */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05] overflow-hidden">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+              <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="1" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+
       {/* Background Gradients */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-radial from-indigo-500/5 via-blue-500/0 to-transparent blur-[120px]" />
@@ -133,14 +145,14 @@ export default function Landing() {
         <Navbar />
 
         {/* Hero Section */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Text */}
           <div className="lg:col-span-7 space-y-7 text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 shadow-xs"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-indigo-500/25 bg-indigo-500/5 shadow-xs"
             >
               <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
               <span className="font-sans text-[10px] uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold">
@@ -166,7 +178,7 @@ export default function Landing() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.16 }}
-              className="text-[var(--ink-dim)] text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium"
+              className="text-[var(--ink-dim)] text-base sm:text-[17px] leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium"
             >
               Verify recruiters, identify fake job postings, audit payment requests, and analyze suspicious links with our advanced, automated scam scanner.
             </motion.p>

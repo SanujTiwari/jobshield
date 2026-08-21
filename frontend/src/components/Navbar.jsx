@@ -82,17 +82,17 @@ function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 py-3 px-4 sm:px-6">
-      <div
-        className={`max-w-6xl mx-auto rounded-full border transition-all duration-300 px-5 py-2.5 flex items-center justify-between ${
-          scrolled
-            ? "bg-[var(--panel)]/85 backdrop-blur-xl border-[var(--line)] shadow-lg"
-            : "bg-[var(--panel)]/60 backdrop-blur-lg border-[var(--line)]"
-        }`}
-      >
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
+        scrolled
+          ? "bg-[var(--panel)]/80 backdrop-blur-md border-[var(--line)] shadow-xs"
+          : "bg-transparent border-transparent"
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <div
-          className="group flex items-center gap-2 cursor-pointer select-none"
+          className="group flex items-center gap-2.5 cursor-pointer select-none"
           onClick={() => navigate('/')}
         >
           <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-blue-500 p-[1.5px] shadow-sm">
@@ -100,13 +100,13 @@ function Navbar() {
               <Shield className="w-4 h-4 text-indigo-600 dark:text-indigo-400" strokeWidth={2.2} />
             </div>
           </div>
-          <span className="font-display font-bold text-[18px] tracking-tight text-[var(--ink)] flex items-center gap-1.5">
+          <span className="font-display font-bold text-[17px] tracking-tight text-[var(--ink)] flex items-center gap-1.5">
             JobShield
           </span>
         </div>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-[var(--paper)] p-1 border border-[var(--line)] rounded-full">
+        <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
             if (link.isAnchor) {
@@ -114,7 +114,7 @@ function Navbar() {
                 <a
                   key={link.path}
                   href={link.path}
-                  className="px-4 py-1.5 rounded-full font-sans text-xs font-semibold text-[var(--ink-dim)] hover:text-[var(--ink)] hover:bg-[var(--panel)] transition-all"
+                  className="font-sans text-xs font-semibold text-[var(--ink-dim)] hover:text-[var(--ink)] transition-colors"
                 >
                   {link.label}
                 </a>
@@ -124,18 +124,18 @@ function Navbar() {
               <button
                 key={link.path}
                 onClick={() => navigate(link.path)}
-                className={`relative px-4 py-1.5 rounded-full font-sans text-xs font-semibold transition-all cursor-pointer ${
-                  isActive ? "text-[var(--ink)]" : "text-[var(--ink-dim)] hover:text-[var(--ink)] hover:bg-[var(--panel)]"
+                className={`font-sans text-xs font-semibold transition-colors cursor-pointer relative py-1 ${
+                  isActive ? "text-indigo-600 dark:text-indigo-400" : "text-[var(--ink-dim)] hover:text-[var(--ink)]"
                 }`}
               >
                 {isActive && (
-                  <motion.div
+                  <motion.span
                     layoutId="activePill"
-                    className="absolute inset-0 rounded-full bg-[var(--panel)] border border-[var(--line)] shadow-xs"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-indigo-600 dark:bg-indigo-400"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10">{link.label}</span>
+                <span>{link.label}</span>
               </button>
             );
           })}
@@ -146,17 +146,17 @@ function Navbar() {
           {/* Light/Dark Toggle Button */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-[var(--line)] bg-[var(--panel)] text-[var(--ink-dim)] hover:text-[var(--ink)] hover:bg-[var(--paper)] transition-all cursor-pointer shadow-xs"
+            className="p-2 rounded-lg border border-[var(--line)] bg-[var(--panel)] hover:bg-[var(--panel-secondary)] text-[var(--ink-dim)] hover:text-[var(--ink)] transition-all cursor-pointer shadow-xs"
             aria-label="Toggle Theme"
           >
-            {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {darkMode ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
           </button>
 
           {isAuthenticated ? (
             <div className="relative hidden md:block" ref={dropdownRef}>
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--line)] bg-[var(--panel)] hover:bg-[var(--paper)] transition-all cursor-pointer shadow-xs"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--line)] bg-[var(--panel)] hover:bg-[var(--panel-secondary)] transition-all cursor-pointer shadow-xs"
               >
                 <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500 to-blue-500 flex items-center justify-center font-sans text-[10px] font-bold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'U'}
@@ -214,7 +214,7 @@ function Navbar() {
           ) : (
             <button
               onClick={() => navigate('/auth')}
-              className="group font-sans text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full font-semibold transition-all flex items-center gap-1.5 cursor-pointer active:scale-[0.98] shadow-xs"
+              className="group font-sans text-xs bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold hover:shadow-md transition-all flex items-center gap-1.5 cursor-pointer active:scale-[0.98] shadow-xs"
             >
               Get Started
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
@@ -224,7 +224,7 @@ function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setShowMobileMenu(!showMobileMenu)}
-            className="md:hidden p-2 rounded-full border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)]"
+            className="md:hidden p-2 rounded-lg border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)]"
           >
             {showMobileMenu ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
