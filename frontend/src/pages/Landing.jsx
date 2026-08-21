@@ -145,7 +145,7 @@ export default function Landing() {
         <Navbar />
 
         {/* Hero Section */}
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-20 sm:pt-28 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Text */}
           <div className="lg:col-span-7 space-y-7 text-center lg:text-left">
             <motion.div
@@ -256,7 +256,7 @@ export default function Landing() {
 
         {/* Capabilities Grid */}
         <section className="py-24 border-b border-[var(--line)]">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="max-w-xl space-y-2.5">
               <span className="font-sans text-[10px] uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold">
                 Key Protections
@@ -298,7 +298,7 @@ export default function Landing() {
 
         {/* Workflow Section */}
         <section id="how-it-works" className="py-24 border-b border-[var(--line)] bg-[var(--panel)]/20">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
             <div className="max-w-xl space-y-2.5">
               <span className="font-sans text-[10px] uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold">
                 Verification Steps
@@ -341,7 +341,7 @@ export default function Landing() {
 
         {/* Bento Grid Features */}
         <section id="features" className="py-24 border-b border-[var(--line)]">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
             <div className="max-w-xl space-y-2.5">
               <span className="font-sans text-[10px] uppercase tracking-widest text-indigo-600 dark:text-indigo-400 font-bold">
                 Advanced Features
@@ -449,7 +449,7 @@ export default function Landing() {
 
         {/* Footer */}
         <footer className="border-t border-[var(--line)] bg-[var(--panel)] py-12">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2.5">
               <div className="w-7 h-7 rounded-lg bg-indigo-600 p-[1.5px]">
                 <div className="w-full h-full bg-[var(--panel)] rounded-[7px] flex items-center justify-center">
