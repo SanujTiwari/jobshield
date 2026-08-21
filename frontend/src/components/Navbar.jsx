@@ -10,10 +10,18 @@ function Navbar() {
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef(null);
 
   const token = localStorage.getItem("token");
   const isAuthenticated = !!token && !!user;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -25,7 +33,6 @@ function Navbar() {
         const response = await getUserProfile();
         setUser(response.user);
       } catch (error) {
-        console.error('Failed to load user profile');
         localStorage.removeItem('token');
         setUser(null);
       }
@@ -51,7 +58,12 @@ function Navbar() {
     navigate('/auth');
   };
 
-  const navLinks = [
+  const navLinks = location.pathname === "/" ? [
+    { path: '/', label: 'Home', isAnchor: false },
+    { path: '#how-it-works', label: 'How It Works', isAnchor: true },
+    { path: '#features', label: 'Features', isAnchor: true },
+    { path: '/safety-center', label: 'Safety Center', isAnchor: false },
+  ] : [
     { path: '/', label: 'Home', icon: Home },
     { path: '/safety-center', label: 'Safety Center', icon: Shield },
     ...(isAuthenticated ? [
@@ -60,202 +72,188 @@ function Navbar() {
       { path: '/history', label: 'History', icon: FileCheck },
       { path: '/report-scam', label: 'Report Scam', icon: Flag },
     ] : []),
-    ...(isAuthenticated && user?.role === 'admin' ? [{ path: '/admin', label: 'Admin Console', icon: Shield }] : []),
   ];
 
   return (
-    <nav className="sticky top-0 z-50 bg-[var(--paper)]/90 dark:bg-[var(--paper)]/85 backdrop-blur-xl border-b border-[var(--line)] transition-all duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div
-            className="group flex items-center gap-2.5 cursor-pointer select-none"
-            onClick={() => navigate('/')}
-          >
-            <div className="w-8 h-8 rounded-lg bg-[var(--ink)] flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-200">
-              <Shield className="w-4 h-4 text-[var(--paper)]" strokeWidth={2.2} />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display font-bold text-[17px] tracking-tight text-[var(--ink)] leading-none">
-                ScamShield
-              </span>
-              <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--ink-dim)] mt-0.5">
-                AI Fraud Intel
-              </span>
+    <header className="sticky top-0 z-50 py-3 px-4 sm:px-6">
+      <div
+        className={`max-w-6xl mx-auto rounded-full border transition-all duration-300 px-5 py-2.5 flex items-center justify-between ${
+          scrolled
+            ? "bg-[#080C13]/90 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+            : "bg-[#0B111A]/60 backdrop-blur-lg border-white/10"
+        }`}
+      >
+        {/* Logo */}
+        <div
+          className="group flex items-center gap-2.5 cursor-pointer select-none"
+          onClick={() => navigate('/')}
+        >
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#00F5A0] to-[#00D9FF] p-[1px] shadow-[0_0_15px_rgba(0,245,160,0.3)]">
+            <div className="w-full h-full bg-[#05070B] rounded-[7px] flex items-center justify-center">
+              <Shield className="w-4 h-4 text-[#00F5A0]" strokeWidth={2.2} />
             </div>
           </div>
-
-          {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1 bg-[var(--panel)]/60 p-1 border border-[var(--line)] rounded-full shadow-xs">
-            {navLinks.map(link => {
-              const Icon = link.icon;
-              const isActive = location.pathname === link.path;
-              return (
-                <button
-                  key={link.path}
-                  onClick={() => navigate(link.path)}
-                  className={`relative flex items-center gap-2 px-3.5 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? 'text-[var(--ink)] font-semibold'
-                      : 'text-[var(--ink-dim)] hover:text-[var(--ink)] hover:bg-[var(--paper)]'
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNavBg"
-                      className="absolute inset-0 rounded-full bg-[var(--paper)] border border-[var(--line)] shadow-xs"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-1.5">
-                    <Icon className="w-3.5 h-3.5" />
-                    {link.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Right Side */}
-          <div className="flex items-center gap-3">
-            {isAuthenticated ? (
-              /* Logged In: Profile Dropdown */
-              <div className="relative hidden md:block" ref={dropdownRef}>
-                <button
-                  onClick={() => setShowDropdown(!showDropdown)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--line)] bg-[var(--panel)] hover:border-[var(--ink-dim)] transition-all cursor-pointer shadow-xs active:scale-[0.98]"
-                >
-                  <div className="w-6 h-6 rounded-md bg-[var(--ink)] flex items-center justify-center font-mono text-[11px] font-bold text-[var(--paper)]">
-                    {user?.name?.charAt(0)?.toUpperCase() || 'U'}
-                  </div>
-                  <span className="font-mono text-[12px] text-[var(--ink)] max-w-[110px] truncate font-medium">
-                    {user?.name || 'User'}
-                  </span>
-                  <ChevronDown className={`w-3.5 h-3.5 text-[var(--ink-dim)] transition-transform duration-200 ${showDropdown ? 'rotate-180' : ''}`} />
-                </button>
-
-                <AnimatePresence>
-                  {showDropdown && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 6, scale: 0.96 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      className="absolute right-0 mt-2 w-64 rounded-xl bg-[var(--panel)] border border-[var(--line)] shadow-xl py-2 z-50 overflow-hidden"
-                    >
-                      <div className="px-4 py-3 border-b border-[var(--line)] bg-[var(--paper)]/60">
-                        <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--ink-dim)] block font-semibold">Account Clearance</span>
-                        <p className="font-display font-semibold text-sm text-[var(--ink)] mt-0.5">{user?.name || 'User'}</p>
-                        <p className="font-mono text-xs text-[var(--ink-dim)] truncate mt-0.5">{user?.email || ''}</p>
-                      </div>
-                      <div className="p-1">
-                        <button
-                          onClick={() => { setShowDropdown(false); navigate('/dashboard'); }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-mono text-[11px] uppercase tracking-wider text-[var(--ink)] hover:bg-[var(--paper)] transition-colors cursor-pointer"
-                        >
-                          <BarChart3 className="w-3.5 h-3.5 text-[var(--ink-dim)]" />
-                          My Case Files
-                        </button>
-                        <button
-                          onClick={() => { setShowDropdown(false); navigate('/report-scam'); }}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-mono text-[11px] uppercase tracking-wider text-[var(--ink)] hover:bg-[var(--paper)] transition-colors cursor-pointer"
-                        >
-                          <Flag className="w-3.5 h-3.5 text-[var(--ink-dim)]" />
-                          Report Opportunity
-                        </button>
-                      </div>
-                      <div className="border-t border-[var(--line)] my-1" />
-                      <div className="p-1">
-                        <button
-                          onClick={handleLogout}
-                          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-mono text-[11px] uppercase tracking-wider text-[var(--flag)] hover:bg-[var(--flag-bg)] transition-colors cursor-pointer"
-                        >
-                          <LogOut className="w-3.5 h-3.5" />
-                          Sign Out
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ) : (
-              /* Logged Out: Get Started Button */
-              <button
-                onClick={() => navigate('/auth')}
-                className="group font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--ink)]/90 px-4 py-2 rounded-lg transition-all shadow-xs flex items-center gap-1.5 cursor-pointer active:scale-[0.98]"
-              >
-                Sign In
-                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </button>
-            )}
-
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="md:hidden p-2 rounded-lg border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)]"
-            >
-              {showMobileMenu ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
+          <span className="font-display font-bold text-[18px] tracking-tight text-white flex items-center gap-1.5">
+            ScamShield
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00F5A0] animate-pulse" />
+          </span>
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {showMobileMenu && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden py-3 border-t border-[var(--line)] space-y-1 bg-[var(--paper)] overflow-hidden"
+        {/* Desktop Nav Links */}
+        <nav className="hidden md:flex items-center gap-1 bg-[#05070B]/50 p-1 border border-white/5 rounded-full">
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            if (link.isAnchor) {
+              return (
+                <a
+                  key={link.path}
+                  href={link.path}
+                  className="px-4 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider text-[#94A3B8] hover:text-white hover:bg-white/5 transition-all"
+                >
+                  {link.label}
+                </a>
+              );
+            }
+            return (
+              <button
+                key={link.path}
+                onClick={() => navigate(link.path)}
+                className={`relative px-4 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider transition-all cursor-pointer ${
+                  isActive ? "text-white font-semibold" : "text-[#94A3B8] hover:text-white hover:bg-white/5"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="activePill"
+                    className="absolute inset-0 rounded-full bg-white/10 border border-white/10"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{link.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Right Action */}
+        <div className="flex items-center gap-3">
+          {isAuthenticated ? (
+            <div className="relative hidden md:block" ref={dropdownRef}>
+              <button
+                onClick={() => setShowDropdown(!showDropdown)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-[#080C13] hover:border-[#00F5A0]/50 transition-all cursor-pointer shadow-xs"
+              >
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-[#00F5A0] to-[#00D9FF] flex items-center justify-center font-mono text-[10px] font-bold text-[#05070B]">
+                  {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+                </div>
+                <span className="font-mono text-[11px] text-white max-w-[100px] truncate font-medium">
+                  {user?.name || 'User'}
+                </span>
+                <ChevronDown className={`w-3.5 h-3.5 text-[#94A3B8] transition-transform ${showDropdown ? 'rotate-180' : ''}`} />
+              </button>
+
+              <AnimatePresence>
+                {showDropdown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-3 w-60 rounded-xl bg-[#0B111A] border border-white/10 shadow-2xl py-2 z-50 overflow-hidden"
+                  >
+                    <div className="px-4 py-3 border-b border-white/10 bg-[#080C13]">
+                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#00F5A0] block font-bold">AI Protection Clearance</span>
+                      <p className="font-display font-semibold text-sm text-white mt-0.5">{user?.name || 'User'}</p>
+                      <p className="font-mono text-xs text-[#94A3B8] truncate">{user?.email || ''}</p>
+                    </div>
+                    <div className="p-1">
+                      <button
+                        onClick={() => { setShowDropdown(false); navigate('/dashboard'); }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-mono text-[11px] uppercase tracking-wider text-white hover:bg-white/5 transition-colors cursor-pointer"
+                      >
+                        <BarChart3 className="w-3.5 h-3.5 text-[#00F5A0]" />
+                        Intelligence Dashboard
+                      </button>
+                      <button
+                        onClick={() => { setShowDropdown(false); navigate('/report-scam'); }}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-mono text-[11px] uppercase tracking-wider text-white hover:bg-white/5 transition-colors cursor-pointer"
+                      >
+                        <Flag className="w-3.5 h-3.5 text-[#00D9FF]" />
+                        Report Threat
+                      </button>
+                    </div>
+                    <div className="border-t border-white/10 my-1" />
+                    <div className="p-1">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-mono text-[11px] uppercase tracking-wider text-[#F43F5E] hover:bg-rose-500/10 transition-colors cursor-pointer"
+                      >
+                        <LogOut className="w-3.5 h-3.5" />
+                        Sign Out
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <button
+              onClick={() => navigate('/auth')}
+              className="group relative font-mono text-[11px] uppercase tracking-widest bg-gradient-to-r from-[#00F5A0] to-[#00D9FF] text-[#05070B] px-5 py-2 rounded-full font-bold hover:shadow-[0_0_20px_rgba(0,245,160,0.4)] transition-all flex items-center gap-1.5 cursor-pointer active:scale-[0.98]"
             >
-              {navLinks.map(link => {
-                const Icon = link.icon;
-                const isActive = location.pathname === link.path;
-                return (
-                  <button
-                    key={link.path}
-                    onClick={() => { navigate(link.path); setShowMobileMenu(false); }}
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg font-mono text-[11px] uppercase tracking-widest ${
-                      isActive
-                        ? 'bg-[var(--ink)] text-[var(--paper)] font-semibold'
-                        : 'text-[var(--ink-dim)] hover:text-[var(--ink)]'
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    {link.label}
-                  </button>
-                );
-              })}
-              {isAuthenticated ? (
-                <div className="mt-2 pt-2 border-t border-[var(--line)] space-y-1">
-                  <div className="px-4 py-2 bg-[var(--panel)] border border-[var(--line)] rounded-lg mx-2">
-                    <p className="font-display font-semibold text-xs text-[var(--ink)]">{user?.name}</p>
-                    <p className="font-mono text-[10px] text-[var(--ink-dim)] truncate">{user?.email}</p>
-                  </div>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest text-[var(--flag)] hover:bg-[var(--flag-bg)]"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    Sign Out
-                  </button>
-                </div>
-              ) : (
-                <div className="p-2">
-                  <button
-                    onClick={() => { setShowMobileMenu(false); navigate('/auth'); }}
-                    className="w-full font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] py-2.5 rounded-lg"
-                  >
-                    Sign In &rarr;
-                  </button>
-                </div>
-              )}
-            </motion.div>
+              Get Started
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </button>
           )}
-        </AnimatePresence>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className="md:hidden p-2 rounded-full border border-white/10 bg-[#080C13] text-white"
+          >
+            {showMobileMenu ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </button>
+        </div>
       </div>
-    </nav>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {showMobileMenu && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden mt-2 p-4 rounded-2xl bg-[#0B111A] border border-white/10 space-y-2 shadow-2xl"
+          >
+            {navLinks.map((link) => (
+              <button
+                key={link.path}
+                onClick={() => {
+                  if (link.isAnchor) {
+                    window.location.href = link.path;
+                  } else {
+                    navigate(link.path);
+                  }
+                  setShowMobileMenu(false);
+                }}
+                className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl font-mono text-[11px] uppercase tracking-widest text-[#94A3B8] hover:text-white hover:bg-white/5 text-left"
+              >
+                {link.label}
+              </button>
+            ))}
+            <div className="pt-2 border-t border-white/10">
+              <button
+                onClick={() => { setShowMobileMenu(false); navigate('/auth'); }}
+                className="w-full bg-gradient-to-r from-[#00F5A0] to-[#00D9FF] text-[#05070B] font-mono text-[11px] uppercase tracking-widest py-2.5 rounded-xl font-bold text-center"
+              >
+                Get Started &rarr;
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }
 

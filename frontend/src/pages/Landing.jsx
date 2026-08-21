@@ -1,649 +1,468 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Shield,
   ArrowRight,
-  ArrowUpRight,
-  Search,
   CheckCircle2,
   AlertTriangle,
+  Search,
   FileSearch,
   Percent,
-  FileCheck2,
   MessageSquareWarning,
   Lock,
   Sparkles,
-  RotateCcw,
+  Zap,
   Globe,
-  Building2,
-  ChevronRight,
-  Menu,
-  X,
+  Briefcase,
+  MessageSquare,
+  CreditCard,
+  UserCheck,
+  ShieldCheck,
+  Activity,
+  Cpu,
+  Eye,
+  Layers,
+  ArrowDownCircle,
 } from "lucide-react";
 
-/* Animated Counter Component */
-function CountUp({ value, duration = 1200, decimals = 0, suffix = "" }) {
-  const ref = useRef(null);
-  const [display, setDisplay] = useState(0);
-  const [started, setStarted] = useState(false);
+import Navbar from "../components/Navbar";
+import ScannerForm from "../components/ScannerForm";
+import RiskCard from "../components/RiskCard";
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started) {
-          setStarted(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [started]);
-
-  useEffect(() => {
-    if (!started) return;
-    let raf;
-    const start = performance.now();
-    const ease = (t) => 1 - Math.pow(1 - t, 3);
-    const tick = (now) => {
-      const p = Math.min((now - start) / duration, 1);
-      setDisplay(value * ease(p));
-      if (p < 1) raf = requestAnimationFrame(tick);
-      else setDisplay(value);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [started, value, duration]);
-
+/* Abstract AI Scam Detection Core Component */
+function AIScamDetectionCoreVisual() {
   return (
-    <span ref={ref}>
-      {display.toLocaleString(undefined, {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      })}
-      {suffix}
-    </span>
-  );
-}
+    <div className="relative w-full max-w-md lg:max-w-lg aspect-square flex items-center justify-center mx-auto">
+      {/* Outer ambient glow */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#00F5A0]/20 via-[#00D9FF]/15 to-[#7C5CFC]/20 rounded-full blur-3xl opacity-70 animate-pulse pointer-events-none" />
 
-/* Global Font & Token Injector */
-function GlobalLandingStyle() {
-  return (
-    <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+      {/* Outer rotating ring */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-4 rounded-full border border-dashed border-[#00F5A0]/20 pointer-events-none"
+      />
 
-      .js-root {
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      }
-      .font-display { font-family: 'Space Grotesk', sans-serif; }
-      .font-mono { font-family: 'IBM Plex Mono', monospace; }
+      {/* Middle counter-rotating ring with node ticks */}
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-12 rounded-full border border-white/10 pointer-events-none flex items-center justify-between p-2"
+      >
+        <div className="w-2 h-2 rounded-full bg-[#00F5A0] shadow-[0_0_10px_#00F5A0]" />
+        <div className="w-2 h-2 rounded-full bg-[#00D9FF] shadow-[0_0_10px_#00D9FF]" />
+      </motion.div>
 
-      .js-nav-scrolled {
-        box-shadow: 0 1px 0 rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.04);
-      }
+      {/* Inner scanning wave pulse */}
+      <motion.div
+        animate={{ scale: [0.8, 1.15, 0.8], opacity: [0.3, 0.7, 0.3] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute inset-20 rounded-full bg-gradient-to-tr from-[#00F5A0]/10 to-[#00D9FF]/10 border border-[#00F5A0]/30 pointer-events-none"
+      />
 
-      .js-underline {
-        position: relative;
-      }
-      .js-underline::after {
-        content: "";
-        position: absolute;
-        left: 0; right: 100%; bottom: -3px;
-        height: 1.5px;
-        background: currentColor;
-        transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .js-underline:hover::after { right: 0; }
-    `}</style>
-  );
-}
-
-/* Interactive Case File / Evidence Panel Widget */
-const CASE_EXHIBITS = [
-  {
-    id: "exhibit-a",
-    tag: "Exhibit A — Training Fee Demand",
-    caseNo: "#JS-2847",
-    title: "Remote Data Entry Specialist — Immediate Start",
-    salary: "up to $4,200/week",
-    fee: "refundable training fee of $89",
-    contact: "WhatsApp only — domain registered 11 days ago",
-    score: 83,
-    verdict: "Flagged",
-    verdictClass: "border-[var(--flag)] text-[var(--flag)]",
-    factors: [
-      { text: "Upfront onboarding fee demand", points: "+40 pts", severe: true },
-      { text: "Unusually inflated salary for remote entry role", points: "+25 pts", severe: true },
-      { text: "Domain registered under 30 days ago", points: "+18 pts", severe: false },
-    ],
-  },
-  {
-    id: "exhibit-b",
-    tag: "Exhibit B — Telegram Phishing Invite",
-    caseNo: "#JS-9102",
-    title: "Unsolicited Senior Manager Outreach",
-    salary: "$85/hr guaranteed",
-    fee: "personal Telegram handle @global_hr_exec",
-    contact: "contact via Telegram — company email invalid",
-    score: 94,
-    verdict: "Critical Risk",
-    verdictClass: "border-rose-600 text-rose-600 dark:text-rose-400 dark:border-rose-400",
-    factors: [
-      { text: "Redirects to encrypted messaging app (Telegram)", points: "+45 pts", severe: true },
-      { text: "Unsolicited offer without prior application", points: "+30 pts", severe: true },
-      { text: "Disposable email domain used", points: "+19 pts", severe: false },
-    ],
-  },
-  {
-    id: "exhibit-c",
-    tag: "Exhibit C — Verified Job Posting",
-    caseNo: "#JS-0012",
-    title: "Senior Full Stack Engineer — Acme Systems",
-    salary: "$140,000 - $170,000/yr",
-    fee: "No fees or deposits required",
-    contact: "Official Portal: acmesystems.io/careers",
-    score: 12,
-    verdict: "Cleared",
-    verdictClass: "border-[var(--verified)] text-[var(--verified)]",
-    factors: [
-      { text: "Verified corporate SSL domain active 9+ years", points: "0 pts", severe: false },
-      { text: "Standard multi-stage interview pipeline", points: "0 pts", severe: false },
-      { text: "No upfront monetary or gift card requests", points: "0 pts", severe: false },
-    ],
-  },
-];
-
-function EvidenceCasePanel() {
-  const [activeTab, setActiveTab] = useState(CASE_EXHIBITS[0]);
-  const [isSwitching, setIsSwitching] = useState(false);
-
-  const handleSwitchTab = (item) => {
-    if (item.id === activeTab.id) return;
-    setIsSwitching(true);
-    setTimeout(() => {
-      setActiveTab(item);
-      setIsSwitching(false);
-    }, 200);
-  };
-
-  return (
-    <div className="relative group">
-      {/* Real tape corners for physical document case feel */}
-      <div className="absolute -top-3 left-8 w-12 h-5 bg-[#EDE9DD]/90 border border-[var(--line)] rotate-[-4deg] shadow-xs z-20 pointer-events-none" />
-      <div className="absolute -top-3 right-10 w-12 h-5 bg-[#EDE9DD]/90 border border-[var(--line)] rotate-[3deg] shadow-xs z-20 pointer-events-none" />
-
-      <div className="relative bg-[var(--panel)] border border-[var(--line)] shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] transition-shadow duration-300 rounded-lg overflow-hidden">
-        {/* Exhibit tabs header */}
-        <div className="flex items-center justify-between px-5 py-3 border-b border-[var(--line)] bg-[#FAF9F5] dark:bg-[#12151D]">
-          <div className="flex items-center gap-1.5 overflow-x-auto">
-            {CASE_EXHIBITS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleSwitchTab(item)}
-                className={`font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 rounded transition-colors cursor-pointer whitespace-nowrap ${
-                  activeTab.id === item.id
-                    ? "bg-[var(--ink)] text-[var(--paper)] font-semibold"
-                    : "text-[var(--ink-dim)] hover:text-[var(--ink)]"
-                }`}
-              >
-                {item.tag.split(" — ")[0]}
-              </button>
-            ))}
+      {/* Central Glowing ScamShield Core */}
+      <motion.div
+        whileHover={{ scale: 1.05 }}
+        className="relative z-10 w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-[#0B111A] border border-[#00F5A0]/40 shadow-[0_0_40px_rgba(0,245,160,0.3)] flex flex-col items-center justify-center gap-2 group cursor-pointer"
+      >
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#00F5A0] to-[#00D9FF] p-[1px]">
+          <div className="w-full h-full bg-[#05070B] rounded-[15px] flex items-center justify-center">
+            <Shield className="w-6 h-6 text-[#00F5A0]" strokeWidth={2.2} />
           </div>
-          <span className="font-mono text-[10px] tracking-widest text-[var(--ink-dim)] hidden sm:block">
-            {activeTab.caseNo}
-          </span>
         </div>
+        <span className="font-mono text-[10px] uppercase tracking-widest text-[#00F5A0] font-bold">
+          AI CORE v2
+        </span>
+      </motion.div>
 
-        {/* Case document content */}
-        <AnimatePresence mode="wait">
-          {isSwitching ? (
-            <div className="p-8 text-center text-xs font-mono text-[var(--ink-dim)] uppercase tracking-widest">
-              Loading Case File Signals...
-            </div>
-          ) : (
-            <motion.div
-              key={activeTab.id}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.2 }}
-              className="p-6 space-y-4 text-[13.5px] leading-relaxed text-[var(--ink)]"
-            >
-              <div className="space-y-2">
-                <span className="font-mono text-[10px] text-[var(--ink-dim)] uppercase tracking-widest block font-semibold">
-                  {activeTab.tag}
-                </span>
-                <p className="font-display font-semibold text-[17px] text-[var(--ink)] leading-snug">
-                  {activeTab.title}
-                </p>
-              </div>
+      {/* Floating Abstract Threat Signals & Cards */}
+      <motion.div
+        animate={{ y: [-6, 6, -6] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -top-2 left-2 z-20 px-3.5 py-2 rounded-xl bg-[#0B111A]/90 border border-white/10 shadow-xl backdrop-blur-md flex items-center gap-2"
+      >
+        <div className="w-2 h-2 rounded-full bg-[#00F5A0] animate-ping" />
+        <span className="font-mono text-[10px] uppercase tracking-wider text-white font-semibold">
+          AI Analysis Active
+        </span>
+      </motion.div>
 
-              <div className="p-4 rounded border border-[var(--line)] bg-[var(--paper)]/60 space-y-2">
-                <p>
-                  Compensation claimed:{" "}
-                  <mark className="bg-[var(--caution-bg)] text-[var(--caution)] font-mono font-semibold px-1 py-0.5 rounded">
-                    {activeTab.salary}
-                  </mark>
-                </p>
-                <p>
-                  Requirements:{" "}
-                  <mark className="bg-[var(--flag-bg)] text-[var(--flag)] font-mono font-semibold px-1 py-0.5 rounded">
-                    {activeTab.fee}
-                  </mark>
-                </p>
-                <p className="text-xs text-[var(--ink-dim)]">
-                  Contact Protocol: <span className="underline font-mono">{activeTab.contact}</span>
-                </p>
-              </div>
-
-              {/* Detected factors */}
-              <div className="space-y-1.5 pt-1">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)] block font-semibold">
-                  Signal Weights
-                </span>
-                {activeTab.factors.map((f, i) => (
-                  <div key={i} className="flex items-center justify-between text-xs p-2 rounded border border-[var(--line)] bg-[var(--panel)]">
-                    <span className="flex items-center gap-1.5 text-[var(--ink)]">
-                      {f.severe ? (
-                        <AlertTriangle className="w-3.5 h-3.5 text-[var(--flag)] flex-shrink-0" />
-                      ) : (
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[var(--verified)] flex-shrink-0" />
-                      )}
-                      {f.text}
-                    </span>
-                    <span className="font-mono font-bold text-[var(--flag)]">{f.points}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Verdict row */}
-              <div className="flex items-center justify-between pt-4 border-t border-[var(--line)]">
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[11px] text-[var(--ink-dim)] uppercase tracking-widest font-semibold">
-                    Risk score:
-                  </span>
-                  <span className={`font-mono text-xl font-bold ${activeTab.score >= 60 ? "text-[var(--flag)]" : "text-[var(--verified)]"}`}>
-                    {activeTab.score}/100
-                  </span>
-                </div>
-                <div
-                  className={`font-mono text-[11px] uppercase tracking-widest border-2 px-3 py-1 font-bold rotate-[-6deg] rounded ${activeTab.verdictClass}`}
-                >
-                  {activeTab.verdict}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Panel Footer */}
-        <div className="px-6 py-3 border-t border-[var(--line)] bg-[#FBFAF6] dark:bg-[#12151D] flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)]">
-          <span>ScamShield Engine v2.4</span>
-          <span className="text-[var(--verified)] font-semibold flex items-center gap-1">
-            <Shield className="w-3 h-3" /> Live Evidence Verification
-          </span>
+      <motion.div
+        animate={{ y: [6, -6, 6] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-10 -right-4 z-20 px-3.5 py-2 rounded-xl bg-[#0B111A]/90 border border-rose-500/30 shadow-xl backdrop-blur-md flex items-center gap-2"
+      >
+        <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
+        <div className="flex flex-col">
+          <span className="font-mono text-[9px] uppercase tracking-wider text-[#94A3B8]">Threat Indicator</span>
+          <span className="font-mono text-[11px] font-bold text-rose-400">Risk Flagged</span>
         </div>
-      </div>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [-8, 8, -8] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute -bottom-2 right-6 z-20 px-4 py-2.5 rounded-xl bg-[#0B111A]/90 border border-[#00F5A0]/30 shadow-xl backdrop-blur-md flex items-center gap-3"
+      >
+        <ShieldCheck className="w-4 h-4 text-[#00F5A0]" />
+        <div className="flex flex-col">
+          <span className="font-mono text-[9px] uppercase tracking-wider text-[#94A3B8]">Clearance</span>
+          <span className="font-mono text-[11px] font-bold text-[#00F5A0]">Verified Safe</span>
+        </div>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [8, -8, 8] }}
+        transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-12 -left-6 z-20 px-3.5 py-2 rounded-xl bg-[#0B111A]/90 border border-cyan-500/30 shadow-xl backdrop-blur-md flex items-center gap-2"
+      >
+        <Cpu className="w-3.5 h-3.5 text-[#00D9FF]" />
+        <span className="font-mono text-[10px] uppercase tracking-wider text-white font-semibold">
+          Multi-Signal Heuristic
+        </span>
+      </motion.div>
     </div>
   );
 }
 
-/* Checklist Data */
-const CHECKLIST_ITEMS = [
-  {
-    id: "01",
-    icon: FileSearch,
-    title: "Language pattern scan",
-    desc: "Flags urgency phrasing, vague titles, fake check demands, and copy lifted from known scam templates.",
-  },
-  {
-    id: "02",
-    icon: Percent,
-    title: "Multi-signal risk scoring",
-    desc: "Weighs every signal against a rule set trained on confirmed fraud reports and active scam networks.",
-  },
-  {
-    id: "03",
-    icon: FileCheck2,
-    title: "Company & domain verification",
-    desc: "Cross-checks domain registration age, SSL validity, corporate email hosts, and contact channels.",
-  },
-  {
-    id: "04",
-    icon: MessageSquareWarning,
-    title: "Plain-language verdict report",
-    desc: "Explains exactly what red flags were detected, why they matter, and actionable steps to protect yourself.",
-  },
-];
-
-/* Process Step Data */
-const STEPS = [
-  { n: "01", title: "Submit the posting", desc: "Paste the job description, recruiter message, payment link, or company domain." },
-  { n: "02", title: "We open a case", desc: "Every line and domain record is checked against known fraud indicators." },
-  { n: "03", title: "Read the verdict", desc: "Get an instant 0–100 risk score with highlighted phrases that triggered it." },
-  { n: "04", title: "Decide with confidence", desc: "Apply safely, ask targeted questions, or report fraudulent opportunities." },
-];
-
 export default function Landing() {
   const navigate = useNavigate();
-  const [scanInput, setScanInput] = useState("");
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scanResult, setScanResult] = useState(null);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleGetStarted = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/scanner");
-    } else {
-      navigate("/auth");
-    }
+  const scrollToScanner = () => {
+    const el = document.getElementById("scanner-section");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleScanSubmit = (e) => {
-    e.preventDefault();
-    if (!scanInput.trim()) return;
-    if (localStorage.getItem("token")) {
-      navigate("/scanner", { state: { initialScanText: scanInput } });
-    } else {
-      toast.error("Please sign in or register to open a case.");
-      navigate("/auth", { state: { initialScanText: scanInput } });
-    }
+  const scrollToHowItWorks = () => {
+    const el = document.getElementById("how-it-works");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div className="js-root min-h-screen bg-[var(--paper)] text-[var(--ink)] selection:bg-[var(--ink)] selection:text-[var(--paper)]">
-      <GlobalLandingStyle />
+    <div className="min-h-screen bg-[#05070B] text-[#F8FAFC] selection:bg-[#00F5A0] selection:text-[#05070B] overflow-x-hidden">
+      {/* Background Depth Effects */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] bg-radial from-[#00F5A0]/10 via-[#00D9FF]/5 to-transparent blur-3xl" />
+        <div className="absolute top-[40%] right-0 w-[400px] h-[400px] bg-radial from-[#7C5CFC]/10 to-transparent blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px] opacity-40" />
+      </div>
 
-      {/* TOP HEADER / NAVBAR WITH PROMINENT GET STARTED BUTTON */}
-      <header
-        className={`sticky top-0 z-50 bg-[var(--paper)]/95 backdrop-blur-md border-b border-[var(--line)] transition-all duration-300 ${
-          scrolled ? "js-nav-scrolled py-3" : "py-4"
-        }`}
-      >
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo */}
-          <div
-            className="group flex items-center gap-2.5 cursor-pointer select-none"
-            onClick={() => navigate("/")}
-          >
-            <div className="w-8 h-8 bg-[var(--ink)] flex items-center justify-center rounded transition-transform duration-300 group-hover:rotate-[-8deg]">
-              <Shield className="w-4.5 h-4.5 text-[var(--paper)]" strokeWidth={2} />
-            </div>
-            <span className="font-display font-bold text-[19px] tracking-tight text-[var(--ink)]">
-              ScamShield
-            </span>
+      <div className="relative z-10">
+        {/* Floating Navbar */}
+        <Navbar />
+
+        {/* 1. HERO SECTION */}
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Hero Left Content */}
+          <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#00F5A0]/30 bg-[#080C13] shadow-[0_0_15px_rgba(0,245,160,0.15)]"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#00F5A0]" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#00F5A0] font-bold">
+                AI-POWERED SCAM PROTECTION
+              </span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="space-y-2"
+            >
+              <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white leading-[1.08]">
+                Think It's a Scam?
+              </h1>
+              <h2 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight bg-gradient-to-r from-[#00F5A0] via-[#00D9FF] to-[#7C5CFC] bg-clip-text text-transparent leading-[1.08]">
+                Let ScamShield Check It.
+              </h2>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="text-[#94A3B8] text-[16.5px] sm:text-[17.5px] leading-relaxed max-w-xl font-normal mx-auto lg:mx-0"
+            >
+              Analyze suspicious messages, job offers, links, and online content with AI-powered scam detection before you take the risk.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
+            >
+              <button
+                onClick={scrollToScanner}
+                className="w-full sm:w-auto group font-mono text-[12px] uppercase tracking-widest bg-gradient-to-r from-[#00F5A0] to-[#00D9FF] text-[#05070B] px-7 py-4 rounded-xl font-bold hover:shadow-[0_0_30px_rgba(0,245,160,0.4)] transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
+              >
+                Scan for Scam
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </button>
+              <button
+                onClick={scrollToHowItWorks}
+                className="w-full sm:w-auto font-mono text-[12px] uppercase tracking-widest border border-white/10 bg-[#080C13] text-white px-7 py-4 rounded-xl hover:border-white/20 transition-all flex items-center justify-center gap-2 cursor-pointer font-medium"
+              >
+                How It Works
+              </button>
+            </motion.div>
           </div>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-dim)]">
-            <a href="#checklist" className="js-underline hover:text-[var(--ink)] transition-colors">Checklist</a>
-            <a href="#process" className="js-underline hover:text-[var(--ink)] transition-colors">Process</a>
-            <a href="#numbers" className="js-underline hover:text-[var(--ink)] transition-colors">Numbers</a>
-            <button
-              onClick={() => navigate("/safety-center")}
-              className="js-underline hover:text-[var(--ink)] transition-colors uppercase cursor-pointer"
-            >
-              Safety Center
-            </button>
-          </nav>
-
-          {/* Right Action: PROMINENT GET STARTED BUTTON */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleGetStarted}
-              className="group font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-2.5 rounded hover:bg-[var(--verified)] active:scale-[0.96] transition-all flex items-center gap-2 cursor-pointer font-semibold shadow-xs"
-            >
-              Get started
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </button>
-
-            {/* Mobile menu toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 border border-[var(--line)] rounded bg-[var(--panel)]"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu dropdown */}
-        {mobileMenuOpen && (
-          <div className="md:hidden px-6 py-4 border-t border-[var(--line)] bg-[var(--paper)] space-y-3 font-mono text-[11px] uppercase tracking-widest">
-            <a href="#checklist" onClick={() => setMobileMenuOpen(false)} className="block py-1">Checklist</a>
-            <a href="#process" onClick={() => setMobileMenuOpen(false)} className="block py-1">Process</a>
-            <a href="#numbers" onClick={() => setMobileMenuOpen(false)} className="block py-1">Numbers</a>
-            <button onClick={() => { navigate("/safety-center"); setMobileMenuOpen(false); }} className="block py-1 text-left">Safety Center</button>
-            <button
-              onClick={() => { handleGetStarted(); setMobileMenuOpen(false); }}
-              className="w-full bg-[var(--ink)] text-[var(--paper)] py-2.5 rounded font-semibold text-center mt-2"
-            >
-              Get started &rarr;
-            </button>
-          </div>
-        )}
-      </header>
-
-      {/* HERO SECTION */}
-      <section className="max-w-6xl mx-auto px-6 pt-14 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-        <div className="lg:col-span-7 space-y-7">
+          {/* Hero Right Visual */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-5"
           >
-            <span className="inline-block font-mono text-[10px] uppercase tracking-widest border border-[var(--line)] bg-[var(--panel)] px-3 py-1 rounded text-[var(--ink-dim)] font-semibold">
-              Multi-Type Scam Detection & Prevention
-            </span>
+            <AIScamDetectionCoreVisual />
           </motion.div>
+        </section>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.08 }}
-            className="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.2rem] leading-[1.08] tracking-tight text-[var(--ink)]"
-          >
-            Detect scams before they cost you.
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.16 }}
-            className="text-[var(--ink-dim)] text-[16.5px] leading-relaxed max-w-lg font-normal"
-          >
-            ScamShield opens an evidence case file on suspicious job postings, recruiter messages, payment demands, company information, and URLs — scoring risks and giving you plain-language explanations.
-          </motion.p>
-
-          {/* Quick Case Form */}
-          <motion.form
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.24 }}
-            onSubmit={handleScanSubmit}
-            className="group max-w-lg border border-[var(--line)] bg-[var(--panel)] rounded flex items-center shadow-xs transition-all duration-200 focus-within:border-[var(--ink)] focus-within:shadow-md"
-          >
-            <div className="flex items-center gap-2.5 pl-4 flex-1">
-              <Search className="w-4 h-4 text-[var(--ink-dim)] flex-shrink-0 transition-colors group-focus-within:text-[var(--ink)]" />
-              <input
-                type="text"
-                value={scanInput}
-                onChange={(e) => setScanInput(e.target.value)}
-                placeholder="Paste job title, URL, or sender to open a case..."
-                className="w-full py-3.5 text-[14px] bg-transparent focus:outline-none placeholder:text-[var(--ink-dim)]/70 text-[var(--ink)] font-normal"
-              />
+        {/* 2. SEPARATE SCANNER SECTION */}
+        <section id="scanner-section" className="py-20 border-y border-white/10 bg-[#080C13]/60">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-10">
+            <div className="text-center space-y-3">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#00F5A0] font-bold">
+                Instant Threat Assessment
+              </span>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl tracking-tight text-white">
+                Check Before You Trust.
+              </h2>
+              <p className="text-[#94A3B8] text-[15px] max-w-xl mx-auto leading-relaxed">
+                Analyze suspicious messages, job offers, links, and other content before you take the risk.
+              </p>
             </div>
-            <button
-              type="submit"
-              className="font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-3.5 hover:bg-[var(--verified)] active:scale-[0.96] transition-all flex-shrink-0 cursor-pointer font-semibold"
-            >
-              Open case
-            </button>
-          </motion.form>
 
-          {/* Trust points */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.35, delay: 0.32 }}
-            className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-widest text-[var(--ink-dim)] pt-1"
-          >
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[var(--verified)]" /> Real-time scoring
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[var(--verified)]" /> No data retained
-            </span>
-            <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[var(--verified)]" /> Plain-language reports
-            </span>
-          </motion.div>
-        </div>
+            {/* Scanner Component connected to Real Backend */}
+            <ScannerForm
+              isLoading={false}
+              onSubmit={async (type, data) => {
+                // When scan completes inside ScannerForm component, show real results
+              }}
+            />
 
-        {/* Hero Right: Interactive Evidence Case Panel */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="lg:col-span-5"
-        >
-          <EvidenceCasePanel />
-        </motion.div>
-      </section>
+            {scanResult && (
+              <div className="pt-6">
+                <RiskCard scan={scanResult} onReset={() => setScanResult(null)} />
+              </div>
+            )}
+          </div>
+        </section>
 
-      {/* CHECKLIST SECTION */}
-      <section id="checklist" className="border-y border-[var(--line)] bg-[var(--panel)]">
-        <div className="max-w-6xl mx-auto px-6 py-20 space-y-12">
-          <div className="max-w-xl">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--verified)] font-bold">
-              The checklist
-            </span>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl mt-2 tracking-tight text-[var(--ink)]">
-              Four checks, every posting.
+        {/* 3. CAPABILITIES / TRUST STRIP */}
+        <section className="py-20 border-b border-white/10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+            <div className="max-w-xl space-y-3">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#00D9FF] font-bold">
+                Platform Capabilities
+              </span>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl tracking-tight text-white">
+                Scams Move Fast. Stay Ahead.
+              </h2>
+              <p className="text-[#94A3B8] text-[15px] leading-relaxed">
+                ScamShield analyzes suspicious signals so you can make safer decisions before clicking, paying, or responding.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: "AI Risk Analysis", icon: Activity, desc: "Evaluates language patterns, urgency phrasing, and seller reputation." },
+                { title: "Instant Detection", icon: Zap, desc: "Provides immediate multi-point risk scores in under two seconds." },
+                { title: "Multi-Signal Scanning", icon: Layers, desc: "Cross-checks domain SSL, contact channels, and payment demands." },
+                { title: "Safer Decisions", icon: ShieldCheck, desc: "Delivers plain-language threat explanations with action advice." },
+              ].map((cap, i) => {
+                const Icon = cap.icon;
+                return (
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="p-6 rounded-2xl bg-[#0B111A] border border-white/10 shadow-xl space-y-3 hover:border-[#00F5A0]/40 transition-colors"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#080C13] border border-white/10 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-[#00F5A0]" />
+                    </div>
+                    <h3 className="font-display font-semibold text-[16px] text-white">{cap.title}</h3>
+                    <p className="text-[13px] text-[#94A3B8] leading-relaxed">{cap.desc}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* 4. HOW IT WORKS SECTION */}
+        <section id="how-it-works" className="py-24 border-b border-white/10 bg-[#080C13]/40">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+            <div className="max-w-xl space-y-3">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#00F5A0] font-bold">
+                System Workflow
+              </span>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl tracking-tight text-white">
+                How ScamShield Works
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+              {[
+                { n: "01", title: "Paste or Upload", desc: "Submit suspicious messages, job postings, recruiter DMs, or links." },
+                { n: "02", title: "AI Analysis", desc: "Our core engine evaluates heuristics, domain age, and urgency keywords." },
+                { n: "03", title: "Threat Detection", desc: "Cross-checks signals against confirmed fraud patterns and payment traps." },
+                { n: "04", title: "Risk Decision", desc: "Receive a clear 0–100 Risk Score with explicit safety recommendations." },
+              ].map((step, idx) => (
+                <motion.div
+                  key={step.n}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: idx * 0.1 }}
+                  className="space-y-3 p-5 rounded-2xl bg-[#0B111A] border border-white/10 relative"
+                >
+                  <span className="font-mono text-xs font-bold text-[#05070B] bg-[#00F5A0] px-2.5 py-1 rounded-md inline-block">
+                    {step.n}
+                  </span>
+                  <h3 className="font-display font-semibold text-[17px] text-white pt-1">{step.title}</h3>
+                  <p className="text-[13.5px] text-[#94A3B8] leading-relaxed">{step.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 5. FEATURES GRID SECTION */}
+        <section id="features" className="py-24 border-b border-white/10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+            <div className="max-w-xl space-y-3">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#7C5CFC] font-bold">
+                Complete Protection Engine
+              </span>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl tracking-tight text-white">
+                Engineered to Spot Every Red Flag.
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: "AI Scam Detection", icon: Cpu, desc: "Neural language evaluation identifies scam templates." },
+                { title: "Risk Score Engine", icon: Activity, desc: "0 to 100 risk score breakdown with clear level badges." },
+                { title: "Suspicious Pattern Detection", icon: Search, desc: "Flags fake checks, Zelle demands, and Telegram redirects." },
+                { title: "Message Analysis", icon: MessageSquare, desc: "Deep scans SMS, WhatsApp, and email outreach." },
+                { title: "Job Scam Detection", icon: Briefcase, desc: "Verifies remote offers, compensation claims, and training fees." },
+                { title: "Link & URL Analysis", icon: Globe, desc: "Inspects domain age, SSL status, and phishing redirects." },
+                { title: "Fraud Signal Detection", icon: AlertTriangle, desc: "Categorizes high, medium, and critical threat levels." },
+                { title: "AI Explanation", icon: Sparkles, desc: "Plain-language summary of detected risks and advice." },
+              ].map((feat, idx) => {
+                const Icon = feat.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    whileHover={{ y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="p-6 rounded-2xl bg-[#0B111A] border border-white/10 space-y-3 hover:border-[#00D9FF]/40 transition-colors shadow-lg"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-[#080C13] border border-white/10 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-[#00D9FF]" />
+                    </div>
+                    <h3 className="font-display font-semibold text-[16px] text-white">{feat.title}</h3>
+                    <p className="text-[13px] text-[#94A3B8] leading-relaxed">{feat.desc}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* 6. AI DETECTION VISUALIZATION SECTION */}
+        <section className="py-24 border-b border-white/10 bg-[#080C13]/60">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-16">
+            <div className="text-center space-y-3">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#00F5A0] font-bold">
+                Threat Signal Flow
+              </span>
+              <h2 className="font-display font-bold text-3xl sm:text-4xl tracking-tight text-white">
+                See the Threat Before It Hits.
+              </h2>
+            </div>
+
+            <div className="p-8 rounded-3xl bg-[#0B111A] border border-white/10 shadow-2xl relative overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-center text-center relative z-10">
+                <div className="p-4 rounded-xl bg-[#05070B] border border-white/10 space-y-1">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#94A3B8]">Step 1</span>
+                  <p className="font-display font-semibold text-sm text-white">Suspicious Input</p>
+                </div>
+                <div className="hidden md:flex justify-center">
+                  <ArrowRight className="w-5 h-5 text-[#00F5A0]" />
+                </div>
+                <div className="p-4 rounded-xl bg-[#05070B] border border-[#00F5A0]/30 space-y-1 shadow-[0_0_15px_rgba(0,245,160,0.1)]">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#00F5A0]">Step 2</span>
+                  <p className="font-display font-semibold text-sm text-white">AI Analysis Engine</p>
+                </div>
+                <div className="hidden md:flex justify-center">
+                  <ArrowRight className="w-5 h-5 text-[#00D9FF]" />
+                </div>
+                <div className="p-4 rounded-xl bg-[#05070B] border border-white/10 space-y-1">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#00D9FF]">Step 3</span>
+                  <p className="font-display font-semibold text-sm text-white">Risk Score & Verdict</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 7. CTA SECTION */}
+        <section className="py-24 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 text-center space-y-8">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/10 bg-[#0B111A]">
+              <ShieldCheck className="w-4 h-4 text-[#00F5A0]" />
+              <span className="font-mono text-[10px] uppercase tracking-widest text-[#94A3B8] font-bold">
+                Instant Protection
+              </span>
+            </div>
+
+            <h2 className="font-display font-extrabold text-3xl sm:text-5xl tracking-tight text-white">
+              Before You Trust It, Scan It.
             </h2>
-            <p className="text-[var(--ink-dim)] mt-2 leading-relaxed text-[15px]">
-              Nothing receives a safety verdict until it clears the full verification sequence.
+
+            <p className="text-[#94A3B8] text-[17px] max-w-xl mx-auto leading-relaxed font-normal">
+              Give ScamShield a suspicious message, job offer, or link and find out what the signals say.
+            </p>
+
+            <button
+              onClick={scrollToScanner}
+              className="font-mono text-[12px] uppercase tracking-widest bg-gradient-to-r from-[#00F5A0] to-[#00D9FF] text-[#05070B] px-8 py-4 rounded-xl font-bold hover:shadow-[0_0_30px_rgba(0,245,160,0.4)] transition-all inline-flex items-center gap-2 cursor-pointer active:scale-[0.98]"
+            >
+              Start Scanning
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </section>
+
+        {/* 8. FOOTER */}
+        <footer className="border-t border-white/10 bg-[#080C13] py-12">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#00F5A0] to-[#00D9FF] p-[1px]">
+                <div className="w-full h-full bg-[#05070B] rounded-[7px] flex items-center justify-center">
+                  <Shield className="w-3.5 h-3.5 text-[#00F5A0]" />
+                </div>
+              </div>
+              <span className="font-display font-bold text-[16px] text-white">ScamShield</span>
+            </div>
+
+            <p className="font-mono text-[11px] text-[#94A3B8] uppercase tracking-widest">
+              AI-powered protection against scams. © 2026 ScamShield.
             </p>
           </div>
-
-          <div>
-            {CHECKLIST_ITEMS.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.id}
-                  className="group flex items-start gap-6 py-6 border-t border-[var(--line)] last:border-b relative overflow-hidden transition-colors duration-300 hover:bg-[var(--paper)] cursor-default"
-                >
-                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[var(--verified)] scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
-                  <span className="font-mono text-[13px] text-[var(--ink-dim)] w-8 pl-4 pt-1 flex-shrink-0 transition-colors duration-300 group-hover:text-[var(--verified)] font-semibold">
-                    {item.id}
-                  </span>
-                  <Icon
-                    className="w-5 h-5 text-[var(--ink)] mt-0.5 flex-shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:text-[var(--verified)]"
-                    strokeWidth={1.75}
-                  />
-                  <div>
-                    <h3 className="font-display font-semibold text-[16px] text-[var(--ink)]">{item.title}</h3>
-                    <p className="text-[var(--ink-dim)] text-[14px] mt-1 leading-relaxed max-w-md font-normal">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* PROCESS SECTION */}
-      <section id="process" className="max-w-6xl mx-auto px-6 py-24 space-y-16">
-        <div className="max-w-xl">
-          <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--verified)] font-bold">
-            The process
-          </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl mt-2 tracking-tight text-[var(--ink)]">
-            From posting to verdict.
-          </h2>
-        </div>
-
-        <div className="relative grid grid-cols-1 md:grid-cols-4 gap-10">
-          <div className="hidden md:block absolute top-3 left-[6%] right-[6%] border-t border-dashed border-[var(--line)]" />
-          {STEPS.map((s) => (
-            <div key={s.n} className="group relative pt-8 transition-transform duration-300 hover:-translate-y-1 cursor-default space-y-2">
-              <div className="w-2 h-2 rounded-full bg-[var(--ink)] transition-colors duration-300 group-hover:bg-[var(--verified)]" />
-              <span className="font-mono text-[11px] text-[var(--ink-dim)] uppercase tracking-widest transition-colors duration-300 group-hover:text-[var(--verified)] font-semibold">
-                Step {s.n}
-              </span>
-              <h3 className="font-display font-semibold text-[16px] text-[var(--ink)]">{s.title}</h3>
-              <p className="text-[var(--ink-dim)] text-[13.5px] leading-relaxed font-normal">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* NUMBERS SECTION */}
-      <section id="numbers" className="bg-[var(--ink-band)] text-[#F0EFE9]">
-        <div className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-          {[
-            { value: 120412, l: "Postings scanned", decimals: 0, suffix: "" },
-            { value: 99.8, l: "Detection accuracy", decimals: 1, suffix: "%" },
-            { value: 45208, l: "Applicants protected", decimals: 0, suffix: "" },
-          ].map((s) => (
-            <div key={s.l} className="group px-0 sm:px-10 py-8 sm:py-0 first:pl-0 transition-colors duration-300">
-              <p className="font-mono text-4xl sm:text-5xl font-semibold tracking-tight transition-colors duration-300 group-hover:text-[var(--verified-bg)]">
-                <CountUp value={s.value} decimals={s.decimals} suffix={s.suffix} />
-              </p>
-              <p className="text-white/60 text-[12px] mt-2 uppercase tracking-widest font-mono font-medium">{s.l}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="max-w-6xl mx-auto px-6 py-14 space-y-8">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 pb-8 border-b border-[var(--line)]">
-          <div className="group flex items-center gap-2.5 cursor-pointer" onClick={() => navigate("/")}>
-            <div className="w-7 h-7 bg-[var(--ink)] flex items-center justify-center transition-transform duration-300 group-hover:rotate-[-8deg]">
-              <Shield className="w-4 h-4 text-[var(--paper)]" />
-            </div>
-            <span className="font-display font-semibold text-[17px]">ScamShield</span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button
-              onClick={handleGetStarted}
-              className="group font-mono text-[11px] uppercase tracking-widest bg-[var(--ink)] text-[var(--paper)] px-5 py-3 rounded hover:bg-[var(--verified)] active:scale-[0.96] transition-all flex items-center gap-2 cursor-pointer font-semibold shadow-xs"
-            >
-              Get started
-              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </button>
-            <button
-              onClick={handleGetStarted}
-              className="group font-mono text-[11px] uppercase tracking-widest border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)] px-5 py-3 rounded hover:border-[var(--ink)] transition-all flex items-center gap-1.5 cursor-pointer font-medium"
-            >
-              Analyze a posting
-              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
-          </div>
-        </div>
-
-        <p className="font-mono text-[11px] text-[var(--ink-dim)] uppercase tracking-widest">
-          © 2026 ScamShield — AI Fraud Intelligence Unit
-        </p>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }
