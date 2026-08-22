@@ -167,21 +167,31 @@ POST /api/jobs/analyze
 GET /api/jobs/stats
 ```
 
-## Future Enhancements
+## Roadmap
 
-* Google Authentication
-* Resume Scanner
-* Company Reputation Checker
-* AI Chat Assistant
-* Browser Extension
-* Job Bookmarking
-* Email Scam Detection
-* Real-time Scam Reporting
+| Feature | Status |
+|---------|--------|
+| ✅ Job Scam Scanner | Shipped |
+| ✅ Message Scam Scanner | Shipped |
+| ✅ Payment Scam Scanner | Shipped |
+| ✅ Recruiter Scanner | Shipped |
+| ✅ URL Scanner | Shipped |
+| ✅ Google OAuth 2.0 | Shipped |
+| ✅ Resume Match (AI) | Shipped |
+| ✅ AI Chat Assistant | Shipped |
+| ✅ Community Scam Reporting | Shipped |
+| ✅ Safety Center | Shipped |
+| 🚧 Browser Extension | In Progress |
+| 🔜 Email Scam Detection | Planned |
+| 🔜 Job Bookmarking | Planned |
+| 🔜 Company Reputation API | Planned |
+| 🔜 Two-Factor Authentication | Planned |
+
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for branching conventions, commit style, and PR guidelines.
 
 ## Author
 
-Sanuj Tiwari
-
-Computer Science Engineering Student
-
-Full Stack Developer
+**Sanuj Tiwari**
+Computer Science Engineering Student · Full Stack Developer
