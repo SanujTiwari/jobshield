@@ -1,14 +1,25 @@
 import { Search, ShieldOff } from "lucide-react";
 
-function EmptyState({ title, description, actionLabel, onAction, isSearch }) {
+/**
+ * EmptyState - Displays a centered empty/no-results placeholder.
+ * @param {string} title - Main heading text
+ * @param {string} description - Supporting description
+ * @param {string} [actionLabel] - CTA button label
+ * @param {Function} [onAction] - CTA button click handler
+ * @param {boolean} [isSearch] - If true, shows search icon instead of shield icon
+ * @param {React.ReactNode} [icon] - Custom icon to display (overrides isSearch)
+ */
+function EmptyState({ title, description, actionLabel, onAction, isSearch, icon }) {
+  const renderIcon = () => {
+    if (icon) return icon;
+    if (isSearch) return <Search className="w-10 h-10 text-slate-400 dark:text-slate-500" />;
+    return <ShieldOff className="w-10 h-10 text-slate-400 dark:text-slate-500" />;
+  };
+
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4 animate-fade-in">
       <div className="w-20 h-20 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-6">
-        {isSearch ? (
-          <Search className="w-10 h-10 text-slate-400 dark:text-slate-500" />
-        ) : (
-          <ShieldOff className="w-10 h-10 text-slate-400 dark:text-slate-500" />
-        )}
+        {renderIcon()}
       </div>
       <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">
         {title}
