@@ -2,6 +2,10 @@ import { Navigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 
+/**
+ * ProtectedRoute - Redirects unauthenticated users to /auth.
+ * Passes the attempted location in state so Auth can redirect back on login.
+ */
 export default function ProtectedRoute({ children }) {
   const token = localStorage.getItem("token");
   const location = useLocation();
@@ -13,7 +17,13 @@ export default function ProtectedRoute({ children }) {
   }, [token]);
 
   if (!token) {
-    return <Navigate to="/auth" state={{ from: location }} replace />;
+    return (
+      <Navigate
+        to="/auth"
+        state={{ from: location, redirectReason: "auth_required" }}
+        replace
+      />
+    );
   }
 
   return children;
