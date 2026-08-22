@@ -147,7 +147,8 @@ function Navbar() {
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg border border-[var(--line)] bg-[var(--panel)] hover:bg-[var(--panel-secondary)] text-[var(--ink-dim)] hover:text-[var(--ink)] transition-all cursor-pointer shadow-xs"
-            aria-label="Toggle Theme"
+            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+            title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
             {darkMode ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
           </button>
