@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import Landing from "./pages/Landing";
@@ -12,6 +12,26 @@ import AdminDashboard from "./pages/AdminDashboard";
 import SafetyCenter from "./pages/SafetyCenter";
 import ResumeMatch from "./pages/ResumeMatch";
 import ProtectedRoute from "./components/ProtectedRoute";
+
+/** Inline 404 page shown when no route matches. */
+function NotFound() {
+  const navigate = useNavigate();
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center px-4">
+      <h1 className="text-6xl font-bold text-indigo-600">404</h1>
+      <p className="text-xl font-semibold text-[var(--ink)]">Page not found</p>
+      <p className="text-[var(--ink-dim)] max-w-sm">
+        The page you're looking for doesn't exist or has been moved.
+      </p>
+      <button
+        onClick={() => navigate("/")}
+        className="mt-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold transition-all cursor-pointer"
+      >
+        Go Home
+      </button>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -57,9 +77,12 @@ function App() {
         <Route path="/report-scam" element={<ProtectedRoute><ReportScam /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
         <Route path="/resume-match" element={<ProtectedRoute><ResumeMatch /></ProtectedRoute>} />
+
+        {/* 404 Catch-all */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App;
+export default App;
