@@ -12,6 +12,7 @@ const DEFAULT_SETTINGS = {
   animations: "smooth",
 };
 
+/** Provides global theme/settings state to the application. */
 export function ThemeProvider({ children }) {
   const [settings, setSettings] = useState(() => {
     try {
@@ -40,16 +41,20 @@ export function ThemeProvider({ children }) {
     localStorage.setItem("jobshield-settings", JSON.stringify(settings));
   }, [settings]);
 
+  /** Update a single setting by key. */
   const updateSetting = (key, value) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
+  /** Reset all settings to their defaults. */
   const resetSettings = () => {
     setSettings(DEFAULT_SETTINGS);
   };
 
   const value = {
     ...settings,
+    /** Semantic alias for darkMode — prefer this in components. */
+    isDark: settings.darkMode,
     updateSetting,
     resetSettings,
     isSettingsOpen,
@@ -63,6 +68,10 @@ export function ThemeProvider({ children }) {
   );
 }
 
+/**
+ * useTheme - Consume the ThemeContext.
+ * Must be used inside a <ThemeProvider>.
+ */
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
