@@ -11,6 +11,7 @@ const getAuthHeaders = () => {
   };
 };
 
+/** Fetch dashboard statistics for the current user. */
 export const getStats = async () => {
   const response = await axios.get(
     `${API_URL}/stats`,
@@ -19,6 +20,7 @@ export const getStats = async () => {
   return response.data;
 };
 
+/** Fetch full scan history for the current user. */
 export const getHistory = async () => {
   const response = await axios.get(
     `${API_URL}/history`,
@@ -27,6 +29,11 @@ export const getHistory = async () => {
   return response.data;
 };
 
+/**
+ * Analyze a job posting for scam risk.
+ * @param {object} jobData - Job fields to analyze
+ * @returns {Promise<{ riskScore: number, riskLevel: string, factors: Array }>}
+ */
 export const analyzeJob = async (jobData) => {
   const response = await axios.post(
     `${API_URL}/analyze`,
@@ -36,6 +43,10 @@ export const analyzeJob = async (jobData) => {
   return response.data;
 };
 
+/**
+ * Get a single job scan by ID.
+ * @param {number|string} id - Job scan ID
+ */
 export const getSingleJob = async (id) => {
   const response = await axios.get(
     `${API_URL}/${id}`,
@@ -44,10 +55,14 @@ export const getSingleJob = async (id) => {
   return response.data;
 };
 
+/**
+ * Delete a job scan record by ID.
+ * @param {number|string} id - Job scan ID
+ */
 export const deleteJob = async (id) => {
   const response = await axios.delete(
     `${API_URL}/${id}`,
     getAuthHeaders()
   );
   return response.data;
-};
+};
