@@ -13,9 +13,10 @@ function SearchFilterBar({ searchQuery, onSearchChange, activeFilter, onFilterCh
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         {/* Search Input */}
         <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" aria-hidden="true" />
           <input
-            type="text"
+            type="search"
+            aria-label="Search scan history"
             placeholder="Search by job title or company..."
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -24,12 +25,13 @@ function SearchFilterBar({ searchQuery, onSearchChange, activeFilter, onFilterCh
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex items-center gap-1.5 flex-wrap">
+        <div className="flex items-center gap-1.5 flex-wrap" role="group" aria-label="Filter by risk level">
           {filters.map(filter => (
             <button
               key={filter.key}
               onClick={() => onFilterChange(filter.key)}
-              className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+              aria-pressed={activeFilter === filter.key}
+              className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
                 activeFilter === filter.key
                   ? filter.key === 'high'
                     ? 'bg-rose-500 text-white shadow-sm'
@@ -48,7 +50,7 @@ function SearchFilterBar({ searchQuery, onSearchChange, activeFilter, onFilterCh
       </div>
 
       {/* Result count */}
-      <p className="text-xs text-slate-500 dark:text-slate-400 mt-3">
+      <p className="text-xs text-slate-500 dark:text-slate-400 mt-3" aria-live="polite">
         {resultCount} {resultCount === 1 ? 'result' : 'results'} found
       </p>
     </div>
@@ -56,3 +58,4 @@ function SearchFilterBar({ searchQuery, onSearchChange, activeFilter, onFilterCh
 }
 
 export default SearchFilterBar;
+
