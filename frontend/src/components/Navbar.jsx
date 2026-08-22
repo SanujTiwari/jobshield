@@ -224,7 +224,9 @@ function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setShowMobileMenu(!showMobileMenu)}
-            className="md:hidden p-2 rounded-lg border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)]"
+            aria-label={showMobileMenu ? "Close menu" : "Open menu"}
+            aria-expanded={showMobileMenu}
+            className="md:hidden p-2 rounded-lg border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)] cursor-pointer transition-colors hover:bg-[var(--panel-secondary)]"
           >
             {showMobileMenu ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
