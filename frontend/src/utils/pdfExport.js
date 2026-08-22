@@ -1,3 +1,14 @@
+/**
+ * pdfExport.js — JobShield PDF Report Generator
+ *
+ * Generates a formatted PDF analysis report for a completed job scan.
+ * Uses jsPDF for document creation and jspdf-autotable for risk factor tables.
+ *
+ * @module pdfExport
+ * @example
+ *   import { generateAnalysisPDF } from '../utils/pdfExport';
+ *   generateAnalysisPDF(scanResult); // triggers browser PDF download
+ */
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
