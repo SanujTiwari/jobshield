@@ -1,6 +1,6 @@
-# Contributing to JobShield
+# Contributing to ScamShield
 
-Thank you for considering contributing to JobShield! We welcome all contributions — bug fixes, new features, documentation improvements, and more.
+Thank you for considering contributing to ScamShield! We welcome all contributions — bug fixes, new features, documentation improvements, and more.
 
 ## Getting Started
 

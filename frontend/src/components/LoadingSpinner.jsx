@@ -7,7 +7,7 @@ function LoadingSpinner({ text = "Analyzing" }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--paper)]/85 backdrop-blur-sm animate-fade-in">
       <div className="uiverse-card border border-[var(--line)] flex flex-col items-center gap-3 text-center">
         <div className="font-mono text-[10px] uppercase tracking-widest text-[var(--ink-dim)]">
-          JobShield Analysis Engine
+          ScamShield Intake Engine
         </div>
         
         <div className="uiverse-loader">

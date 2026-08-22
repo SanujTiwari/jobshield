@@ -1,7 +1,7 @@
 /**
- * pdfExport.js — JobShield PDF Report Generator
+ * pdfExport.js — ScamShield PDF Report Generator
  *
- * Generates a formatted PDF analysis report for a completed job scan.
+ * Generates a formatted PDF analysis report for a completed scan.
  * Uses jsPDF for document creation and jspdf-autotable for risk factor tables.
  *
  * @module pdfExport

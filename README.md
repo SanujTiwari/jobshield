@@ -1,10 +1,10 @@
-# JobShield
+# ScamShield
 
 > **Detect scams before they cost you.**
 
 ## Overview
 
-JobShield is a multi-type scam detection and prevention platform designed to protect users from fraudulent job postings, recruiter impersonations, upfront payment scams, phishing messages, and malicious URLs. The platform evaluates multi-source indicators, normalizes risk scores (0–100), categorizes risk factors, and provides plain-language explanations and targeted recommendations.
+ScamShield is a multi-type scam detection and prevention platform designed to protect users from fraudulent job postings, recruiter impersonations, upfront payment scams, phishing messages, and malicious URLs. The platform evaluates multi-source indicators, normalizes risk scores (0–100), categorizes risk factors, and provides plain-language explanations and targeted recommendations.
 
 ## Core Scanners & Capabilities
 

@@ -88,7 +88,7 @@ pool.query("SELECT 1")
           )
         `);
 
-        console.log("✅ JobShield database tables verified/created successfully");
+        console.log("✅ ScamShield database tables verified/created successfully");
       } catch (err) {
         console.error("❌ Database initialization error:", err);
       }
@@ -97,7 +97,7 @@ pool.query("SELECT 1")
     initDb();
 
     app.listen(PORT, () => {
-      console.log(`🚀 JobShield server running on http://localhost:${PORT}`);
+      console.log(`🚀 ScamShield server running on http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
