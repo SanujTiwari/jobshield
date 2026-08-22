@@ -1,10 +1,10 @@
-# ScamShield
+# JobShield
 
 > **Detect scams before they cost you.**
 
 ## Overview
 
-ScamShield is a multi-type scam detection and prevention platform designed to protect users from fraudulent job postings, recruiter impersonations, upfront payment scams, phishing messages, and malicious URLs. The platform evaluates multi-source indicators, normalizes risk scores (0–100), categorizes risk factors, and provides plain-language explanations and targeted recommendations.
+JobShield is a multi-type scam detection and prevention platform designed to protect users from fraudulent job postings, recruiter impersonations, upfront payment scams, phishing messages, and malicious URLs. The platform evaluates multi-source indicators, normalizes risk scores (0–100), categorizes risk factors, and provides plain-language explanations and targeted recommendations.
 
 ## Core Scanners & Capabilities
 
@@ -16,15 +16,18 @@ ScamShield is a multi-type scam detection and prevention platform designed to pr
 * **URL Scanner**: Evaluates technical link structure, HTTPS validity, and domain mismatches.
 * **Scan History & Dashboard V2**: Comprehensive tracking, metrics, and distribution charts.
 * **Scam Reporting & Safety Center**: Community fraud reporting and educational safety guides.
+* **Resume Match**: AI-powered resume compatibility analysis against job postings.
+* **AI Chat Assistant**: Context-aware chatbot for scam identification guidance.
 
 ## Tech Stack
 
 ### Frontend
 
-* React.js
-* Vite
-* Tailwind CSS
-* React Router
+* React.js (with Vite)
+* Vanilla CSS (custom design system with CSS variables)
+* Framer Motion (animations)
+* React Router v6
+* Lucide React (icons)
 
 ### Backend
 
@@ -39,6 +42,7 @@ ScamShield is a multi-type scam detection and prevention platform designed to pr
 
 * JWT (JSON Web Token)
 * bcrypt
+* Google OAuth 2.0
 
 ## Project Structure
 
