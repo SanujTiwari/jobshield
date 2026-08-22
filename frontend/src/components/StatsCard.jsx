@@ -1,4 +1,12 @@
-function StatsCard({ title, value, icon, color }) {
+/**
+ * StatsCard - Displays a single stat metric with icon, title, value, and optional subtitle.
+ * @param {string} title - The label for the metric
+ * @param {string|number} value - The primary value to display
+ * @param {React.ReactNode} icon - Icon element to render
+ * @param {string} color - Color theme: 'indigo' | 'rose' | 'amber' | 'emerald'
+ * @param {string} [subtitle] - Optional secondary text below the value
+ */
+function StatsCard({ title, value, icon, color, subtitle }) {
   const colorClasses = {
     indigo: {
       bg: 'bg-indigo-50 dark:bg-indigo-500/10',
@@ -39,8 +47,11 @@ function StatsCard({ title, value, icon, color }) {
       <p className={`text-3xl font-bold ${colors.value}`}>
         {value}
       </p>
+      {subtitle && (
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">{subtitle}</p>
+      )}
     </div>
   );
 }
 
-export default StatsCard;
+export default StatsCard;
